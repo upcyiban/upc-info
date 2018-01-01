@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import LeiNuo from "../common/component/Test/router/index"
+import LeiNuo from "../common/components/Test/router/index"
 
 Vue.use(Router)
 
