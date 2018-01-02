@@ -1,6 +1,7 @@
 <template>
     <div class="Hello">
         <p>{{ string }}</p>
+        <router-view></router-view>
     </div>
 </template>
 

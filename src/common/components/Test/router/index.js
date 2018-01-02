@@ -1,10 +1,14 @@
 import HelloWorld from '../Hello/HelloWorld.vue'
-import GoodBye from '../Hello/GoodBye.vue'
+
+const GoodBye = ()=>import('../Hello/GoodBye.vue')
 const LeiNuo = [
     {
-        name: 'hello',
-        path: '/',
-        component: HelloWorld
+        path: '/hello',
+        component: HelloWorld,
+        children: [{
+            path: 'goodBye',
+            component: GoodBye
+        }]
     },
     {
         name: 'goodBye',
