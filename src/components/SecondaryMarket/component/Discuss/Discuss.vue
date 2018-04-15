@@ -1,5 +1,6 @@
 <template>
     <div class="Discuss">
+        <p>hello world</p>
     </div>
 </template>
 
