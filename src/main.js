@@ -3,12 +3,14 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
-import './common/index'
+// import './common/index'
+import HttpRequest from "./common/util/HttpRequest"
 
 Vue.config.productionTip = false
-
-console.log(123);
-console.log("123456789".reverse());
+new HttpRequest('').getTextData('http://localhost:8089/#/')
+    .then(json => {
+        console.log(json);
+    });
 new Vue({
     el: '#app',
     router,
