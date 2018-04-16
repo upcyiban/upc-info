@@ -14,7 +14,7 @@
 </template>
 
 <script>
-	import navbar from '@components/SecondaryMarket/component/My/subcomponent/navbar'
+	import navbar from '@/components/SecondaryMarket/component/My/subcomponent/navbar'
 	import profile from '@/components/SecondaryMarket/component/My/subcomponent/profile'
 	import favorite from '@/components/SecondaryMarket/component/My/subcomponent/favorite'
 	import comment from '@/components/SecondaryMarket/component/My/subcomponent/comment'
