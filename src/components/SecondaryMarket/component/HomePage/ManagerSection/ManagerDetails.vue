@@ -1,21 +1,20 @@
 <template>
-    <div class="Discuss">
-        <p>Discuss组件1</p>
+    <div class="ManagerDiscuss">
+        <p>manager discuss</p>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Discuss',
+        name: 'ManagerDetails',
         data () {
             return {}
         }
-    }
+    };
 </script>
 
 
-<style scoped>
-    .Discuss {
-
+<style>
+    .ManagerDiscuss {
     }
 </style>

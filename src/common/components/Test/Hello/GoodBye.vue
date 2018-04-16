@@ -1,5 +1,5 @@
 <template>
-    <div class="Hello">
+    <div class="bye">
         <p>GoodBye 组件</p>
     </div>
 </template>
