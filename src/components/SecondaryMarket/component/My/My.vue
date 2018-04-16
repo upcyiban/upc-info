@@ -37,6 +37,7 @@
 			}
 		},
 		components: {
+			'navbar': navbar,
 			'prof': profile,
 			'tab-favorite': favorite,
 			'tab-comment': comment,
@@ -45,6 +46,6 @@
 	}
 </script>
 
-<style scope>
+<style scoped>
 
 </style>
