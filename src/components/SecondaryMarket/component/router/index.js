@@ -1,9 +1,9 @@
-const Discuss = () => import('../Discuss/Discuss.vue')
+const My = () => import('../My/My.vue')
 const HomePage = () => import('../HomePage/HomePage.vue')
 const SecondaryMarket = [
     {
-        path: '/second/discuss',
-        component: Discuss,
+        path: '/second/my',
+        component: My,
     },
     {
         path: '/second/homepage',
