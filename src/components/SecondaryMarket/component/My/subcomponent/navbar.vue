@@ -11,6 +11,7 @@
 
 <style scoped>
 	.navbar-div{
+
 		background: #189dd7;
 		height: 60px;
 		width: 100%;
@@ -18,6 +19,7 @@
 		position: relative;
 	}
 	div>button{
+		width: 60px;
 		position: absolute;
 		top: 0;bottom: 0;
 		left: 0;right: 0;
