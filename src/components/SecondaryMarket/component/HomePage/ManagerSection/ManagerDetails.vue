@@ -8,8 +8,7 @@
                 <img :src="item" v-if="index <= 1">
             </li>
         </ul>
-        <p class="describe overflow-omit">
-            物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述物品描述</p>
+        <p class="describe overflow-omit"> {{this.describe}}</p>
 
     </div>
 </template>
@@ -17,12 +16,9 @@
 <script>
     export default {
         name: 'ManagerDetails',
-        props: ['images'],
+        props: ['images' , 'describe'],
         data () {
             return {}
-        },
-        beforeMount () {
-            console.log(this)
         }
     }
 </script>
@@ -47,7 +43,7 @@
         height: 10.7143rem;
     }
 
-    .ManagerDiscuss p {
+    .ManagerDiscuss .describe {
         line-height: 1rem;
         height: 2rem;
         margin: 1.1rem 0;

@@ -1,8 +1,8 @@
 <template>
     <div class="HomePage">
-        <div class="header">
+        <header-section :title="中国石油大学二手市场物品交易社区">
             <p>中国石油大学二手市场物品交易社区</p>
-        </div>
+        </header-section>
         <div class="search box-center">
             <label>
                 <input type="text"/>
@@ -13,7 +13,13 @@
         </div>
         <hr>
         <br>
-        <manager-section class="bottom-style"></manager-section>
+        <div v-for="item in managerSectionList">
+            <manager-section class="bottom-style"
+                             :userData="item.userData"
+                             :managerImage="item.managerImage"
+            ></manager-section>
+        </div>
+
         <div class="footer">
             <ul class="clear">
                 <li class="float-left">
@@ -39,16 +45,32 @@
     import ManagerSection from './ManagerSection/index.vue'
     import find from './media/find.png'
     import user from './media/user.png'
+    import {UserData} from "../../../../common/util/getYibanData"
+    import userHeader from './ManagerSection/media/header.png'
+    import HeaderSection from '../../common-component/HeaderSection.vue'
+
     export default {
         name: 'HomePage',
         data () {
+            let userData = UserData.getLocalUserData()
+            console.log(userData);
             return {
                 find: find,
-                user: user
+                user: user,
+                managerSectionList: [
+                    {
+                        userData: userData,
+                        managerImage: [],
+                    }
+                ]
             }
         },
+        created() {
+
+        },
         components: {
-            ManagerSection
+            ManagerSection,
+            HeaderSection
         }
     }
 </script>
@@ -74,14 +96,6 @@
         margin-bottom: 5px;
         padding-bottom: 15px;
         border-bottom: 10px solid #D5D5D5;
-    }
-
-    .HomePage .header {
-        background-color: #189FD9;
-        text-align: center;
-        height: 40px;
-        line-height: 40px;
-        color: #FFF;
     }
 
     .HomePage .search {
@@ -113,6 +127,7 @@
         font-size: 0.75rem;
         padding: 10px 0;
         bottom: 0;
+        background-color: #FFF;
     }
     .HomePage .footer ul {
         text-align: center;

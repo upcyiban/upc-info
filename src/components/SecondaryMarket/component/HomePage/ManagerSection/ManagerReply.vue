@@ -16,7 +16,6 @@
             return {}
         },
         beforeMount(){
-            console.log(this);
         },
         props: ['replyList']
     }
