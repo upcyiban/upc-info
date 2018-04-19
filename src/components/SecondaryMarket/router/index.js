@@ -1,5 +1,5 @@
-const Discuss = () => import('../Discuss/Discuss.vue')
-const HomePage = () => import('../HomePage/HomePage.vue')
+const Discuss = () => import('../component/Discuss/Discuss.vue')
+const HomePage = () => import('../component/HomePage/HomePage.vue')
 const SecondaryMarket = [
     {
         path: '/second/discuss',

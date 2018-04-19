@@ -1,7 +1,9 @@
 <template>
     <div class="ManagerSection">
-        <manager-header :imgSrc="userHeader"></manager-header>
-        <manager-details :images="managerImage"></manager-details>
+        <p>12313211111</p>
+        <manager-header :userData="userData"></manager-header>
+        <p>12313211111</p>
+        <manager-details :images="managerImage" :describe="123132"></manager-details>
         <manager-reply :replyList="managerReplyList"></manager-reply>
         <hr>
         <ul class="clear manager-footer">
@@ -16,13 +18,11 @@
     import ManagerHeader from './ManagerHeader.vue'
     import ManagerDetails from './ManagerDetails.vue'
     import ManagerReply from './ManagerReply.vue'
-    import header from './media/header.png'
     export default {
         name: 'index',
+        props: ['userData' , 'managerImage'],
         data () {
             return {
-                userHeader: header,
-                managerImage: [header , header , header],
                 managerReplyList: [
                     {
                         user: '用户1',

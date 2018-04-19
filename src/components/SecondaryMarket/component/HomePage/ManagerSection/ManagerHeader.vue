@@ -2,11 +2,11 @@
     <div class="UserBox">
         <ul class="clear">
             <li>
-                <img :src="imgSrc"/>
+                <img :src="userData.userHeader"/>
             </li>
             <li class="second" style="width: 50%">
-                <span class="user-name">放肆 - </span>
-                <span class="user-id">ID&nbsp;:&nbsp;840039</span>
+                <span class="user-name">{{userData.userName}} - </span>
+                <span class="user-id">ID&nbsp;:&nbsp;{{userData.userId}}</span>
                 <p class="time">两小时前发布</p>
             </li>
             <li class="float-right">
@@ -17,9 +17,10 @@
 </template>
 
 <script>
+    /** @namespace userData.userName*/
     const ManagerHeader = {
         name: 'ManagerHeader',
-        props: ['imgSrc'],
+        props: ['userData'],
         data () {
             return {}
         }

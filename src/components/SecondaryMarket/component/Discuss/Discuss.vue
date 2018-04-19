@@ -1,6 +1,6 @@
 <template>
     <div class="Discuss">
-        <p>Discuss组件1</p>
+        <p>Discuss组件11111</p>
     </div>
 </template>
 

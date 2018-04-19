@@ -13,6 +13,7 @@ import './style/common-style.css'
 //     .then(json => {
 //         console.log(json);
 //     });
+
 new Vue({
     el: '#app',
     router,
