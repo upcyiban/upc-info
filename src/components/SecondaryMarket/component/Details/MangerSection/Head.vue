@@ -18,7 +18,7 @@
 
 <script>
     const Head = {
-        name: 'UserBox',
+        name: 'Head',
         props: ['imgSrc'],
         data () {
             return {}

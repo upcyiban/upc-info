@@ -35,6 +35,8 @@
 </template>
 
 <script>
+    im
+
     import ManagerSection from './ManagerSection/index.vue'
     import find from './media/find.png'
     import user from './media/user.png'

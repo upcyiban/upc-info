@@ -1,10 +1,18 @@
 <template>
-    <div class="Thing"></div>
+    <div class="Thing">
+        {{mes}}
+    </div>
 
 </template>
 
 <script>
-    export default  Thing
+    export default {
+        name:Thing
+        data(){
+            mes:"sdafsdf"
+        }
+
+    }
 </script>
 
 <style scoped>
