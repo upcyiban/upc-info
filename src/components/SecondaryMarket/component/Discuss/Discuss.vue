@@ -1,17 +1,16 @@
 <template>
     <div class="Discuss">
-        <p>hello world</p>
+        <p>Discuss组件1</p>
     </div>
 </template>
 
 <script>
-    const Discuss = {
+    export default {
         name: 'Discuss',
         data () {
             return {}
         }
     }
-    export default Discuss
 </script>
 
 

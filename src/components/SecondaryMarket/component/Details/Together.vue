@@ -1,15 +1,18 @@
 <template>
-    <div class="bye">
-        <p>GoodBye 组件</p>
-    </div>
+<div class="together">
+
+</div>
 </template>
 
 <script>
+
+    import Thing from './Thing.vue'
+
+
     export default {
-        name: 'goodBye'
+        name: "Together"
     }
 </script>
-
 
 <style scoped>
 
