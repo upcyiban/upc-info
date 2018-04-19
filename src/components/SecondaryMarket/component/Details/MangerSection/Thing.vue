@@ -1,9 +1,10 @@
 <template>
+    <div class="Thing"></div>
 
 </template>
 
 <script>
-    export default Thing
+    export default  Thing
 </script>
 
 <style scoped>
