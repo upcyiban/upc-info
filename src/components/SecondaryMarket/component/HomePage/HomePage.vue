@@ -54,6 +54,7 @@
         data () {
             let userData = UserData.getLocalUserData()
             console.log(userData);
+            console.log(user , find)
             return {
                 find: find,
                 user: user,

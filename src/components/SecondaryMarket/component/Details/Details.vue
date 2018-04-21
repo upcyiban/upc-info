@@ -1,40 +1,72 @@
 <template>
     <div class="HomePage">
-        <div class="header">
+       <header-section title="物品详情页">
+           <img style="width: 4%;position:relative;right: 35%" src="./media/arch.png" alt="">
+           <p style="display:inline-block">宝贝详情</p>
+       </header-section>
+        <manager-header style="margin: 5%" :userData="this.userData">
 
-            <img style="width:6%;float: left" src="./media/arch.png" alt="">
-            <p style="color: ">宝贝详情</p>
-        </div>
 
-        <div class="UserBox " style="position: absolute;top: 18%;">
-            <ul class="clear">
-                <li>
-                    <img :src="imgSrc"/>
-                </li>
-                <li class="second" style="width: 50%">
-                    <span class="user-name">放肆 - </span>
-                    <span class="user-id">ID&nbsp;:&nbsp;840039</span>
-                    <p class="time">两小时前发布</p>
-                </li>
-                <li class="float-right">
-                    <p>#5</p>
-                </li>
-            </ul>
-        </div>
+        </manager-header>
+        <hr style="margin:5%;color: #999898">
+        <div style="width: 90%;text-align: center;margin: 5%;line-height:20px" class="Language">
+            <h5>澳大利亚不但环境优美而且景色秀丽,夏不酷暑、冬不寒冷,日照充足,雨量丰沛。接下来澳大利
+                亚频道就与大家分享澳大利亚风景图片,澳大利亚风景名胜等唯美图片,一
+            </h5>
+              </div>
+       <div class="imgs">
+           <img style="width:90%;margin: 5%" src="http://img02.fs.yiban.cn/8574001/avatar/user/200" alt="">
+           <img style="width:90%;margin: 5%" src="http://img02.fs.yiban.cn/8574001/avatar/user/200" alt="">
+
+
+
+       </div>
+        <hr style="margin:5%;color: #999898">
+        <div style="margin-left:5%;
+        height: 100%;
+        width: 5px;
+        border-radius: 5px;
+        background: #189FD9;"><h4 style="display: inline">&nbsp;&nbsp;Reply</h4></div>
+
+
 
 
     </div>
+
 </template>
 
 <script>
-    const Head = {
-        name: 'Head',
-        props: ['imgSrc'],
+
+    import {UserData} from '../../../../common/util/getYibanData'
+   import HeaderSection from '../../common-component/HeaderSection.vue'
+   import ManagerHeader from '../../common-component/ManagerHeader.vue'
+    import MangerDetails from '../../common-component/ManagerDetails.vue'
+
+
+    export default {
+        name: 'index',
+
+
         data () {
-            return {}
+            let userData = UserData.getLocalUserData()
+            props:['userData']
+
+
+
+            return {
+                userData:userData,
+
+            }
+        },
+        components: {
+
+            HeaderSection,
+            ManagerHeader,
+            MangerDetails
+
         }
-    }
-    export default Head
+
+}
 
 </script>
 
