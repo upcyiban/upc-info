@@ -1,61 +1,70 @@
+import {commonUrl} from "../../config/config"
+import {UserData} from "./getYibanData"
 
 class HttpRequest {
 
-    commonUrl;
+    commonUrl = commonUrl
 
     constructor (commonUrl) {
-        this.commonUrl = commonUrl ? commonUrl : '';
+        this.commonUrl = commonUrl ? commonUrl : this.commonUrl
     }
 
-    getData(url , body) {
+    _getData (url, body) {
         url += '?'
+        url += 'authentication=' + UserData.getLocalToken()
         for (let key in body) {
             if (body.hasOwnProperty(key)) {
                 url += key + '=' + body[key] + '&'
             }
         }
-        url = url.split('').splice(0 , url.length - 1).join('')
+        url = url.split('').splice(0, url.length - 1).join('')
         url = this.commonUrl + url
-        console.log('get method' , url);
-        return fetch(url)
-    }
-
-    postData(url , body) {
-        let fd = new FormData()
-        for (let key in body) {
-            if (body.hasOwnProperty(key)) {
-                fd.append(key , body[key])
-            }
-        }
-        return fetch(this.commonUrl + url , {
-            method: 'post',
-            body , fd
+        console.log('get method', url)
+        return fetch(url, {
+            method: 'get',
+            // 后端跨域不允许携带cookie？等到后端支持跨域携带cookie以后取消掉改注释
+            // credentials: "include"
         })
     }
 
-    getJsonData(url , body){
-        this.getData(url , body).then(r => {
+    _postData (url, body) {
+        let fd = new FormData()
+        for (let key in body) {
+            if (body.hasOwnProperty(key)) {
+                fd.append(key, body[key])
+            }
+        }
+        return fetch(this.commonUrl + url, {
+            method: 'post',
+            body, fd,
+            // 后端跨域不允许携带cookie？等到后端支持跨域携带cookie以后取消掉改注释
+            // credentials: "include"
+        })
+    }
+
+    getJsonData (url, body) {
+        return this._getData(url, body).then(r => {
             return r.json()
         })
     }
 
-    getTextData(url , body) {
-        return this.getData(url , body).then(r => {
+    getTextData (url, body) {
+        return this._getData(url, body).then(r => {
             return r.text()
         })
     }
 
-    postJsonData(url , body) {
-        return this.postData(url , body).then(r => {
+    postJsonData (url, body) {
+        return this._postData(url, body).then(r => {
             return r.json()
         })
     }
 
-    postTextData(url , body) {
-        return this.postData(url , body).then(r => {
+    postTextData (url, body) {
+        return this._postData(url, body).then(r => {
             return r.text()
         })
     }
 }
 
-export default HttpRequest;
+export default HttpRequest

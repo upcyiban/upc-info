@@ -1,9 +1,10 @@
 const nativeLog = console.log
 const nativeError = console.error
 const nativeWarn = console.warn
-/** @namespace window.localStorage.flag */
+/** @namespace window.localStorage.logMessage */
 const logMessage = window.localStorage.logMessage ? window.localStorage.logMessage === 'yibantest' : false
 /** @namespace window.localStorage.logStack */
+
 const logStack = window.localStorage.logStack ? window.localStorage.logStack === 'true' : false
 console.log = function (...arg) {
     if (logStack) {

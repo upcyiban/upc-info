@@ -2,11 +2,11 @@
     <div class="UserBox">
         <ul class="clear">
             <li>
-                <img :src="imgSrc"/>
+                <img :src="userData.userHeader"/>
             </li>
             <li class="second" style="width: 50%">
-                <span class="user-name">放肆 - </span>
-                <span class="user-id">ID:840039</span>
+                <span class="user-name">{{userData.userName}} - </span>
+                <span class="user-id">ID&nbsp;:&nbsp;{{userData.userId}}</span>
                 <p class="time">两小时前发布</p>
             </li>
             <li class="float-right">
@@ -17,13 +17,14 @@
 </template>
 
 <script>
+    /** @namespace userData.userName*/
     const ManagerHeader = {
         name: 'ManagerHeader',
-        props: ['imgSrc'],
+        props: ['userData'],
         data () {
             return {}
         }
-    };
+    }
     export default ManagerHeader
 </script>
 
@@ -32,35 +33,44 @@
     .UserBox {
         height: 3.57rem;
     }
+
     .UserBox ul {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+
     .UserBox ul li {
         flex-direction: column;
     }
+
     .UserBox ul li:last-child {
         flex-direction: column-reverse;
         align-self: flex-start;
+        color: red;
+        font-size: 1.5rem;
     }
 
     .UserBox ul li:first-child {
-        width: 80px;
-        height: 80px;
-        border-radius: 40px;
+        width: 2.8571rem;
+        height: 2.8571rem;
     }
+
     .UserBox img {
         width: 100%;
         height: 100%;
+        border-radius: 50%;
     }
+
     .UserBox .user-name {
         color: black;
     }
+
     .UserBox .user-id {
         color: #656565;
         font-size: 0.85rem;
     }
+
     .UserBox .time {
         color: #7F7F7F;
         font-size: 0.75rem;
