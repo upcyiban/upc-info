@@ -1,6 +1,6 @@
 <template>
     <div class="HomePage">
-        <header-section :title="中国石油大学二手市场物品交易社区">
+        <header-section title="中国石油大学二手市场物品交易社区">
             <p>中国石油大学二手市场物品交易社区</p>
         </header-section>
         <div class="search box-center">

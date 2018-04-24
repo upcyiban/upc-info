@@ -11,7 +11,9 @@
             return {}
         },
         beforeMount() {
-            document.querySelector('title').innerHTML = this._props.title
+            if (this._props.title !== null && this._props.title !== undefined) {
+                document.querySelector('title').innerHTML = this._props.title
+            }
         },
         props: ['title']
     };
