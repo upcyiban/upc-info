@@ -15,7 +15,8 @@
     ```
     4>  编写代码，测试完善，获取分支更新,进行项目打包并运行,确认无误后<br/>
     ```
-        git pull yiban & git merge master yiban<br/>
+        git add -A & git commit -m '1'
+        git fetch yiban & git merge yiban/master<br/>
         npm run run-build<br/>
         git push origin master<br/>
     ```

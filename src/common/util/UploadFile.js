@@ -1,14 +1,12 @@
-import {commonUrl} from "../../config/config"
 import HttpRequest from "./HttpRequest"
 
 class UploadFile {
-    uploadUrl = '/upload/file'
-    commonUrl = commonUrl
+    uploadUrl = 'upload/file'
     httpRequest
 
     constructor (uploadUrl , commonUrl) {
         this.httpRequest = new HttpRequest(commonUrl)
-        this.uploadUrl = (uploadUrl === null || uploadUrl === undefined) ?
+        this.uploadUrl = (uploadUrl !== null && uploadUrl !== undefined) ?
             uploadUrl : this.uploadUrl
     }
 
@@ -20,20 +18,22 @@ class UploadFile {
      *                          具体百度，自然知道这个参数是啥
      */
     fetchFile (fileName , type , iframeDocument) {
-        iframeDocument = (iframeDocument === null || iframeDocument === undefined) ?
-            document : iframeDocument
+        iframeDocument = (iframeDocument !== null && iframeDocument !== undefined) ?
+            iframeDocument : document
         let form = iframeDocument.createElement('form')
         let input = iframeDocument.createElement('input')
-        input.type = 'file'
-        input.value = fileName
+        input.setAttribute('type' , 'file')
+        console.log(fileName)
+        input.setAttribute('name' , 'file')
+        input.setAttribute('value' , fileName)
         form.appendChild(input)
         console.log(form);
-        console.log(this.httpRequest.commonUrl , this.uploadUrl);
         let formData = new FormData(form)
 
         if (type === 'text') {
             return this.httpRequest.postTextData(this.uploadUrl , formData)
         } else {
+            console.log(this.httpRequest.commonUrl , this.uploadUrl)
             return this.httpRequest.postJsonData(this.uploadUrl , formData)
         }
     }

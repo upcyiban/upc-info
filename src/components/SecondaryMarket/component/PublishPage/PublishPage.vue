@@ -42,6 +42,7 @@
         },
         methods: {
             addFile(file) {
+                console.log(file);
                 uploadFile.fetchFile(file).then(json => {
                     console.log(json);
                 })

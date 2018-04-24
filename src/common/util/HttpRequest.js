@@ -6,7 +6,7 @@ class HttpRequest {
     commonUrl = commonUrl
 
     constructor (commonUrl) {
-        this.commonUrl = (commonUrl === null || commonUrl === undefined) ?
+        this.commonUrl = (commonUrl !== null && commonUrl !== undefined) ?
             commonUrl : this.commonUrl
     }
 
