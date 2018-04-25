@@ -1,3 +1,10 @@
+input,textarea{
+    border: none;
+    outline-style: none;
+}
+textarea{
+    font-size: 100%;
+}
 .float-left {
     float: left;
 }
@@ -40,7 +47,7 @@
 }
 .absolute-vertical-center {
     position: absolute;
-    left: 50%;
+    top: 50%;
     transform: translateY(-50%);
 }
 

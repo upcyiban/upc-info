@@ -1,8 +1,6 @@
 <template>
     <div class="ManagerSection">
-        <p>12313211111</p>
         <manager-header :userData="userData"></manager-header>
-        <p>12313211111</p>
         <manager-details :images="managerImage" :describe="123132"></manager-details>
         <manager-reply :replyList="managerReplyList"></manager-reply>
         <hr>

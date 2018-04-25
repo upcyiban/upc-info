@@ -6,7 +6,8 @@ class HttpRequest {
     commonUrl = commonUrl
 
     constructor (commonUrl) {
-        this.commonUrl = commonUrl ? commonUrl : this.commonUrl
+        this.commonUrl = (commonUrl !== null && commonUrl !== undefined) ?
+            commonUrl : this.commonUrl
     }
 
     _getData (url, body) {
