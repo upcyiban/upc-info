@@ -6,12 +6,13 @@
 			<p :class="['button',{ active: currentTabComponent == 'tab-history' }]" @click="currentTab = 'history'">发布历史</p>
 		</div>
 		<div class="tab-view">
-			<component v-bind:is="currentTabComponent"></component>
+			<component v-bind:is="currentTabComponent" :userid="userid"></component>
 		</div>
 	</div>
 </template>
 
 <script>
+	import HttpRequest from '@/common/util/HttpRequest'
 	import favorite from './favorite'
 	import comment from './comment'
 	import history from './history'
@@ -32,6 +33,7 @@
 				return 'tab-' + this.currentTab
 			}
 		},
+		props: ['userid']
 	}
 </script>
 
@@ -47,6 +49,7 @@
 	}
 	.button{
 		-webkit-user-select: none;
+		-webkit-touch-callout: none;
 		user-select: none;
 		font-size: 1rem;
 		color: #ffffff;
@@ -57,7 +60,7 @@
 		color: #000000;
 	}
 	.tab-view{
-		min-height: 480px;
+		min-height: 20rem;
 		background-color:  #ffffff; 
 		border-radius: 0 0 12px 12px;
 		overflow-y: scroll;
@@ -68,7 +71,7 @@
 	}
 	.tab-view >>> li{
 		list-style: none;
-		min-height: 128px;
+		min-height: 5.5rem;
 		width: 100%;
 		position: relative;
 		border-bottom: 1px solid #e4e3e3;
@@ -76,19 +79,17 @@
 	}
 	.tab-view >>> .desc{
 		position: relative;
-		top: 0.5rem;
 		text-align: left;
 	}
 	.tab-view >>> .descimg{
-		width: 96px;
-		height: 96px;
+		width: 4rem;
+		height: 4rem;
 	}
 	.tab-view >>> .desc>p{
-		margin: 0.75rem 0;
+		margin: 0.5rem 0;
 	}
 	.tab-view >>> .title{
 		font-size: 1.25rem;
-		font-weight: bold;
 	}
 	.tab-view >>> .price{
 		color: #ff0000;
@@ -96,13 +97,14 @@
 		font-weight: bold;
 	}
 	.tab-view >>> .button{
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		color: #99989a;
 		display: flex;
 		position: absolute;
 		right: 1rem;
-		bottom: 1rem;
+		bottom: 0.5rem;
 		-webkit-user-select: none;
+		-webkit-touch-callout: none;
 		user-select: none;
 	}
 </style>

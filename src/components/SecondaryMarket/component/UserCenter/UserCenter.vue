@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<navbar :title="title">
-			<img src="./images/back.png" @click="" class="back">
+		<navbar title="中国石油大学二手物品交易社区">
+			<img src="./images/back.png" @click="back" class="back">
 			<p>中国石油大学二手物品交易社区</p>
 		</navbar>
 		</navbar>
 		<prof :profile="profile"></prof>
-		<tabs></tabs>
+		<tabs :userid="profile.id"></tabs>
 	</div>
 </template>
 
@@ -20,7 +20,6 @@
 		data: function(){
 			let yibanInfo = UserData.getLocalUserData();
 			return {
-				title: '中国石油大学二手物品交易社区',
 				currentTab: 'favorite',
 				profile: {
 					nick: yibanInfo.userNick,
@@ -42,6 +41,9 @@
 		methods: {
 			changeTab: function(to){
 				this.currentTab = to
+			},
+			back: function(){
+				this.$router.push('/second/homepage')
 			}
 		},
 		components: {
