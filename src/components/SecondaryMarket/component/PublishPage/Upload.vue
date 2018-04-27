@@ -1,6 +1,6 @@
 <template>
     <div class="Upload">
-        <input type="file" @change="upload">
+        <input type="file" name="file" @change="upload">
         <div class="add-button absolute-center">
             <div class="add box-center">+</div>
             <p>添加</p>
@@ -16,8 +16,7 @@
         },
         methods: {
             upload(e) {
-                console.log(e);
-                this.$emit('addFile' , e.target.value)
+                this.$emit('addFile' , e.target)
             }
         }
     };
@@ -26,8 +25,6 @@
 
 <style>
     .Upload {
-        width: 8rem;
-        height: 8rem;
         display: inline-block;
         background-color: #D7D7D7;
         position: relative;
@@ -49,8 +46,8 @@
         height: 70%;
         border-radius: 50%;
         border: 6px solid #8D8788;
-        font-size: 3.0rem;
-        line-height: 2.3rem;
+        font-size: 2.5rem;
+        line-height: 1.7rem;
         text-align: center;
     }
     .Upload .add-button p {

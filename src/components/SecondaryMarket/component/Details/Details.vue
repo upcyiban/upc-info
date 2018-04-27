@@ -20,6 +20,8 @@
 
        </div>
         <hr style="margin:5%;color: #999898">
+
+
         <div class="reply"  style="margin-left:5%;margin: 10%;
         height: 100%;
         width: 5px;
@@ -27,22 +29,24 @@
         background: #189FD9;"><h4 style="display: inline">&nbsp;&nbsp;Reply</h4></div>
 
         <hr style="margin:5%;color: #999898">
-        <div style="margin:3%;position:fixed;bottom: -1.5%;background-color: white;width: 100%;" class="foot">
+        <div style="margin:3%;position:fixed;bottom:-11px;background-color: white;width: 100%;" class="foot">
             <img id="myimage" @click="change" style="height: 10%" :src="img" alt="">
             <h4 style="display:inline">收藏</h4>
             <img style="display:inline" src="./media/comm.png" alt="">
             <h4 style="display:inline">评论</h4>
+            <div style="background-color:red;display: inline;position: fixed;right: 20px;bottom: 10px;"><button>我想要</button></div>
         </div>
 
 
     </div>
+
 
 </template>
 
 <script>
 
     import {UserData} from '../../../../common/util/getYibanData'
-    import  HeaderSection from '../../common-component/HeaderSection.vue'
+    import  HeaderSection from '../../../common/HeaderSection'
     import ManagerHeader from '../../common-component/ManagerHeader.vue'
     import MangerDetails from '../../common-component/ManagerDetails.vue'
     import  coll2 from './media/coll2.png'
