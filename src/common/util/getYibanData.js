@@ -1,5 +1,6 @@
-import {vqKey, yibanIdKey} from "../../config/config"
+import { vqKey, yibanIdKey} from "../../config/config"
 import Token from "./Token"
+import getRequestParamList from "./getRequest"
 
 class YibanAuth {
     vqUrl
@@ -25,6 +26,11 @@ class YibanAuth {
 
     fetchVq () {
         if (this.haveVq() === false) {
+            /**
+             * @namespace window.localStorage.backUrl
+             * @type {string}
+             */
+            window.localStorage.backUrl = window.location.href
             window.location = this.vqUrl
         }
     }
@@ -58,18 +64,14 @@ class YibanAuth {
             && !locationUrl.includes(this.vqKey)) {
             return null
         }
-        const requestParam = locationUrl.split('?')
-        const paramList = requestParam[1].split('=')
-        const param = {
-            yibanId: paramList[2],
-            vq: paramList[1].substr(0 , paramList[1].lastIndexOf('&' + this.yibanIdKey))
-        }
         /**
          * @namespace window.sessionStorage.yibanId
          */
-        window.sessionStorage.yibanId = param.yibanId
-        window.history.pushState({} , '' ,requestParam[0])
-        return param.vq
+        const paramList = getRequestParamList()
+        window.sessionStorage.yibanId = paramList[yibanIdKey]
+        window.sessionStorage.vq = paramList[vqKey]
+        window.location = window.localStorage.backUrl
+        return paramList[vqKey]
 
     }
 }
