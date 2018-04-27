@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul class="comments list">
-			<li class="comment" v-for="(comment,index) in comments" @click="replyComment(index)" @touchstart="deleteComment(index)" @touchend="clearLoop(index)">
+			<li class="comment" v-for="(comment,index) in comments" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchend="listenEnd(index,$event)">
 				<div>
 					<div class="user">
 						<img :src="comment.avatar" class="avatar">
@@ -10,11 +10,11 @@
 					</div>
 					<p class="content">评论了你: {{ comment.content }}</p>
 				</div>
-				<img class="descimg right" :src="comment.descimg">
+				<img class="descimg right" :src="comment.descimg" @click.stop="detail(index)">
 				<confirmbox v-if="comment.beforeDelete" @confirm="confirmDelete(index)" @cancel="comment.beforeDelete = false"></confirmbox>
 			</li>
 		</ul>
-		<replybox v-if="replying" :replyTo="replyTo" @success="replyEnd"></replybox>
+		<replybox v-if="replyStatus" :replyTo="replyTo" @success="replyEnd"></replybox>
 	</div>
 </template>
 
@@ -53,27 +53,30 @@
 		data: function(){
 			return {
 				comments: [],
-				replying: false,
+				replyStatus: false,
 				replyTo: ''
 			}
 		},
 		methods: {
+			listenStart(index,event) {
+				console.log(event.timeStamp)
+				this.startTime = event.timeStamp
+			},
+			listenEnd: function(index,event){
+				console.log(event.timeStamp)
+				let delta = event.timeStamp - this.startTime
+				if(delta > 500)this.comments[index].beforeDelete = true
+				else if(delta > 100) this.replyComment(index)
+			},
 			replyComment: function(index){
-				this.replying = true
+				this.replyStatus = true
 				if(this.comments[index]){
 					this.replyTo = this.comments[index].commentid
 				}
 			},
 			replyEnd: function(){
-				this.replying = false
+				this.replyStatus = false
 				this.replyTo = ''
-			},
-			deleteComment: function(index){
-				clearInterval(this.Loop)
-    			this.Loop = setTimeout(() => this.showConfirmation(index), 600)  
-			},
-			clearLoop: function(){
-				clearInterval(this.Loop)
 			},
 			showConfirmation: function(index){
 				this.comments[index].beforeDelete = true
@@ -84,6 +87,10 @@
 					this.replyEnd()
 				}
 				this.comments.splice([index],1)
+			},
+			detail: function(index){
+				//go to details
+				this.$router.push('/')
 			},
 		},
 		props: ['userid']

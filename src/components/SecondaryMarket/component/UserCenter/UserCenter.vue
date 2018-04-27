@@ -11,14 +11,21 @@
 </template>
 
 <script>
+	import HttpRequest from '@/common/util/HttpRequest'
 	import navbar from '@/components/SecondaryMarket/common-component/HeaderSection'
 	import {UserData} from '@/common/util/getYibanData'
 	import profile from './subcomponent/profile'
 	import tabs from './subcomponent/tabs'
+	import marketFetch from '../../model/marketFetch'
 	export default {
 		name: 'UserCenter',
+		beforeCreate(){
+			console.log(HttpRequest())
+		},
 		data: function(){
-			let yibanInfo = UserData.getLocalUserData();
+			let yibanInfo = UserData.getLocalUserData()
+			let request = marketFetch
+			let contacts = request.getJsonData('second/user/info',{})
 			return {
 				currentTab: 'favorite',
 				profile: {

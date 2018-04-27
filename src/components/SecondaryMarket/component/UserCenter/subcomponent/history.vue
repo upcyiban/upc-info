@@ -47,6 +47,7 @@
 		methods: {
 			editPost: function(index){
 				//go to publish page
+				this.$router.push('/')
 			},
 			deletePost: function(index){
 				this.history[index].beforeDelete = true;

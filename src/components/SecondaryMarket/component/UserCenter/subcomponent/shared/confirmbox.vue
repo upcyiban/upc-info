@@ -2,8 +2,8 @@
 	<transition name="showConfirmation">
 		<div class="confirm-box">
 			<p>确认删除？</p>
-			<button class="cfm btn" @click.stop="confirm">确认</button>
-			<button class="ccl btn" @click.stop="cancel">取消</button>
+			<button class="cfm btn" @mouseup.stop="confirm" @touchend="confirm">确认</button>
+			<button class="ccl btn" @click.stop="cancel" @touchend="cancel">取消</button>
 		</div>
 	</transition>
 </template>
@@ -36,6 +36,7 @@
 		left: 50%;
 		transform: translate(-50%,-50%);
 		transform-origin: top left;
+		-webkit-touch-callout: none;
 	}
 	p{
 		font-size: 0.8rem;
