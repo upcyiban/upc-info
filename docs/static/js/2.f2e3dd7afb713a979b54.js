@@ -1,2 +1,0 @@
-webpackJsonp([2],{ExLA:function(e,t){},NcVe:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s={render:function(){this.$createElement;this._self._c;return this._m(0)},staticRenderFns:[function(){var e=this.$createElement,t=this._self._c||e;return t("div",{staticClass:"bye"},[t("p",[this._v("GoodBye 组件")])])}]},i=n("VU/8")({name:"goodBye"},s,!1,function(e){n("ExLA")},"data-v-30d545a4",null);t.default=i.exports}});
-//# sourceMappingURL=2.f2e3dd7afb713a979b54.js.map

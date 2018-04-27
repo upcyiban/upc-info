@@ -1,11 +1,14 @@
 <template>
     <div class="HomePage">
-        <header-section title="中国石油大学二手市场物品交易社区">
+        <header-section
+            title="中国石油大学二手市场物品交易社区"
+            :yibanAuth="yibanAuth"
+        >
             <p>中国石油大学二手市场物品交易社区</p>
         </header-section>
         <div class="search box-center">
             <label>
-                <input type="text"/>
+                <input type="text" autofocus/>
             </label>
             <div class="placeholder absolute-center">
                 <p>搜索宝贝</p>
@@ -27,7 +30,9 @@
                     <p>发现</p>
                 </li>
                 <li class="float-left add">
-                    <div class="absolute-horizontal-center"><span>+</span></div>
+                    <router-link to="/second/publish" class="absolute-horizontal-center" style="display: block">
+                        <span>+</span>
+                    </router-link>
                     <img style="opacity: 0;" src="">
                     <p>发布</p>
                 </li>
@@ -41,27 +46,28 @@
 </template>
 
 <script>
+    /**
+     * @namespace require
+     */
     import ManagerSection from './ManagerSection/index.vue'
-    import find from './media/find.png'
-    import user from './media/user.png'
     import {UserData} from "../../../../common/util/getYibanData"
-    import userHeader from './ManagerSection/media/header.png'
-    import HeaderSection from '../../common-component/HeaderSection.vue'
+    import HeaderSection from '../../../common/HeaderSection.vue'
+    import yibanAuth from "../../model/getYibanVq"
 
     export default {
         name: 'HomePage',
         data () {
             let userData = UserData.getLocalUserData()
-            console.log(userData);
             return {
-                find: find,
-                user: user,
+                find: require('./media/find.png'),
+                user: require('./media/user.png'),
                 managerSectionList: [
                     {
                         userData: userData,
                         managerImage: [],
                     }
-                ]
+                ],
+                yibanAuth: yibanAuth
             }
         },
         created() {
@@ -134,7 +140,7 @@
     .HomePage .footer ul .add {
         position: relative;
     }
-    .HomePage .footer ul .add div {
+    .HomePage .footer ul .add a {
         width: 3.6rem;
         height: 3.6rem;
         position: absolute;

@@ -7,7 +7,7 @@ const SecondaryMarket = [
         component: Discuss,
     },
     {
-        path: '/second/homepage',
+        path: '/second/home-page',
         component: HomePage
     },
     {

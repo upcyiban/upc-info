@@ -8,14 +8,19 @@
     export default {
         name: 'Header',
         data () {
-            return {}
+            return {
+                token: 123
+            }
         },
         beforeMount() {
             if (this._props.title !== null && this._props.title !== undefined) {
                 document.querySelector('title').innerHTML = this._props.title
             }
+            const yibanAuth = this._props.yibanAuth
+            yibanAuth && yibanAuth.fetchVq()
+            yibanAuth && yibanAuth.refreshToken()
         },
-        props: ['title']
+        props: ['title' , 'yibanAuth']
     };
 </script>
 
