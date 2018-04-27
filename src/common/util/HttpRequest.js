@@ -19,7 +19,7 @@ class HttpRequest {
      */
 
     _getData (url, body) {
-        url += '?authentication=' + UserData.getLocalToken()
+        url += '?Authorization=' + UserData.getLocalToken()
         for (let key in body) {
             if (body.hasOwnProperty(key)) {
                 url += key + '=' + body[key] + '&'

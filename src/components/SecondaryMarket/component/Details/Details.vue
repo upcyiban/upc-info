@@ -1,6 +1,6 @@
 <template>
     <div class="HomePage">
-        <header-section :title='title'>物品详情</header-section>
+        <header-section :title='title' :yibanAuth="yibanAuth">物品详情</header-section>
         <manager-header style="margin: 5%" :imgSrc="this.serData.userHeader">
 
 
@@ -28,6 +28,9 @@
         border-radius: 5px;
         background: #189FD9;"><h4 style="display: inline">&nbsp;&nbsp;Reply</h4></div>
 
+
+
+
         <hr style="margin:5%;color: #999898">
         <div style="margin:3%;position:fixed;bottom:-11px;background-color: white;width: 100%;" class="foot">
             <img id="myimage" @click="change" style="height: 10%" :src="img" alt="">
@@ -51,7 +54,9 @@
     import MangerDetails from '../../common-component/ManagerDetails.vue'
     import  coll2 from './media/coll2.png'
     import  coll from './media/coll.png'
-
+    import yibanAuth from "../../model/getYibanVq";
+    import MarketFetch from "../../model/marketFetch";
+    let a=MarketFetch.getJsonData("/second/user/info",{})
 
     export default {
         name: 'index',
@@ -59,7 +64,7 @@
 
         data () {
             let userData = UserData.getLocalUserData()
-            props:['userData']
+
 
 
 
@@ -67,6 +72,7 @@
                 serData:userData,
                 title:'物品详情',
                 img:coll,
+                yibanAuth: yibanAuth
             }
         },
         components: {
@@ -100,6 +106,13 @@
 
 
 }
+
+
+
+
+
+
+
 
 </script>
 

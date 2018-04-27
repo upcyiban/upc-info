@@ -6,4 +6,5 @@ const filePrefix = 'http://yb.upc.edu.cn/file/image'
 let marketFetch = new HttpRequest(backEndUrl)
 let uploadFile = new UploadFile( 'http://yb.upc.edu.cn:8084')
 export default marketFetch
+
 export {uploadFile , filePrefix}
