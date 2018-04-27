@@ -27,7 +27,7 @@
         background: #189FD9;"><h4 style="display: inline">&nbsp;&nbsp;Reply</h4></div>
 
         <hr style="margin:5%;color: #999898">
-        <div style="margin:3%;position: absolute;bottom: 0px;" class="foot">
+        <div style="margin:3%;position:fixed;bottom: -1.5%;background-color: white;width: 100%;" class="foot">
             <img id="myimage" @click="change" style="height: 10%" :src="img" alt="">
             <h4 style="display:inline">收藏</h4>
             <img style="display:inline" src="./media/comm.png" alt="">
