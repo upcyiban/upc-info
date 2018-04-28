@@ -1,5 +1,5 @@
 import {commonUrl} from "../../config/config"
-import {UserData} from "./getYibanData"
+import {UserData, YibanAuth} from "./getYibanData"
 
 class HttpRequest {
 
@@ -10,9 +10,16 @@ class HttpRequest {
             commonUrl : this.commonUrl
     }
 
+    /**
+     * @namespace fetch
+     * @param url 链接
+     * @param body 对象形式传入参数列表
+     * @returns {*}
+     * @private
+     */
+
     _getData (url, body) {
-        url += '?'
-        url += 'authorizatioon=' + UserData.getLocalToken()
+        url += '?Authorization=' + UserData.getLocalToken()
         for (let key in body) {
             if (body.hasOwnProperty(key)) {
                 url += key + '=' + body[key] + '&'
@@ -29,6 +36,7 @@ class HttpRequest {
     }
 
     _postData (url, body) {
+        url += '?Authorization=' + UserData.getLocalToken()
         let fd = new FormData()
         for (let key in body) {
             if (body.hasOwnProperty(key)) {

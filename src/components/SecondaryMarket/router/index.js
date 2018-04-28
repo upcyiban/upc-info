@@ -8,7 +8,7 @@ const SecondaryMarket = [
         component: UserCenter,
     },
     {
-        path: '/second/homepage',
+        path: '/second/home-page',
         component: HomePage
     },
     {

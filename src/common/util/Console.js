@@ -13,6 +13,9 @@ console.log = function (...arg) {
     if (logMessage) {
         nativeLog(...arg)
     }
+    if (arg[0].tagName) {
+        nativeLog(new Error())
+    }
 }
 
 console.error = function (...arg) {
@@ -32,6 +35,7 @@ console.warn = function (...args) {
         nativeWarn(...args)
     }
 }
+
 String.prototype.reverse = function () {
     return [...this].reverse().join('')
 }

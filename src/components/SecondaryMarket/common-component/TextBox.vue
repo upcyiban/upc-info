@@ -22,7 +22,6 @@
 <style>
     .TextBox {
         position: relative;
-        height: 120px;
         padding-top: 0.5rem;
         font-size: 1.4rem;
     }

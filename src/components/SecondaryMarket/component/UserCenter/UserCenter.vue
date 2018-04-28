@@ -12,30 +12,28 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
-	import navbar from '@/components/SecondaryMarket/common-component/HeaderSection'
+	import navbar from '@/components/common/HeaderSection'
 	import {UserData} from '@/common/util/getYibanData'
 	import profile from './subcomponent/profile'
 	import tabs from './subcomponent/tabs'
 	import marketFetch from '../../model/marketFetch'
 	export default {
 		name: 'UserCenter',
-		beforeCreate(){
-			console.log(HttpRequest())
-		},
 		data: function(){
 			let yibanInfo = UserData.getLocalUserData()
-			let request = marketFetch
-			let contacts = request.getJsonData('second/user/info',{})
+			marketFetch.getJsonData('/second/user/info',{}).then((result) => {
+				this.updateUserContacts(result)
+			})
 			return {
 				currentTab: 'favorite',
 				profile: {
 					nick: yibanInfo.userNick,
 					id: yibanInfo.userId,
 					avatar: yibanInfo.userHeader,
-					qq: '1231231230',
-					phone: '12010011000',
-					wechat: 'qweqweqweqq',
-					email: '12312312300@qq.com',
+					qq: '无',
+					phone: '无',
+					wechat: '无',
+					email: '无',
 				}
 				
 			}
@@ -51,6 +49,12 @@
 			},
 			back: function(){
 				this.$router.push('/second/homepage')
+			},
+			updateUserContacts: function(c){
+				this.profile.qq = c.qq ? c.qq : '无'
+				this.profile.wechat = c.wechat ? c.wechat : '无'
+				this.profile.phone = c.phone ? c.phone : '无'
+				this.profile.email = c.email ? c.email : '无'
 			}
 		},
 		components: {

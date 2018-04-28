@@ -5,10 +5,16 @@ input,textarea{
 textarea{
     font-size: 100%;
 }
+a{
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
 .float-left {
     float: left;
 }
-
+/*清除浮动*/
 .clear:after {
     content: '.';
     display: block;
@@ -24,27 +30,28 @@ textarea{
 .float-right {
     float: right;
 }
-
+/*文本居中*/
 .text-center {
     text-align: center;
 }
-
+/*div居中*/
 .box-center {
     margin: 0 auto;
 }
-
+/*绝对居中*/
 .absolute-center {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
-
+/*绝对水平居中*/
 .absolute-horizontal-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
+/*绝对垂直居中*/
 .absolute-vertical-center {
     position: absolute;
     top: 50%;
@@ -52,6 +59,7 @@ textarea{
 }
 
 /*使用方法：再p标签加上改类名并配置line height和height属性，实例已给出*/
+/*多行文本溢出补齐....文本*/
 .overflow-omit {
     position: relative;
     /*line-height: 1rem;*/

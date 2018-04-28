@@ -6,14 +6,11 @@ import router from './router/index.js'
 import './style/rest.css'
 import './style/common-style.css'
 // import './common/index'
-// import HttpRequest from "./common/util/HttpRequest"
-//
-// Vue.config.productionTip = false
-// new HttpRequest('').getTextData('http://localhost:8089/#/')
-//     .then(json => {
-//         console.log(json);
-//     });
 
+/**
+ * @namespace require
+ * @namespace fetch
+ */
 new Vue({
     el: '#app',
     router,

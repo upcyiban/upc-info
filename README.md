@@ -16,9 +16,10 @@
     4>  编写代码，测试完善，获取分支更新,进行项目打包并运行,确认无误后<br/>
     ```
         git add -A & git commit -m '1'
-        git fetch yiban & git merge yiban/master<br/>
-        npm run run-build<br/>
-        git push origin master<br/>
+        git fetch yiban & git merge yiban/master
+        git status
+        npm run run-build
+        git push origin master
     ```
     5>  确保没有修改common包中的代码，或是修改了[看云](https://www.kancloud.cn/lei1142908626/upc-info/490131)并且在中更新了接口文档后做PR也就是 pull request<br/>
 
