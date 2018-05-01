@@ -20,12 +20,12 @@ class HttpRequest {
 
     _getData (url, body) {
         url += '?Authorization=' + UserData.getLocalToken()
+        console.log(UserData.getLocalToken() ,  url)
         for (let key in body) {
             if (body.hasOwnProperty(key)) {
                 url += key + '=' + body[key] + '&'
             }
         }
-        url = url.split('').splice(0, url.length - 1).join('')
         url = this.commonUrl + url
         console.log('get method', url)
         return fetch(url, {

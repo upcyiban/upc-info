@@ -1,5 +1,5 @@
 <template>
-    <div class="HomePage">
+    <div class="HomePage" >
         <header-section :title='title' :yibanAuth="yibanAuth">物品详情</header-section>
         <manager-header style="margin: 5%" :imgSrc="this.serData.userHeader">
 
@@ -32,12 +32,12 @@
 
 
         <hr style="margin:5%;color: #999898">
-        <div style="margin:3%;position:fixed;bottom:-11px;background-color: white;width: 100%;" class="foot">
-            <img id="myimage" @click="change" style="height: 10%" :src="img" alt="">
+        <div style="position:fixed;bottom: 0px; background-color: white;width: 100%;height: 8%" class="foot">
+            <img id="myimage" @click="change" style="height:74%" :src="img" alt="">
             <h4 style="display:inline">收藏</h4>
             <img style="display:inline" src="./media/comm.png" alt="">
             <h4 style="display:inline">评论</h4>
-            <div style="background-color:red;display: inline;position: fixed;right: 20px;bottom: 10px;"><button>我想要</button></div>
+            <div style="background-color:red;display: inline;position: fixed;right: 20px;bottom: 10px;"><button @click="Buy">我想要</button></div>
         </div>
 
 
@@ -54,14 +54,20 @@
     import MangerDetails from '../../common-component/ManagerDetails.vue'
     import  coll2 from './media/coll2.png'
     import  coll from './media/coll.png'
-    import yibanAuth from "../../model/getYibanVq";
-    import MarketFetch from "../../model/marketFetch";
-    let a=MarketFetch.getJsonData("/second/user/info",{})
+    import yibanAuth from "../../model/getYibanVq"
+    import MarketFetch from "../../model/marketFetch"
+
+
+
 
     export default {
         name: 'index',
 
 
+        mounted()
+        {
+            MarketFetch.getJsonData("/second/user/info").then((result)=>this.Headerupdate(result))
+        },
         data () {
             let userData = UserData.getLocalUserData()
 
@@ -88,7 +94,7 @@
 
                 var element
                 element=document.getElementById('myimage')
-                console.log(this.img)
+
                 if (this.img == coll)
                 {
                     this.img=coll2
@@ -99,7 +105,18 @@
                    this.img=coll
 
                 }
+            },
+            Buy:function () {
+                alert("本商品仅限vip用户购买")
+
+            },
+            Headerupdate:function (result)
+            {
+                result.forEach()
+
+
             }
+
 
         }
 
