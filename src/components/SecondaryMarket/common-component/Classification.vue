@@ -46,7 +46,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .Classification {
         font-size: 0.7rem;
         color: #D7D7D7;

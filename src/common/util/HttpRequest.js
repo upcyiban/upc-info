@@ -59,17 +59,22 @@ class HttpRequest {
     _postData (url, body) {
         this.fetchBefore && this.fetchBefore()
         url += '?Authorization=' + UserData.getLocalToken()
+
         let fd = new FormData()
-        for (let key in body) {
-            if (body.hasOwnProperty(key)) {
-                fd.append(key, body[key])
+        if (body instanceof FormData) {
+            fd = body
+        } else {
+            for (let key in body) {
+                if (body.hasOwnProperty(key)) {
+                    fd.append(key, body[key])
+                }
             }
         }
         console.log('POST method' , this.commonUrl+url)
         console.log('formData' , body)
         return fetch(this.commonUrl + url, {
             method: 'post',
-            body, fd,
+            body: fd,
             // 后端跨域不允许携带cookie？等到后端支持跨域携带cookie以后取消掉改注释
             // credentials: "include"
         }).catch(r => {

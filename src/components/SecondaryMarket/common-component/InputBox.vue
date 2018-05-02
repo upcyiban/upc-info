@@ -23,7 +23,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .InputBox {
         position: relative;
         height: 120px;

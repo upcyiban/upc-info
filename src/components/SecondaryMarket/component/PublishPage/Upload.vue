@@ -23,7 +23,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .Upload {
         display: inline-block;
         background-color: #D7D7D7;

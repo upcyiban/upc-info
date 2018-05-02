@@ -24,7 +24,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .TextBox {
         position: relative;
         padding-top: 0.5rem;

@@ -24,7 +24,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .ManagerDiscuss {
     }
 

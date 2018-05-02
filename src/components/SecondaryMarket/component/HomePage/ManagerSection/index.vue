@@ -42,7 +42,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .ManagerSection {
         padding: 0 20px;
     }

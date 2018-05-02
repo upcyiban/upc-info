@@ -32,7 +32,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .UserBox {
         height: 3.57rem;
     }
