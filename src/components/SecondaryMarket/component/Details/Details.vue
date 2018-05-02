@@ -8,11 +8,9 @@
 
         <hr style="margin:5%;color: #999898">
         <div style="width: 90%;text-align: center;margin: 5%;line-height:20px" class="Language">
-            <h5>澳大利亚不但环境优美而且景色秀丽,夏不酷暑、冬不寒
-                冷,日照充足,雨量丰沛。接下来澳大利亚频道就与大家分
-                享澳大利亚风景图片,澳大利亚风景名胜等唯美图片,一
-            </h5>
-              </div>
+            {{Intro}}
+
+        </div>
        <div class="imgs">
            <img style="width:90%;margin: 5%" :src="this.serData.userHeader" alt="">
            <img style="width:90%;margin: 5%" src="http://img02.fs.yiban.cn/8574001/avatar/user/200" alt="">
@@ -48,7 +46,7 @@
 
     import {UserData} from '../../../../common/util/getYibanData'
     import HeaderSection from '../../../common/HeaderSection'
-    import ManagerHeader from '.././ManagerHeader.vue'
+    import ManagerHeader from '../../common-component/ManagerHeader.vue'
     import MangerDetails from '../../common-component/ManagerDetails.vue'
     import  coll2 from './media/coll2.png'
     import  coll from './media/coll.png'
@@ -70,7 +68,9 @@
                 console.log(result.ybhead)
                 let userData = UserData.getLocalUserData()
                 userData.userHeader = result.ybhead
-                console.log(userData)
+                userData.userName = result.username
+                userData.userId = result.userid
+                console.log(result)
                 this.serData = userData
             })
         },
@@ -81,6 +81,7 @@
 
 
             return {
+                Intro:"sdafsd",
                 serData:userData,
                 title:'物品详情',
                 img:coll,
@@ -108,7 +109,7 @@
 
                 }
             },
-            Buy:function () {
+            Buy(){
                 alert("本商品仅限vip用户购买")
 
             },
