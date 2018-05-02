@@ -25,7 +25,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .header {
         background-color: #189FD9;
         text-align: center;

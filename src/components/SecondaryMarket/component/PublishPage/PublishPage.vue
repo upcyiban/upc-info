@@ -106,7 +106,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .PublishPage {
         max-width: 800px;
     }

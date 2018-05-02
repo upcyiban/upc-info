@@ -81,7 +81,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .HomePage {
         font-size: 1rem;
         max-width: 800px;
