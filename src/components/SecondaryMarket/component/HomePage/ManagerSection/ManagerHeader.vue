@@ -23,6 +23,9 @@
         props: ['userData'],
         data () {
             return {}
+        },
+        created() {
+            console.log('213213' , this._props.userData)
         }
     }
     export default ManagerHeader

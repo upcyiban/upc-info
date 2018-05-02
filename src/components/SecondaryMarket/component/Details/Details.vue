@@ -1,7 +1,7 @@
 <template>
     <div class="HomePage" >
         <header-section :title='title' :yibanAuth="yibanAuth">物品详情</header-section>
-        <manager-header style="margin: 5%" :imgSrc="this.serData.userHeader">
+        <manager-header style="margin: 5%" :userData="serData">
 
 
         </manager-header>
@@ -47,8 +47,8 @@
 
 
     import {UserData} from '../../../../common/util/getYibanData'
-    import  HeaderSection from '../../../common/HeaderSection'
-    import ManagerHeader from '../../common-component/ManagerHeader.vue'
+    import HeaderSection from '../../../common/HeaderSection'
+    import ManagerHeader from '.././ManagerHeader.vue'
     import MangerDetails from '../../common-component/ManagerDetails.vue'
     import  coll2 from './media/coll2.png'
     import  coll from './media/coll.png'
@@ -66,12 +66,17 @@
 
         mounted()
         {
-            let back=MarketFetch.getJsonData("/second/user/info").then((result)=>this.Headerupdate(result))
-         console.log(back)
+            MarketFetch.getJsonData("/second/user/info").then((result)=>{
+                console.log(result.ybhead)
+                let userData = UserData.getLocalUserData()
+                userData.userHeader = result.ybhead
+                console.log(userData)
+                this.serData = userData
+            })
         },
         data () {
             let userData = UserData.getLocalUserData()
-
+            console.log(userData)
 
 
 
@@ -92,11 +97,7 @@
         methods:{
             change()
             {
-
-                var element
-                element=document.getElementById('myimage')
-
-                if (this.img == coll)
+                if (this.img === coll)
                 {
                     this.img=coll2
 
