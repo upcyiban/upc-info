@@ -1,6 +1,9 @@
 import HttpRequest from "./HttpRequest"
 import {filePrefix} from "../../components/SecondaryMarket/model/marketFetch"
 
+/**
+ * 上传文件是没有加载中动态图功能的API
+ */
 class UploadFile {
     uploadUrl = '/upload/file'
     httpRequest

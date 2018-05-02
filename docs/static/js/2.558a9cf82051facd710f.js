@@ -1,2 +1,0 @@
-webpackJsonp([2],{arv4:function(t,e,s){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n={render:function(){this.$createElement;this._self._c;return this._m(0)},staticRenderFns:[function(){var t=this.$createElement,e=this._self._c||t;return e("div",{staticClass:"Discuss"},[e("p",[this._v("Discuss组件11111")])])}]};var c=s("VU/8")({name:"Discuss",data:function(){return{}}},n,!1,function(t){s("clv3")},"data-v-2895d9ce",null);e.default=c.exports},clv3:function(t,e){}});
-//# sourceMappingURL=2.558a9cf82051facd710f.js.map

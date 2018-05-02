@@ -1,18 +1,22 @@
 <template>
-    <div class="InputBox">
+    <div class="InputBox" @change="input">
         <label>
-            <input :type="type" :class="classes" :placeholder="placeholder">
+            <input :type="type" :class="classes" :name="dataKey"
+                   :placeholder="placeholder" :value="inputValue">
             <!--<span class="absolute-vertical-center">{{placeholder}}</span>-->
         </label>
     </div>
 </template>
 
 <script>
+    import userInput from "./mixins/UserInput"
     export default {
         name: 'InputBox',
-        props: ['type' , 'placeholder' , 'classes'],
+        mixins: [userInput],
+        props: ['type' , 'placeholder' , 'classes' , 'value' , 'dataKey'],
         data () {
             return {
+                inputValue: ''
             }
         }
     };
@@ -38,5 +42,26 @@
         line-height: 1.5rem;
         font-size: 1.5rem;
         border-bottom: 1px solid #CECDCE;
+    }
+
+    .InputBox input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color:    #8D8788;
+        font-size: 1rem;
+        font-family: 黑体;
+    }
+    .InputBox input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #8D8788;
+        font-size: 1rem;
+        font-family: 黑体;
+    }
+    .InputBox input::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #8D8788;
+        font-size: 1rem;
+        font-family: 黑体;
+    }
+    .InputBox input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color:    #8D8788;
+        font-size: 1rem;
+        font-family: 黑体;
     }
 </style>
