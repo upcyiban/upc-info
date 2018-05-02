@@ -20,24 +20,15 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
+	import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
 	import confirmBox from './shared/confirmbox.vue'
 	export default {
 		name: 'history',
 		components: {
 			'confirmbox': confirmBox
 		},
-		mounted: function(){
-			this.history = [
-				{
-					publishid: '123123',
-					img: 'https://chrome-apps-doc2.appspot.com/trunk/extensions/examples/api/idle/idle_simple/sample-128.png',
-					name: '宝贝xxx',
-					price: '19',
-					commentnum: 2,
-					collectnum: 3,
-					beforeDelete: false
-				}
-			]
+		mounted() {
+			marketFetch.getJsonData('/secondhand/browse/historyArticle',{}).then((result) => this.updateHostory(result))
 		},
 		data: function(){
 			return {
@@ -55,6 +46,9 @@
 			confirmDelete: function(index){
 				//requestdelete
 				this.history.splice(index,1)
+			},
+			updateHostory: function(){
+
 			}
 		},
 		props: ['userid']

@@ -5,7 +5,7 @@
 				<img class="descimg" :src="item.img">
 				<div class="desc">
 					<p class="title">{{ item.name }}</p>
-					<p class="price">￥{{ item.price }}</p>
+					<p class="price">{{ item.price }}</p>
 					<p class="date">{{ item.date }}</p>
 				</div>
 				<div class="button">
@@ -19,28 +19,21 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
+	import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
 	import confirmBox from './shared/confirmbox.vue'
 	export default {
 		name: 'favorite',
 		components: {
 			'confirmbox': confirmBox
 		},
-		mounted: function(){
-			this.items = [
-				{
-					id: '12345',
-					url: 'http://example.com',
-					img: 'https://chrome-apps-doc2.appspot.com/trunk/extensions/examples/api/idle/idle_simple/sample-128.png',
-					name: '宝贝xxx',
-					price: '19',
-					date: '三天前收藏',
-					beforeDelete: false
-				}
-			]
+		mounted() {
+			marketFetch.getJsonData('/secondhand/collention/usercollection',{}).then((result) => this.updateFavorite(result))
 		},
 		data: function(){
+			var dict = new Map([['id','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
 			return {
-				items: []
+				items: [],
+				dict: dict
 			}
 		},
 		methods: {
@@ -53,6 +46,17 @@
 			confirmDelete: function(index){
 				//request delete
 				this.items.splice(index,1)
+			},
+			updateFavorite: function(items){
+				//item has no img date and url
+				let tmpitem = {}
+				items.forEach((item,index,items) =>{
+					this.dict.forEach((from,to,set) => {
+						if(item.hasOwnProperty(from)){tmpitem[to] = item[from] ? item[from] : ''}
+						tmpitem.beforeDelete = false
+					})
+					this.items.push(tmpitem)
+				})
 			}
 		},
 		props: ['userid']

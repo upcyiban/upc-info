@@ -22,8 +22,9 @@
 		data: function(){
 			let yibanInfo = UserData.getLocalUserData()
 			marketFetch.getJsonData('/second/user/info',{}).then((result) => {
-				this.updateUserContacts(result)
+				this.updateUserInfo(result)
 			})
+			var dict = new Map([['id','userId'],['nick','userNick'],['avatar','userAvatar'],['qq','qq'],['wechat','wechat'],['phone','phone'],['email','email']])
 			return {
 				currentTab: 'favorite',
 				profile: {
@@ -34,8 +35,8 @@
 					phone: '无',
 					wechat: '无',
 					email: '无',
-				}
-				
+				},
+				dict: dict
 			}
 		},
 		computed: {
@@ -50,12 +51,11 @@
 			back: function(){
 				this.$router.push('/second/homepage')
 			},
-			updateUserContacts: function(c){
-				this.profile.qq = c.qq ? c.qq : '无'
-				this.profile.wechat = c.wechat ? c.wechat : '无'
-				this.profile.phone = c.phone ? c.phone : '无'
-				this.profile.email = c.email ? c.email : '无'
-			}
+			updateUserInfo: function(i){
+				this.dict.forEach((from,to,set) => {
+					if(i.hasOwnProperty(from))this.profile[to] = i[from] ? i[from] : '无'
+				})
+			},
 		},
 		components: {
 			'navbar': navbar,
