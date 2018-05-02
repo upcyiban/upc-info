@@ -13,8 +13,8 @@
 </template>
 
 <script>
-    import ManagerHeader from './ManagerHeader.vue'
-    import ManagerDetails from './ManagerDetails.vue'
+    import ManagerHeader from '../../../common-component/ManagerHeader.vue'
+    import ManagerDetails from '../../../common-component/ManagerDetails.vue'
     import ManagerReply from './ManagerReply.vue'
     export default {
         name: 'index',
