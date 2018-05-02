@@ -10,7 +10,7 @@
             <label>
                 <input type="text" autofocus/>
             </label>
-            <div class="placeholder absolute-center">
+            <div class="absolute-center">
                 <p>搜索宝贝</p>
             </div>
         </div>
@@ -59,8 +59,8 @@
         data () {
             let userData = UserData.getLocalUserData()
             return {
-                find: require('./media/find.png'),
-                user: require('./media/user.png'),
+                find: require('../../media/find.png'),
+                user: require('../../media/user.png'),
                 managerSectionList: [
                     {
                         userData: userData,

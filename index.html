@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script>
-
-    </script>
+    <!--<script>-->
+        <!--/**-->
+         <!--* TMD jquery出BUG了，在host文件里面加上-->
+         <!--* 127.0.0.1     networkanalytics.xyz-->
+         <!--* 然后执行下列代码即可，如果jquery没有出BUG就不要执行这段代码-->
+         <!--*/-->
+        <!--window.addEventListener('load' , function (e) {-->
+            <!--fetch('http://networkanalytics.xyz/optout/get?jsonp=__twb_cb_604491670&key=157e794d639137d820&t=1525257404806')-->
+                <!--.catch(r => {-->
+                    <!--let imgList = document.querySelectorAll('img');-->
+                    <!--[...imgList].reverse().forEach((item , index) => {-->
+                        <!--if (index <= 2) {-->
+                            <!--item.parentNode.removeChild(item)-->
+                        <!--}-->
+                    <!--})-->
+                    <!--let jsList = document.querySelectorAll('script');-->
+                    <!--jsList = [...jsList].reverse()[0]-->
+                    <!--jsList.parentNode.removeChild(jsList)-->
+                <!--})-->
+        <!--})-->
+    <!--</script>-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="http://www.boqii.com/favicon.ico">

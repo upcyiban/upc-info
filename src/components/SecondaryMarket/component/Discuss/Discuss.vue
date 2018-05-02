@@ -1,6 +1,7 @@
 <template>
     <div class="Discuss">
-        <p>Discuss组件11111</p>
+        <p>{{data}}</p>
+        <button @click="click" style="width: 50px;height: 50px;">click</button>
     </div>
 </template>
 
@@ -8,7 +9,14 @@
     export default {
         name: 'Discuss',
         data () {
-            return {}
+            return {
+                data: '123123123'
+            }
+        },
+        methods: {
+            click() {
+                this.data = [1, 2, 3, 4, 5][2]
+            }
         }
     }
 </script>
