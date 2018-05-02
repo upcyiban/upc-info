@@ -1,4 +1,4 @@
-import fetchListen from "../../SecondaryMarket/common-component/util/fetchListen"
+import fetchListen from "../../../common/util/fetchListen"
 
 function loading (httpRequest) {
     return {
