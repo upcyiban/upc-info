@@ -14,18 +14,21 @@
                 <p>搜索宝贝</p>
             </div>
         </div>
-        <hr>
+        <hr style="border: 1px solid #EBEBEB;border-bottom: none">
         <br>
         <div v-for="item in managerSectionList">
-            <manager-section class="bottom-style"
-                             :userData="item.userData"
-                             :managerImage="item.managerImage"
-            ></manager-section>
+            <router-link :to="`/second/manager/${item.managerData.id}`" style="display: block;">
+                <manager-section class="bottom-style"
+                                 :userData="item.userData"
+                                 :managerImage="item.managerImage"
+                                 :managerData="item.managerData"
+                ></manager-section>
+            </router-link>
         </div>
 
         <div class="footer">
             <ul class="clear">
-                <li class="float-left">
+                <li class="float-left" @click="backTop">
                     <img :src="find" >
                     <p>发现</p>
                 </li>
@@ -53,14 +56,19 @@
     import {UserData} from "../../../../common/util/getYibanData"
     import HeaderSection from '../../../common/HeaderSection.vue'
     import yibanAuth from "../../model/getYibanVq"
+    import updateData from "../../../common/mixins/UpdateData"
+    import loading from "../../../common/mixins/loading"
+    import marketFetch from "../../model/marketFetch"
+    import getManagerList from "../../fetch/getManagerList"
 
     export default {
         name: 'HomePage',
+        mixins: [updateData , loading(marketFetch)],
         data () {
             let userData = UserData.getLocalUserData()
             return {
-                find: require('../../media/find.png'),
-                user: require('../../media/user.png'),
+                find: require('../../media/findOn.png'),
+                user: require('../../media/userOff.png'),
                 managerSectionList: [
                     {
                         userData: userData,
@@ -71,11 +79,18 @@
             }
         },
         created() {
-
+            getManagerList(this).then(data => {
+                this.managerSectionList = data
+            })
         },
         components: {
             ManagerSection,
             HeaderSection
+        },
+        methods: {
+            backTop() {
+                window.scrollTo(0 , 0)
+            }
         }
     }
 </script>
@@ -88,19 +103,10 @@
         margin: 0 auto;
     }
 
-    .HomePage hr {
-        background-color: #E3E3E3;
-        color: red;
-        height: 1px;
-        line-height: 1px;
-        font-size: 0;
-        border: none;
-    }
-
     .HomePage .bottom-style {
         margin-bottom: 5px;
         padding-bottom: 15px;
-        border-bottom: 10px solid #D5D5D5;
+        border-bottom: 10px solid #EBEBEB;
     }
 
     .HomePage .search {
