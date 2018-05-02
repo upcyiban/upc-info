@@ -5,6 +5,7 @@
 
 
         </manager-header>
+
         <hr style="margin:5%;color: #999898">
         <div style="width: 90%;text-align: center;margin: 5%;line-height:20px" class="Language">
             <h5>澳大利亚不但环境优美而且景色秀丽,夏不酷暑、冬不寒
@@ -39,14 +40,11 @@
             <h4 style="display:inline">评论</h4>
             <div style="background-color:red;display: inline;position: fixed;right: 20px;bottom: 10px;"><button @click="Buy">我想要</button></div>
         </div>
-
-
     </div>
-
-
 </template>
 
 <script>
+
 
     import {UserData} from '../../../../common/util/getYibanData'
     import  HeaderSection from '../../../common/HeaderSection'
@@ -60,13 +58,16 @@
 
 
 
+
+
     export default {
         name: 'index',
 
 
         mounted()
         {
-            MarketFetch.getJsonData("/second/user/info").then((result)=>this.Headerupdate(result))
+            let back=MarketFetch.getJsonData("/second/user/info").then((result)=>this.Headerupdate(result))
+         console.log(back)
         },
         data () {
             let userData = UserData.getLocalUserData()
@@ -112,7 +113,8 @@
             },
             Headerupdate:function (result)
             {
-                result.forEach()
+                console.log("");
+                return 0;
 
 
             }

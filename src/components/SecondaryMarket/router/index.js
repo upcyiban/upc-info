@@ -20,4 +20,6 @@ const SecondaryMarket = [
         component: PublishPage
     }
 ]
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
 export default SecondaryMarket

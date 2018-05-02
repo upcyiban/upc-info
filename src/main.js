@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router/index.js'
 import './style/rest.css'
 import './style/common-style.css'
+import $ from 'jquery'
 // import './common/index'
 
 /**
