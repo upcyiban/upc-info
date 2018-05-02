@@ -4,11 +4,24 @@ import {UserData, YibanAuth} from "./getYibanData"
 class HttpRequest {
 
     commonUrl = commonUrl
+    fetchBefore
+    fetchAfter
+    fetchError = []
 
-    constructor (commonUrl) {
+    constructor (commonUrl , fetchBefore , fetchAfter , fetchError) {
         this.commonUrl = (commonUrl !== null && commonUrl !== undefined) ?
             commonUrl : this.commonUrl
+        this.fetchBefore = fetchBefore
+        this.fetchAfter = fetchAfter
+        this.fetchError.push((r) => {
+            window.r = r
+            if (r.toString() === 'TypeError: Failed to fetch') {
+                alert('请检查网络链接')
+            }
+        })
+        fetchError && fetchError.forEach(item => this.fetchError.push(item))
     }
+
 
     /**
      * @namespace fetch
@@ -19,8 +32,9 @@ class HttpRequest {
      */
 
     _getData (url, body) {
-        url += '?Authorization=' + UserData.getLocalToken()
         console.log(UserData.getLocalToken() ,  url)
+        this.fetchBefore && this.fetchBefore()
+        url += '?Authorization=' + UserData.getLocalToken()
         for (let key in body) {
             if (body.hasOwnProperty(key)) {
                 url += key + '=' + body[key] + '&'
@@ -32,10 +46,18 @@ class HttpRequest {
             method: 'get',
             // 后端跨域不允许携带cookie？等到后端支持跨域携带cookie以后取消掉改注释
             // credentials: "include"
+        }).catch(r => {
+            this.fetchError.forEach(item => {
+                item(r)
+            })
+        }).then(data => {
+            this.fetchAfter && this.fetchAfter()
+            return data
         })
     }
 
     _postData (url, body) {
+        this.fetchBefore && this.fetchBefore()
         url += '?Authorization=' + UserData.getLocalToken()
         let fd = new FormData()
         for (let key in body) {
@@ -43,15 +65,27 @@ class HttpRequest {
                 fd.append(key, body[key])
             }
         }
+        console.log('POST method' , this.commonUrl+url)
+        console.log('formData' , body)
         return fetch(this.commonUrl + url, {
             method: 'post',
             body, fd,
             // 后端跨域不允许携带cookie？等到后端支持跨域携带cookie以后取消掉改注释
             // credentials: "include"
+        }).catch(r => {
+            this.fetchError.forEach(item => {
+                item(r)
+            })
+        }).then(data => {
+            this.fetchAfter && this.fetchAfter()
+            return data
         })
     }
 
     getJsonData (url, body) {
+        /**
+         * @namespace r.json
+         */
         return this._getData(url, body).then(r => {
             return r.json()
         })
