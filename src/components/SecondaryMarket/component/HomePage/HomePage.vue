@@ -16,7 +16,7 @@
             </router-link>
         </div>
 
-        <div class="footer">
+        <div class="footer absolute-horizontal-center">
             <ul class="clear">
                 <li class="float-left" @click="backTop">
                     <img :src="find" >
@@ -61,12 +61,15 @@
                 find: require('../../media/findOn.png'),
                 user: require('../../media/userOff.png'),
                 managerSectionList: [],
-                managerList: []
+                managerList: [],
+                pageData: {}
             }
         },
         created() {
             this.getManagerList().then(data => {
-                this.managerSectionList = data
+                this.managerList = data.managerList
+                this.pageData = data.pageData
+                console.log(this.pageData , this.managerList)
                 this.showManagerList()
             })
         },
@@ -80,7 +83,6 @@
             backTop() {
                 window.scrollTo(0 , 0)
             },
-            getManagerList,
             showManagerList() {
                 this.managerList = this.managerSectionList
             },
@@ -93,7 +95,8 @@
                 } else {
                     console.log(e)
                 }
-            }
+            },
+            getManagerList
         }
     }
 </script>
@@ -115,7 +118,10 @@
     .HomePage .footer {
         position: fixed;
         width: 100%;
+        max-width: 800px;
         border-top: 1px solid #D5D5D5;
+        border-left: 1px solid #D5D5D5;
+        border-right: 1px solid #DAD7E0;
         font-size: 0.75rem;
         padding: 10px 0;
         bottom: 0;

@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
-import './style/rest.css'
-import './style/common-style.css'
+import './common/style/rest.css'
+import './common/style/common-style.css'
 
 /**
  * @namespace require
