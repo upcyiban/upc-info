@@ -39,9 +39,7 @@
 </template>
 
 <script>
-    /**
-     * @namespace require
-     */
+
     import Search from '../../common-component/Search.vue'
     import LoadImage from '../../../../common/components/LoadImage.vue'
     import ManagerSection from './ManagerSection/index.vue'

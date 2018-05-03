@@ -33,6 +33,11 @@
         height: 10rem;
     }
 
+    .ManagerDetails ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
     .ManagerDetails .big img {
         width: 14.2857rem;
         height: 10.7143rem;
