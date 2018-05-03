@@ -2,30 +2,17 @@
     <div class="HomePage">
         <header-section :title='title' :yibanAuth="yibanAuth">物品详情</header-section>
         <manager-header style="margin: 5%" :userData="serData">
-
-
         </manager-header>
-
         <hr style="margin:5%;color: #999898">
         <div style="width: 90%;text-align: center;margin: 5%;line-height:20px" class="Language">
-            {{intro}}
-
+            <h5>澳大利亚不但环境优美而且景色秀丽,夏不酷暑、冬不寒冷,日照充足,雨量丰沛。接下来澳大利
+                亚频道就与大家分享澳大利亚风景图片,澳大利亚风景名胜等唯美图片,一
+            </h5>
         </div>
         <div class="imgs">
-            <img v-for="img in " style="width:90%;margin: 5%" :src="this.serData.userHeader" alt="">
-
-
+            <img style="width:90%;margin: 5%" src="http://img02.fs.yiban.cn/8574001/avatar/user/200" alt="">
+            <img style="width:90%;margin: 5%" src="http://img02.fs.yiban.cn/8574001/avatar/user/200" alt=""?
         </div>
-        <hr style="margin:5%;color: #999898">
-
-
-        <div class="reply" style="margin-left:5%;margin: 10%;
-        height: 100%;
-        width: 5px;
-        border-radius: 5px;
-        background: #189FD9;"><h4 style="display: inline">&nbsp;&nbsp;Reply</h4></div>
-
-
         <hr style="margin:5%;color: #999898">
         <div style="position:fixed;bottom: 0px; background-color: white;width: 100%;height: 8%" class="foot">
             <img id="myimage" @click="change" style="height:74%" :src="img" alt="">
@@ -55,29 +42,14 @@
     import {marketFetch, yibanAuth} from "../../config/fetchUtil"
 
 
-
     export default {
         name: 'index',
-        mixins: [updateData , loading(marketFetch) , fetchVq(yibanAuth)],
-
-
-        mounted() {
-            marketFetch.getJsonData("/second/user/info").then((result) => {
-                let userData = {}
-                userData.userHeader = result.ybhead
-                userData.userName = result.username
-                userData.userId = result.userid
-                this.intro = result.username
-                this.serData = userData
-            })
-        },
+        mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth)],
 
         mounted() {
             marketFetch.getJsonData("/secondhand/browse/onearticle", {
                 'articleid': 1
             }).then((result) => {
-
-
             })
         },
 
@@ -90,49 +62,26 @@
             }
         },
         components: {
-
             HeaderSection,
             ManagerHeader,
             MangerDetails,
-
         },
         methods: {
             change() {
                 if (this.img === coll) {
                     this.img = coll2
 
-                }
-                else {
+                } else {
                     this.img = coll
-
                 }
-            },
-            Buy() {
-                alert("本商品仅限vip用户购买")
-
-            },
-            Headerupdate: function (result) {
-                console.log("");
-                return 0;
-
-
             }
-
-
         }
-
-
     }
-
 
 </script>
 
 
 <style scoped>
-    .UserBox {
-        height: 3.57rem;
-    }
-
     .UserBox ul {
         display: flex;
         justify-content: space-between;
@@ -189,6 +138,4 @@
         line-height: 40px;
         color: #FFF;
     }
-
-
 </style>

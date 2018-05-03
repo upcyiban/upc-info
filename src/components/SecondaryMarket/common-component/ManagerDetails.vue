@@ -1,5 +1,5 @@
 <template>
-    <div class="ManagerDetails">
+    <div class="ManagerDiscuss">
         <ul class="clear">
             <li class="float-left big" v-if="images.length === 1">
                 <img :src="images[0]">
@@ -24,21 +24,26 @@
 </script>
 
 
-<style scoped>
-    .ManagerDetails {
+<style>
+    .ManagerDiscuss {
     }
 
-    .ManagerDetails ul li img {
+    .ManagerDiscuss ul li img {
         width: 10rem;
         height: 10rem;
     }
 
-    .ManagerDetails .big img {
+    .ManagerDiscuss ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .ManagerDiscuss .big img {
         width: 14.2857rem;
         height: 10.7143rem;
     }
 
-    .ManagerDetails .describe {
+    .ManagerDiscuss .describe {
         line-height: 1rem;
         height: 2rem;
         margin: 1.1rem 0;
