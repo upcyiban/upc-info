@@ -10,13 +10,15 @@
 
 <script>
     import userInput from "./mixins/UserInput"
+    /**
+     * @namespace classes
+     */
     export default {
         name: 'InputBox',
         mixins: [userInput],
-        props: ['type' , 'placeholder' , 'classes' , 'value' , 'dataKey'],
+        props: ['type' , 'placeholder' , 'classes'],
         data () {
             return {
-                inputValue: ''
             }
         }
     };
