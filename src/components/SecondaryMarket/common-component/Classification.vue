@@ -1,9 +1,9 @@
 <template>
     <div class="Classification">
         <br>
-        <ul class="clear" @click="choose">
+        <ul class="clear">
             <li class="float-left"  v-for="(item , index) in classesList"
-                :data-index="index" :style="`${includes(index)}`">
+                :data-index="index" :style="`${includes(index)}`" @click="choose">
                 <span :data-index="index">{{item}}</span>
             </li>
         </ul>

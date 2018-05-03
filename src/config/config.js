@@ -10,4 +10,7 @@ const vqKey = 'verify_request'
  * @type {string}
  */
 const stateKey = 'state'
+
+
+
 export {commonUrl , yibanIdKey , vqKey , stateKey}

@@ -1,22 +1,12 @@
 <template>
     <div class="HomePage">
-        <header-section
-            title="中国石油大学二手市场物品交易社区"
-            :yibanAuth="yibanAuth"
-        >
+        <header-section>
             <p>中国石油大学二手市场物品交易社区</p>
         </header-section>
-        <div class="search box-center">
-            <label>
-                <input type="text" autofocus/>
-            </label>
-            <div class="absolute-center">
-                <p>搜索宝贝</p>
-            </div>
-        </div>
+        <search @focus="hiddenManagerList" @fetchSearch="fetchSearch"></search>
+        <load-image :src="loading" :loadState="loadState"></load-image>
         <hr style="border: 1px solid #EBEBEB;border-bottom: none">
-        <br>
-        <div v-for="item in managerSectionList">
+        <div v-for="item in managerList">
             <router-link :to="`/second/manager/${item.managerData.id}`" style="display: block;">
                 <manager-section class="bottom-style"
                                  :userData="item.userData"
@@ -52,44 +42,57 @@
     /**
      * @namespace require
      */
+    import Search from '../../common-component/Search.vue'
+    import LoadImage from '../../../../common/components/LoadImage.vue'
     import ManagerSection from './ManagerSection/index.vue'
-    import {UserData} from "../../../../common/util/getYibanData"
-    import HeaderSection from '../../../common/HeaderSection.vue'
-    import yibanAuth from "../../model/getYibanVq"
-    import updateData from "../../../common/mixins/UpdateData"
-    import loading from "../../../common/mixins/loading"
-    import marketFetch from "../../model/marketFetch"
+    import HeaderSection from '../../../../common/components/HeaderSection.vue'
+    import updateData from "../../../../common/mixins/UpdateData"
+    import loading from "../../../../common/mixins/loading"
+    import fetchVq from "../../../../common/mixins/fetchVq"
+    import {marketFetch, yibanAuth} from "../../config/fetchUtil"
     import getManagerList from "../../fetch/getManagerList"
 
     export default {
         name: 'HomePage',
-        mixins: [updateData , loading(marketFetch)],
+        mixins: [updateData , loading(marketFetch , this) , fetchVq(yibanAuth)],
         data () {
-            let userData = UserData.getLocalUserData()
             return {
+                title: '中国石油大学 二手市场',
                 find: require('../../media/findOn.png'),
                 user: require('../../media/userOff.png'),
-                managerSectionList: [
-                    {
-                        userData: userData,
-                        managerImage: [],
-                    }
-                ],
-                yibanAuth: yibanAuth
+                managerSectionList: [],
+                managerList: []
             }
         },
         created() {
-            getManagerList(this).then(data => {
+            this.getManagerList().then(data => {
                 this.managerSectionList = data
+                this.showManagerList()
             })
         },
         components: {
             ManagerSection,
-            HeaderSection
+            HeaderSection,
+            Search,
+            LoadImage
         },
         methods: {
             backTop() {
                 window.scrollTo(0 , 0)
+            },
+            getManagerList,
+            showManagerList() {
+                this.managerList = this.managerSectionList
+            },
+            hiddenManagerList() {
+                this.managerList = []
+            },
+            fetchSearch(e) {
+                if (!e || !e.value || e.value === '') {
+                    this.showManagerList()
+                } else {
+                    console.log(e)
+                }
             }
         }
     }
@@ -109,31 +112,9 @@
         border-bottom: 10px solid #EBEBEB;
     }
 
-    .HomePage .search {
-        height: 40px;
-        width: 95%;
-        color: #999898;
-        position: relative;
-        margin-bottom: 20px;
-        margin-top: 20px;
-        font-size: 0.75rem;
-    }
-
-    .HomePage .search input {
-        font-size: 0.75rem;
-    }
-
-    .HomePage .search input {
-        height: 100%;
-        width: 100%;
-        background-color: #E3E3E3;
-        border: none;
-        border-radius: 10px;
-        outline-style: none;
-    }
-
     .HomePage .footer {
-        position: sticky;
+        position: fixed;
+        width: 100%;
         border-top: 1px solid #D5D5D5;
         font-size: 0.75rem;
         padding: 10px 0;

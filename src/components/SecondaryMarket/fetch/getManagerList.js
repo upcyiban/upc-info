@@ -1,7 +1,6 @@
-function getManagerList (component) {
-    const fetch = component.fetch
+function getManagerList () {
+    const fetch = this.fetch
     return fetch.getJsonData('/secondhand/browse/article').then(json => {
-
         window.ima = json[0].imgurl
         return json.map(item => {
             /** @namespace item.userid */
@@ -16,9 +15,8 @@ function getManagerList (component) {
                     userId: item.userid,
                     userName: item.ybname,
                 },
-                articleId: item.id,
                 managerData: {
-                    managerId: item.id,
+                    id: item.id,
                     managerPrice: item.price,
                     createTime: item.createtime,
                     updateTime: item.updatetime,

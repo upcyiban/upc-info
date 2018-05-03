@@ -6,8 +6,6 @@ import router from './router/index.js'
 import './style/rest.css'
 import './style/common-style.css'
 
-// import './common/index'
-
 /**
  * @namespace require
  * @namespace fetch

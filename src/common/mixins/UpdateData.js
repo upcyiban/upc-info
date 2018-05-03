@@ -6,6 +6,7 @@
 const updateData = {
     methods: {
         updateData(e) {
+            console.log(e)
             this[e.key] = e.value
         }
     }
