@@ -11,9 +11,9 @@
             {{Intro}}
 
         </div>
-       <div class="imgs">
-           <img style="width:90%;margin: 5%" :src="this.serData.userHeader" alt="">
-           <img style="width:90%;margin: 5%" src="http://img02.fs.yiban.cn/8574001/avatar/user/200" alt="">
+       <div  class="imgs">
+           <img v-for="img in " style="width:90%;margin: 5%" :src="this.serData.userHeader" alt="">
+
 
 
 
@@ -52,6 +52,7 @@
     import  coll from './media/coll.png'
     import yibanAuth from "../../model/getYibanVq"
     import MarketFetch from "../../model/marketFetch"
+    import loading from "../../../common/mixins/loading"
 
 
 
@@ -62,7 +63,8 @@
         name: 'index',
 
 
-        mounted()
+
+       mounted()
         {
             MarketFetch.getJsonData("/second/user/info").then((result)=>{
                 console.log(result.ybhead)
@@ -70,13 +72,26 @@
                 userData.userHeader = result.ybhead
                 userData.userName = result.username
                 userData.userId = result.userid
+                Intro=result.username
                 console.log(result)
                 this.serData = userData
             })
         },
+
+      mounted()
+        {
+             MarketFetch.getJsonData("/secondhand/browse/onearticle",{
+                 'articleid':1
+             }).then((result)=>{
+
+
+
+        })
+      },
+
         data () {
             let userData = UserData.getLocalUserData()
-            console.log(userData)
+            console.log()
 
 
 
