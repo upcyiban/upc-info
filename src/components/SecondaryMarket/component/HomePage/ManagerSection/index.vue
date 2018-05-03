@@ -1,9 +1,9 @@
 <template>
     <div class="ManagerSection">
-        <manager-header :userData="userData"></manager-header>
-        <manager-details :images="managerImage" :describe="123132"></manager-details>
+        <manager-header :userData="userData" :managerPrice="managerData.managerPrice"></manager-header>
+        <manager-details :images="managerData.imgUrl" :describe="managerData.managerDetail"></manager-details>
         <manager-reply :replyList="managerReplyList"></manager-reply>
-        <hr>
+        <hr style="border: 1px solid #EBEBEB;border-bottom: none">
         <ul class="clear manager-footer">
             <li class="float-right">留言2</li>
             <li class="float-right">&nbsp;·&nbsp;</li>
@@ -18,7 +18,7 @@
     import ManagerReply from './ManagerReply.vue'
     export default {
         name: 'index',
-        props: ['userData' , 'managerImage'],
+        props: ['userData' , 'managerImage' , 'managerData'],
         data () {
             return {
                 managerReplyList: [
@@ -48,6 +48,9 @@
     }
     .ManagerSection .ManagerReply {
         margin: 10px 0;
+    }
+    .ManagerSection .manager-footer{
+        margin: 0;
     }
     .ManagerSection .manager-footer li {
         color: #B2B1B1;

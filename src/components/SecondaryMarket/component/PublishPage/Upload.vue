@@ -26,7 +26,7 @@
 <style scoped>
     .Upload {
         display: inline-block;
-        background-color: #D7D7D7;
+        background-color: #e0dfdf;
         position: relative;
     }
     .Upload input {

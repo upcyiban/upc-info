@@ -98,7 +98,7 @@
                     return
                 }
                 publishGoods(this).then(json => {
-                    console.log(json)
+                    this.$router.push({path: '/second/home-page'})
                 })
             }
         }
