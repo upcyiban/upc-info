@@ -1,4 +1,4 @@
-import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
+import marketFetch from '@/components/SecondaryMarket/config/fetchUtil'
 
 export default {
 	computeDate(timestamp) {

@@ -88,7 +88,7 @@ class HttpRequest {
         url += '?'
         for (let key in body) {
             if (body.hasOwnProperty(key)) {
-                url += '&' + key + '=' + body[key]
+                url += key + '=' + body[key] + '&'
             }
         }
         url += `Authorization=${UserData.getLocalToken()}`

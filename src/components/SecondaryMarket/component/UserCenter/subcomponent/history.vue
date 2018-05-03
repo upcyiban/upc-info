@@ -20,7 +20,7 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
-	import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
+	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/confirmbox.vue'
 	import util from './shared/util'
 	export default {

@@ -8,7 +8,7 @@
 						<p class="nick">{{ comment.nick }}</p>
 						<p class="time">{{ comment.time }}</p>
 					</div>
-					<p class="content">评论了你: {{ comment.content }}</p>
+					<p class="content">评论了: {{ comment.content }}</p>
 				</div>
 				<img class="descimg right" :src="comment.descimg" @click.stop="detail(index)">
 				<confirmbox v-if="comment.beforeDelete" @confirm="confirmDelete(index)" @cancel="comment.beforeDelete = false"></confirmbox>
@@ -20,7 +20,7 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
-	import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
+	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/confirmbox.vue'
 	import replyBox from './shared/replybox.vue'
 	import util from './shared/util'
@@ -108,6 +108,7 @@
 		width: 2.5rem;
 		float: left;
 		margin: 0.5rem;
+		border-radius: 2.5rem;
 	}
 	.comment .nick{
 		font-size: 1.25rem;

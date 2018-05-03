@@ -31,25 +31,25 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
-	import marketFetch from '../../model/marketFetch'
-	import navbar from '@/components/common/HeaderSection'
+	import {marketFetch,YibanAuth} from '@/components/SecondaryMarket/config/fetchUtil'
+	import navbar from '@/common/components/HeaderSection'
 	import {UserData} from '@/common/util/getYibanData'
 	import profile from './subcomponent/profile'
 	import tabs from './subcomponent/tabs'
+	import loadImg from '../../media/loading.gif'
 	export default {
 		name: 'UserCenter',
 		data: function(){
-			let yibanInfo = UserData.getLocalUserData()
 			marketFetch.getJsonData('/second/user/info',{}).then((result) => {
 				this.updateUserInfo(result)
 			})
-			var dict = new Map([['id','userId'],['nick','userNick'],['avatar','userAvatar'],['qq','qq'],['wechat','wechat'],['phone','phone'],['email','email']])
+			var dict = new Map([['id','userid'],['nick','username'],['avatar','ybhead'],['qq','qq'],['wechat','wechat'],['phone','phone'],['email','email']])
 			return {
 				currentTab: 'favorite',
 				profile: {
-					nick: yibanInfo.userNick,
-					id: yibanInfo.userId,
-					avatar: yibanInfo.userHeader,
+					nick: '加载中...',
+					id: '',
+					avatar: loadImg,
 					qq: '无',
 					phone: '无',
 					wechat: '无',
