@@ -13,10 +13,9 @@
     export default {
         name: 'TextBox',
         mixins: [userInput],
-        props: ['placeholder' , 'classes' , 'value' , 'dataKey'],
+        props: ['placeholder' , 'classes'],
         data () {
             return {
-                inputValue: ''
             }
         }
 
@@ -24,7 +23,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .TextBox {
         position: relative;
         padding-top: 0.5rem;

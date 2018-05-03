@@ -1,5 +1,3 @@
-import HttpRequest from "./HttpRequest"
-import {filePrefix} from "../../components/SecondaryMarket/model/marketFetch"
 
 /**
  * 上传文件是没有加载中动态图功能的API
@@ -7,9 +5,11 @@ import {filePrefix} from "../../components/SecondaryMarket/model/marketFetch"
 class UploadFile {
     uploadUrl = '/upload/file'
     httpRequest
+    filePrefix = 'http://yb.upc.edu.cn'
 
-    constructor (commonUrl , uploadUrl) {
-        this.httpRequest = new HttpRequest(commonUrl)
+    constructor (httpRequest , filePrefix , uploadUrl) {
+        this.httpRequest = httpRequest
+        filePrefix && (this.filePrefix = filePrefix)
         this.uploadUrl = (uploadUrl !== null && uploadUrl !== undefined) ?
             uploadUrl : this.uploadUrl
     }
@@ -30,12 +30,12 @@ class UploadFile {
         if (type === 'text') {
             return this.httpRequest.postTextData(this.uploadUrl , formData)
                 .then(filePath => {
-                    return `${filePrefix}/${filePath.data}`
+                    return `${this.filePrefix}/${filePath.data}`
                 })
         } else {
             return this.httpRequest.postJsonData(this.uploadUrl , formData)
                 .then(filePath => {
-                    return `${filePrefix}/${filePath.data}`
+                    return `${this.filePrefix}/${filePath.data}`
                 })
         }
     }

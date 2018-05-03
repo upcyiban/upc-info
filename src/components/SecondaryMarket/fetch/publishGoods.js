@@ -1,11 +1,11 @@
 
-function publishGoods (component) {
-    return component.fetch.postJsonData('/secondhand/publish/article' , {
-        'name': component.managerTitle,
-        'kind': JSON.stringify(component.chooseList),
-        'detail': component.managerMessage,
-        'imgurl': JSON.stringify(component.fileList),
-        'price': component.managerPrice,
+function publishGoods () {
+    return this.fetch.postJsonData('/secondhand/publish/article' , {
+        'name': this.managerTitle,
+        'kind': JSON.stringify(this.chooseList),
+        'detail': this.managerMessage,
+        'imgurl': JSON.stringify(this.fileList),
+        'price': this.managerPrice,
         'degree': '未添加崭新度'
     })
 }

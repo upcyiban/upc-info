@@ -55,7 +55,7 @@ class YibanAuth {
 
     refreshToken() {
         const tokenUtil = new Token(this.httpRequest)
-        tokenUtil.fetchTokenByeText(this.appName , this.device , this.getVq())
+        return tokenUtil.fetchTokenByText(this.appName , this.device , this.getVq())
     }
     getVqByUrl () {
         const locationUrl = window.location.href
@@ -68,6 +68,7 @@ class YibanAuth {
          * @namespace window.sessionStorage.yibanId
          */
         const paramList = getRequestParamList()
+        console.log(paramList)
         window.sessionStorage.yibanId = paramList[yibanIdKey]
         window.sessionStorage.vq = paramList[vqKey]
         window.location = window.localStorage.backUrl
@@ -80,21 +81,11 @@ class UserData {
 
     static haveLocalToken () {
         let token = window.sessionStorage.token
-        return token !== null && token !== undefined
+        return token !== null && token !== undefined && token !== 'null' && token !== 'undefined'
     }
 
     static getLocalToken () {
         return window.sessionStorage.token
-    }
-
-    static haveLocalUserData () {
-        /** @namespace window.localStorage.userData */
-        let yibanUser = window.localStorage.userData
-        return yibanUser !== null && yibanUser !== undefined && yibanUser !== ''
-    }
-
-    static getLocalUserData () {
-        return JSON.parse(window.localStorage.userData)
     }
 }
 

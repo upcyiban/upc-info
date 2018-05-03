@@ -3,19 +3,22 @@ class Token {
     constructor (httpRequest) {
         this.httpRequest = httpRequest
     }
-    fetchTokenByeText (appName , device , vq) {
+    fetchTokenByText (appName , device , vq) {
         const fd = new FormData();
         fd.append('appName' , appName)
         fd.append('vq' , vq)
         fd.append('device' , device)
-        return fetch(this.httpRequest.commonUrl+'/auth' , {
+        /**
+         * @namespace fetch
+         */
+        return fetch(this.httpRequest.commonUrl + '/auth' , {
             method : 'POST',
             body: fd
         }).then(token => {
-            window.a = token
             return token.json()
         }).then(json => {
             window.sessionStorage.token = json.token
+            return json.token
         })
     }
 }

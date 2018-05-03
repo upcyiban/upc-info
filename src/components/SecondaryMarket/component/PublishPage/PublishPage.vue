@@ -1,11 +1,9 @@
 <template>
     <div class="PublishPage box-center">
-        <header-section title="发布" :yibanAuth="yibanAuth">
+        <header-section>
             <p>发布</p>
         </header-section>
-        <div class="box-center text-center" v-if="showLoading">
-            <img :src="loading" alt="正在加载中" style="width: 133px;height: 80px">
-        </div>
+        <load-image :loadState="loadState" :src="loading"></load-image>
         <input-box type="text" placeholder="标题" @userInput="updateData" dataKey="managerTitle"
                    :value="managerTitle" class="input-box box-center"></input-box>
         <input-box type="text" placeholder="价格" @userInput="updateData" dataKey="managerPrice"
@@ -37,29 +35,29 @@
 </template>
 
 <script>
-    import HeaderSection from '../../../common/HeaderSection.vue'
+    import HeaderSection from '../../../../common/components/HeaderSection.vue'
     import InputBox from '../../common-component/InputBox.vue'
     import TextBox from '../../common-component/TextBox.vue'
     import Upload from './Upload.vue'
+    import LoadImage from '../../../../common/components/LoadImage.vue'
     import Classification from '../../common-component/Classification.vue'
-    import {uploadFile} from "../../model/marketFetch"
-    import yibanAuth from "../../model/getYibanVq"
-    import marketFetch from "../../model/marketFetch"
-    import updateData from "../../../common/mixins/UpdateData"
+    import updateData from "../../../../common/mixins/UpdateData"
     import publishGoods from "../../fetch/publishGoods"
-    import loading from "../../../common/mixins/loading"
+    import loading from "../../../../common/mixins/loading"
+    import fetchVq from "../../../../common/mixins/fetchVq"
+    import {marketFetch, yibanAuth , uploadFile} from "../../config/fetchUtil"
+    import getClassification from "../../common-component/mixins/getClassification"
 
     export default {
         name: 'PublishPage',
-        mixins: [updateData , loading(marketFetch)],
+        mixins: [updateData , loading(marketFetch , this) , fetchVq(yibanAuth) , getClassification],
         data () {
             return {
+                title: '发布',
                 managerPrice: '',
                 managerTitle: '',
                 managerMessage: '',
                 fileList: [],
-                yibanAuth: yibanAuth,
-                classesList: ['女装' , '男装' , '二手书籍'],
                 chooseList: []
             }
         },
@@ -68,15 +66,8 @@
             InputBox,
             TextBox,
             Upload,
-            Classification
-        },
-        created() {
-            this.fetch.getJsonData('/secondhand/browse/allkind')
-                .then(json => {
-                    this.classesList = json.map(item => {
-                        return item.name
-                    })
-                })
+            Classification,
+            LoadImage
         },
         methods: {
             addFile(fileElement) {
@@ -97,16 +88,17 @@
                     alert('请在价格框中输入数字')
                     return
                 }
-                publishGoods(this).then(json => {
-                    console.log(json)
+                this.publishGoods().then(json => {
+                    this.$router.push({path: '/second/home-page'})
                 })
-            }
+            },
+            publishGoods,
         }
     };
 </script>
 
 
-<style>
+<style scoped>
     .PublishPage {
         max-width: 800px;
     }
