@@ -79,6 +79,7 @@
 	}
 	.tab-view >>> .desc{
 		position: relative;
+		top: 0.25rem;
 		text-align: left;
 	}
 	.tab-view >>> .descimg{

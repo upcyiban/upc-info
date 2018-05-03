@@ -2,8 +2,8 @@
 	<transition name="showConfirmation">
 		<div class="confirm-box">
 			<p>确认删除？</p>
-			<button class="cfm btn" @mouseup.stop="confirm" @touchend="confirm">确认</button>
-			<button class="ccl btn" @click.stop="cancel" @touchend="cancel">取消</button>
+			<button class="cfm btn" @mouseup.stop="confirm" @touchend.stop="confirm">确认</button>
+			<button class="ccl btn" @click.stop="cancel" @touchend.stop="cancel">取消</button>
 		</div>
 	</transition>
 </template>
@@ -25,7 +25,7 @@
 <style scoped>
 	.confirm-box{
 		width: 40%;
-		height: 3rem;
+		height: 3.25rem;
 		background: #ffffff;
 		border: 1px solid #cfcfcf;
 		text-align: center;

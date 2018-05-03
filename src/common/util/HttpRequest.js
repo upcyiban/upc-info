@@ -36,7 +36,7 @@ class HttpRequest {
         url += '?Authorization=' + UserData.getLocalToken()
         for (let key in body) {
             if (body.hasOwnProperty(key)) {
-                url += key + '=' + body[key] + '&'
+                url += '&' + key + '=' + body[key]
             }
         }
         url = this.commonUrl + url

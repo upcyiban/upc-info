@@ -5,7 +5,7 @@
 				<img class="descimg" :src="item.img">
 				<div class="desc">
 					<p class="title">{{ item.name }}</p>
-					<p class="price">{{ item.price }}</p>
+					<p class="price">￥{{ item.price }}</p>
 					<p class="date">{{ item.date }}</p>
 				</div>
 				<div class="button">
@@ -21,6 +21,7 @@
 	import HttpRequest from '@/common/util/HttpRequest'
 	import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
 	import confirmBox from './shared/confirmbox.vue'
+	import util from './shared/util'
 	export default {
 		name: 'favorite',
 		components: {
@@ -49,13 +50,15 @@
 			},
 			updateFavorite: function(items){
 				//item has no img date and url
-				let tmpitem = {}
 				items.forEach((item,index,items) =>{
+					let tmp = {}
 					this.dict.forEach((from,to,set) => {
-						if(item.hasOwnProperty(from)){tmpitem[to] = item[from] ? item[from] : ''}
-						tmpitem.beforeDelete = false
+						if(item.hasOwnProperty(from)){tmp[to] = item[from] ? item[from] : ''}
+						tmp.beforeDelete = false
 					})
-					this.items.push(tmpitem)
+					tmp['img'] = util.firstImg(item['articleImg'])
+					tmp['date'] = util.computeDate(item['creatTime'])
+					this.items.push(tmp)
 				})
 			}
 		},

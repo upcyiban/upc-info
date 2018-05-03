@@ -20,53 +20,36 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
+	import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
 	import confirmBox from './shared/confirmbox.vue'
 	import replyBox from './shared/replybox.vue'
+	import util from './shared/util'
 	export default {
 		name: 'comment',
 		components: {
 			'replybox': replyBox,
 			'confirmbox': confirmBox,
 		},
-		mounted: function(){
-			this.comments = [
-				{
-					commentid: '112',
-					nick: '放肆 - ',
-					avatar: 'https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-256.png',
-					time: '13:17',
-					content: '宝贝还在吗',
-					descimg: 'https://chrome-apps-doc2.appspot.com/trunk/extensions/examples/api/idle/idle_simple/sample-128.png',
-					beforeDelete: false
-				},
-				{
-					commentid: '123',
-					nick: '放肆 - ',
-					avatar: 'https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-256.png',
-					time: '13:17',
-					content: '宝贝还在吗哈哈哈哈啊实打实的是大多数啊阿斯顿 阿斯顿啊实打实的十大师弟阿三啊啊额广泛大概是对方回到法国和电话',
-					descimg: 'https://chrome-apps-doc2.appspot.com/trunk/extensions/examples/api/idle/idle_simple/sample-128.png',
-					beforeDelete: false
-				}
-			]
+		mounted() {
+			marketFetch.getJsonData('/secondhand/browse/historyreview',{}).then((result) => this.updateComments(result))
 		},
 		data: function(){
+			var dict = new Map([['commentid','id'],['content','detail'],['nick','ybname'],['avatar','ybhead']])
 			return {
 				comments: [],
 				replyStatus: false,
-				replyTo: ''
+				replyTo: '',
+				dict: dict
 			}
 		},
 		methods: {
 			listenStart(index,event) {
-				console.log(event.timeStamp)
 				this.startTime = event.timeStamp
 			},
 			listenEnd: function(index,event){
-				console.log(event.timeStamp)
 				let delta = event.timeStamp - this.startTime
 				if(delta > 500)this.comments[index].beforeDelete = true
-				else if(delta > 100) this.replyComment(index)
+				else if(delta > 10) this.replyComment(index)
 			},
 			replyComment: function(index){
 				this.replyStatus = true
@@ -92,6 +75,23 @@
 				//go to details
 				this.$router.push('/')
 			},
+			updateComments(comments){
+				comments.forEach((comment,index,comments) => {
+					let tmp = {}
+					this.dict.forEach((from,to,dict) => {
+						if(comment.hasOwnProperty(from)){tmp[to] = comment[from] ? comment[from] : ''}
+					})
+					tmp['time'] = util.computeDate(comment['createtime'])
+					tmp['beforeDelete'] = false
+					tmp['descimg'] = this.requestImg(index,comment['id'])
+					this.comments.push(tmp)
+				})
+			},
+			requestImg(index,id) {
+				marketFetch.getJsonData('/secondhand/browse/onearticle',{articleid: id}).then((result) => {
+					this.comments[index].descimg = util.firstImg(result['imgurl'])
+				})
+			}
 		},
 		props: ['userid']
 	}
@@ -112,7 +112,7 @@
 	.comment .nick{
 		font-size: 1.25rem;
 		margin: 0;
-		padding: 0.5rem 0 0.75rem 0;
+		padding: 0.5rem 0;
 	}
 	.comment .time{
 		color: #9e9898;

@@ -22,17 +22,20 @@
 	import HttpRequest from '@/common/util/HttpRequest'
 	import marketFetch from '@/components/SecondaryMarket/model/marketFetch'
 	import confirmBox from './shared/confirmbox.vue'
+	import util from './shared/util'
 	export default {
 		name: 'history',
 		components: {
 			'confirmbox': confirmBox
 		},
 		mounted() {
-			marketFetch.getJsonData('/secondhand/browse/historyArticle',{}).then((result) => this.updateHostory(result))
+			marketFetch.getJsonData('/secondhand/browse/historyArticle',{}).then((result) => this.updateHistory(result))
 		},
 		data: function(){
+			var dict = new Map([['id','id'],['name','name'],['price','price'],['commentnum','reviews'],['collectnum','collections']])
 			return {
-				history: []
+				history: [],
+				dict: dict
 			}
 		},
 		methods: {
@@ -47,8 +50,16 @@
 				//requestdelete
 				this.history.splice(index,1)
 			},
-			updateHostory: function(){
-
+			updateHistory: function(records){
+				records.forEach((record,index,records) =>{
+					let tmp = {}
+					this.dict.forEach((from,to,set) => {
+						if(record.hasOwnProperty(from)){tmp[to] = record[from] ? record[from] : ''}
+					})
+					tmp.beforeDelete = false
+					tmp['img'] = util.firstImg(record['imgurl'])
+					this.history.push(tmp)
+				})
 			}
 		},
 		props: ['userid']
