@@ -13,10 +13,10 @@
 
 <script>
     import Classification from '../common-component/Classification.vue'
-    import updateData from "../../../common/mixins/UpdateData"
-    import getClassification from "./mixins/getClassification"
-    import {marketFetch} from "../config/fetchUtil"
-    import loading from "../../../common/mixins/loading"
+    import updateData from '../../../common/mixins/UpdateData'
+    import getClassification from './mixins/getClassification'
+    import {marketFetch} from '../config/fetchUtil'
+    import loading from '../../../common/mixins/loading'
 
     export default {
         name: 'Search',

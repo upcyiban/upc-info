@@ -4,6 +4,12 @@ function createItem (item) {
     /** @namespace item.createtime */
     /** @namespace item.ybname */
     /** @namespace item.userid */
+    /** @namespace item.isdeal */
+    /** @namespace item.collections */
+    /** @namespace item.imgurl */
+    /** @namespace item.detail */
+    /** @namespace item.name */
+    /** @namespace item.reviews */
     return {
         userData: {
             userHeader: item.ybhead,
@@ -16,7 +22,11 @@ function createItem (item) {
             createTime: item.createtime,
             updateTime: item.updatetime,
             imgUrl: JSON.parse(item.imgurl),
-            managerDetail: item.detail
+            managerDetail: item.detail,
+            collections: item.collections,
+            reviews: item.reviews,
+            name: item.name,
+            isDeal: item.isdeal
         }
     }
 }

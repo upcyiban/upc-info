@@ -12,7 +12,7 @@ const SecondaryMarket = [
         component: HomePage
     },
     {
-        path: '/second/details',
+        path: '/second/details/:articleId',
         component: Details
     },
     {

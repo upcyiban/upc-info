@@ -8,7 +8,7 @@
                 <img :src="item" v-if="index <= 1">
             </li>
         </ul>
-        <p class="describe overflow-omit"> {{this.describe}}</p>
+        <p class="describe overflow-omit"> {{describe}}</p>
 
     </div>
 </template>
@@ -38,6 +38,8 @@
         justify-content: space-between;
     }
 
+    .big{
+    }
     .ManagerDetails .big img {
         width: 14.2857rem;
         height: 10.7143rem;

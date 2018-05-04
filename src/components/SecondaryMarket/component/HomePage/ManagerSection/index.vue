@@ -5,9 +5,9 @@
         <manager-reply :replyList="managerReplyList"></manager-reply>
         <hr style="border: 1px solid #EBEBEB;border-bottom: none">
         <ul class="clear manager-footer">
-            <li class="float-right">留言2</li>
+            <li class="float-right">留言{{managerData.reviews}}</li>
             <li class="float-right">&nbsp;·&nbsp;</li>
-            <li class="float-right">收藏12</li>
+            <li class="float-right">收藏{{managerData.collections}}</li>
         </ul>
     </div>
 </template>

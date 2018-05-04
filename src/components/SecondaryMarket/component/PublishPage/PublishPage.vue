@@ -35,18 +35,18 @@
 </template>
 
 <script>
-    import HeaderSection from '../../../../common/components/HeaderSection.vue'
+    import HeaderSection from '../../common-component/HeaderSection.vue'
     import InputBox from '../../common-component/InputBox.vue'
     import TextBox from '../../common-component/TextBox.vue'
     import Upload from './Upload.vue'
     import LoadImage from '../../../../common/components/LoadImage.vue'
     import Classification from '../../common-component/Classification.vue'
-    import updateData from "../../../../common/mixins/UpdateData"
-    import publishGoods from "../../fetch/publishGoods"
-    import loading from "../../../../common/mixins/loading"
-    import fetchVq from "../../../../common/mixins/fetchVq"
-    import {marketFetch, yibanAuth , uploadFile} from "../../config/fetchUtil"
-    import getClassification from "../../common-component/mixins/getClassification"
+    import updateData from '../../../../common/mixins/UpdateData'
+    import publishGoods from '../../fetch/publishGoods'
+    import loading from '../../../../common/mixins/loading'
+    import fetchVq from '../../../../common/mixins/fetchVq'
+    import {marketFetch, yibanAuth , uploadFile} from '../../config/fetchUtil'
+    import getClassification from '../../common-component/mixins/getClassification'
 
     export default {
         name: 'PublishPage',

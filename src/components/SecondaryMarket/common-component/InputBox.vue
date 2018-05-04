@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import userInput from "./mixins/UserInput"
+    import userInput from './mixins/UserInput'
     /**
      * @namespace classes
      */

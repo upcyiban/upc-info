@@ -8,7 +8,7 @@
         <hr style="border: 1px solid #EBEBEB;border-bottom: none">
         <div v-for="page in pageList" :page-num="page.pageData.number">
             <div v-for="item in page.managerList">
-                <router-link :to="`/second/manager/${item.managerData.id}`" style="display: block;">
+                <router-link :to="`/second/details/${item.managerData.id}`" style="display: block;">
                     <manager-section class="bottom-style"
                                      :userData="item.userData"
                                      :managerImage="item.managerData.imgUrl"
@@ -48,13 +48,13 @@
     import Search from '../../common-component/Search.vue'
     import LoadImage from '../../../../common/components/LoadImage.vue'
     import ManagerSection from './ManagerSection/index.vue'
-    import HeaderSection from '../../../../common/components/HeaderSection.vue'
-    import updateData from "../../../../common/mixins/UpdateData"
-    import loading from "../../../../common/mixins/loading"
-    import fetchVq from "../../../../common/mixins/fetchVq"
-    import {marketFetch, yibanAuth} from "../../config/fetchUtil"
-    import getManagerList, {createItem} from "../../fetch/getManagerList"
-    import lazyLoad from "../../common-component/mixins/lazyLoad"
+    import HeaderSection from '../../common-component/HeaderSection.vue'
+    import updateData from '../../../../common/mixins/UpdateData'
+    import loading from '../../../../common/mixins/loading'
+    import fetchVq from '../../../../common/mixins/fetchVq'
+    import {marketFetch, yibanAuth} from '../../config/fetchUtil'
+    import getManagerList, {createItem} from '../../fetch/getManagerList'
+    import lazyLoad from '../../common-component/mixins/lazyLoad'
 
     export default {
         name: 'HomePage',
