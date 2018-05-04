@@ -36,7 +36,7 @@ export default {
             })
         },
         scrollEvent() {
-            let scrollTop = document.documentElement.scrollTop + document.body.scrollTop;
+            let scrollTop = document.documentElement.scrollTop + document.body.scrollTop
             const documentHeight = document.documentElement.clientHeight
             const windowHeight = document.documentElement.offsetHeight
             //在将要到达底部，并且没有正在提交请求时，开始加载数据

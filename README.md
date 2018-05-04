@@ -15,6 +15,9 @@
     ```
     4>  编写代码，测试完善，获取分支更新,进行项目打包并运行,确认无误后<br/>
     ```
+        如果对git commit -m 后的参数没有要求，直接运行
+        npm run fetch
+        但是最好执行以下代码
         git add -A & git commit -m '1'
         git fetch yiban & git merge yiban/master
         git status
