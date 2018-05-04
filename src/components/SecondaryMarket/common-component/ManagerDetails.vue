@@ -35,7 +35,7 @@
 
     .ManagerDetails ul {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
     }
 
     .ManagerDetails .big img {

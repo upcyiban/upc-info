@@ -19,7 +19,7 @@ class HttpRequest {
         this.addFetchListen('error' , (r) => {
             window.r = r
             if (r.toString() === 'TypeError: Failed to fetch') {
-                if (!this.yibanAuth || !this.yibanAuth.haveVq()) {
+                if (this.yibanAuth && this.yibanAuth.haveVq()) {
                     alert('请检查链接')
                 }
             }
@@ -156,6 +156,7 @@ class HttpRequest {
             if (this.checkJsonData(json)) {
                 console.log('与后端交互出错' , 'POST ' + url , body)
             }
+            return json
         })
     }
 

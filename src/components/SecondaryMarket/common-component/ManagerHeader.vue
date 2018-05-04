@@ -4,9 +4,9 @@
             <li class="float-left">
                 <img :src="userData.userHeader"/>
             </li>
-            <li class="float-left">
+            <li class="float-left second">
                 <span class="user-name">{{userData.userName}}</span>
-                <p class="time">两小时前发布</p>
+                <!--<p class="time">两小时前发布</p>-->
             </li>
             <li class="float-right">
                 <p>#{{managerPrice}}</p>
@@ -16,6 +16,9 @@
 </template>
 
 <script>
+    /**
+     * @namespace userData
+     */
     export default {
         name: 'ManagerHeader',
         props: ['userData', 'managerPrice'],
@@ -35,12 +38,15 @@
 
     .UserBox ul li {
         height: 2.8571rem;
-        line-height: 1.4285rem;
+        /*line-height: 1.4285rem;*/
+        line-height: 2.8571rem;
         margin-right: 1rem;
     }
 
     .UserBox ul li:first-child {
         width: 2.8571rem;
+        border-radius: 1.4285rem;
+        overflow: hidden;
     }
 
     .UserBox ul li:last-child {
@@ -56,20 +62,12 @@
         height: 2.8571rem;
         line-height: 2.8571rem;
     }
-
     .UserBox img {
-        color: black;
+        width: 100%;
+        height: 100%;
     }
-
-    .UserBox .user-id {
-        color: #656565;
-        font-size: 0.85rem;
-    }
-
-    .UserBox .time {
-        color: #7F7F7F;
-        font-size: 0.75rem;
-        margin-top: 0.8rem;
+    .UserBox .second p {
+        font-size: 0.7rem;
     }
 
 </style>

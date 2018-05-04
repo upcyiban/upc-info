@@ -3,7 +3,7 @@
         <br>
         <ul class="clear">
             <li class="float-left"  v-for="(item , index) in classesList"
-                :data-index="index" :style="`${includes(index)}`" @click="choose">
+                :data-index="index" :style="`${includes(index)}`" @click.stop="choose">
                 <span :data-index="index">{{item}}</span>
             </li>
         </ul>
@@ -11,9 +11,27 @@
 </template>
 
 <script>
+    /**
+     * @namespace this._props.choosed
+     */
     export default {
         name: 'Classification',
-        props: ['classesList' , 'maxShow' , 'maxChoose' , 'dataKey'],
+        props: {
+            classesList: {
+                type: Array,
+                default: () => []
+            },
+            dataKey: {
+                type: String
+            },
+            choosed: {
+                type: Array,
+                default: () => []
+            }
+        },
+        beforeMount() {
+            this.chooseList = this._props.choosed
+        },
         data () {
             return {
                 chooseList: []
@@ -34,7 +52,10 @@
                 })
                 this.$emit('choose' , {
                     key: this._props.dataKey,
-                    value: chooseValue
+                    value: {
+                        chooseValue,
+                        chooseList: this.chooseList
+                    }
                 })
             },
             includes(index) {

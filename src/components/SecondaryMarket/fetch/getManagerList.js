@@ -39,7 +39,7 @@ function getManagerList (pageNum) {
     const fetch = this.fetch
     return fetch.getJsonData('/secondhand/browse/article' , {
         page: pageNum,
-        pageSize: 10
+        pagesize: 10
     }).then(json => {
         let managerList = json.content
         managerList = managerList.map(createItem.bind(this))
@@ -50,5 +50,5 @@ function getManagerList (pageNum) {
         }
     })
 }
-
+export {createItem , createPage}
 export default getManagerList

@@ -3,7 +3,7 @@
         <header-section>
             <p>发布</p>
         </header-section>
-        <load-image :loadState="loadState" :src="loading"></load-image>
+        <load-image :loadState="loadState"></load-image>
         <input-box type="text" placeholder="标题" @userInput="updateData" dataKey="managerTitle"
                    :value="managerTitle" class="input-box box-center"></input-box>
         <input-box type="text" placeholder="价格" @userInput="updateData" dataKey="managerPrice"
@@ -25,7 +25,7 @@
         <br><br>
         <div class="clear input-box box-center">
             <p style="font-size: 1rem;color: #7F7F7F">分类描述</p>
-            <classification :classesList="classesList" dataKey="chooseList" @choose="updateData"></classification>
+            <classification :classesList="classesList" dataKey="chooseList" @choose="updateData" :choosed="chooseList.chooseList"></classification>
         </div>
         <br>
         <div class="input-box text-center upload-message box-center" @click="userPublish">
@@ -58,7 +58,10 @@
                 managerTitle: '',
                 managerMessage: '',
                 fileList: [],
-                chooseList: []
+                chooseList: {
+                    chooseValue: [],
+                    chooseList: []
+                }
             }
         },
         components: {

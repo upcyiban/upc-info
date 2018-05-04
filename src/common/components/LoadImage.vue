@@ -8,9 +8,11 @@
     export default {
         name: 'LoadImage',
         data () {
-            return {}
+            return {
+                loading: require('../../components/SecondaryMarket/media/loading.gif'),
+            }
         },
-        props: ['loading' , 'loadState']
+        props: ['loadState']
     };
 </script>
 

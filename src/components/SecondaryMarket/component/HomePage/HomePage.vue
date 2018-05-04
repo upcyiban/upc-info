@@ -3,19 +3,22 @@
         <header-section>
             <p>中国石油大学二手市场物品交易社区</p>
         </header-section>
-        <search @focus="hiddenManagerList" @fetchSearch="fetchSearch"></search>
-        <load-image :src="loading" :loadState="loadState"></load-image>
+        <search @fetchSearch="fetchSearch"></search>
+        <load-image :loadState="loadState"></load-image>
         <hr style="border: 1px solid #EBEBEB;border-bottom: none">
-        <div v-for="item in managerList">
-            <router-link :to="`/second/manager/${item.managerData.id}`" style="display: block;">
-                <manager-section class="bottom-style"
-                                 :userData="item.userData"
-                                 :managerImage="item.managerImage"
-                                 :managerData="item.managerData"
-                ></manager-section>
-            </router-link>
+        <div v-for="page in pageList" :page-num="page.pageData.number">
+            <div v-for="item in page.managerList">
+                <router-link :to="`/second/manager/${item.managerData.id}`" style="display: block;">
+                    <manager-section class="bottom-style"
+                                     :userData="item.userData"
+                                     :managerImage="item.managerData.imgUrl"
+                                     :managerData="item.managerData"
+                    ></manager-section>
+                </router-link>
+            </div>
         </div>
-
+        <load-image :loadState="loadState"></load-image>
+        <div style="height: 6rem;"></div>
         <div class="footer absolute-horizontal-center">
             <ul class="clear">
                 <li class="float-left" @click="backTop">
@@ -39,7 +42,9 @@
 </template>
 
 <script>
-
+    /**
+     * @namespace require
+     */
     import Search from '../../common-component/Search.vue'
     import LoadImage from '../../../../common/components/LoadImage.vue'
     import ManagerSection from './ManagerSection/index.vue'
@@ -48,27 +53,27 @@
     import loading from "../../../../common/mixins/loading"
     import fetchVq from "../../../../common/mixins/fetchVq"
     import {marketFetch, yibanAuth} from "../../config/fetchUtil"
-    import getManagerList from "../../fetch/getManagerList"
+    import getManagerList, {createItem} from "../../fetch/getManagerList"
+    import lazyLoad from "../../common-component/mixins/lazyLoad"
 
     export default {
         name: 'HomePage',
-        mixins: [updateData , loading(marketFetch , this) , fetchVq(yibanAuth)],
+        mixins: [updateData , loading(marketFetch) , fetchVq(yibanAuth) , lazyLoad],
         data () {
             return {
                 title: '中国石油大学 二手市场',
                 find: require('../../media/findOn.png'),
                 user: require('../../media/userOff.png'),
-                managerSectionList: [],
-                managerList: [],
-                pageData: {}
+                pageList: [],
+                pageListData:[],
+                //flag描述pageListData的属性是首页的数据还是搜索的数据
+                flag: true,
+                nextPageNumber: 1
             }
         },
         created() {
-            this.getManagerList().then(data => {
-                this.managerList = data.managerList
-                this.pageData = data.pageData
-                console.log(this.pageData , this.managerList)
-                this.showManagerList()
+            this.getManagerList(0).then(data => {
+                this.addPage(data)
             })
         },
         components: {
@@ -81,17 +86,31 @@
             backTop() {
                 window.scrollTo(0 , 0)
             },
-            showManagerList() {
-                this.managerList = this.managerSectionList
-            },
-            hiddenManagerList() {
-                this.managerList = []
+            setPageWithData(json) {
+                if (this.flag) {
+                    this.pageListData = this.pageList
+                    this.flag = false
+                }
+                this.pageList = [{
+                    managerList: json.map(item => createItem(item)),
+                    pageData: this.pageList[0].pageData
+                }]
             },
             fetchSearch(e) {
-                if (!e || !e.value || e.value === '') {
-                    this.showManagerList()
+                if (e.name) {
+                    this.fetch.getJsonData('/secondhand/browse/findbyarticlename' , {
+                        name: e.name
+                    }).then(json => {
+                        this.setPageWithData(json)
+                    })
+                } else if (e.choose && e.choose.length > 0){
+                    this.fetch.getJsonData('/secondhand/browse/findbyarticlekind' , {
+                        kind: e.choose[0]
+                    }).then(json => {
+                        this.setPageWithData(json)
+                    })
                 } else {
-                    console.log(e)
+                    this.pageList = this.pageListData
                 }
             },
             getManagerList

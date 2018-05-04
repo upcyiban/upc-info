@@ -4,7 +4,6 @@ function loading (httpRequest) {
     return {
         data: function () {
             return {
-                loading: require('../../components/SecondaryMarket/media/loading.gif'),
                 loadState: false,
                 fetch: httpRequest
             }
