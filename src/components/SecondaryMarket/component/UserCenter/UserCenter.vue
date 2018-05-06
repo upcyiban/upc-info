@@ -31,12 +31,14 @@
 
 <script>
 	import HttpRequest from '@/common/util/HttpRequest'
-	import {marketFetch,YibanAuth} from '@/components/SecondaryMarket/config/fetchUtil'
+	import {marketFetch,yibanAuth} from '@/components/SecondaryMarket/config/fetchUtil'
 	import navbar from '@/common/components/HeaderSection'
-	import {UserData} from '@/common/util/getYibanData'
 	import profile from './subcomponent/profile'
 	import tabs from './subcomponent/tabs'
 	import loadImg from '../../media/loading.gif'
+
+	// yibanAuth.getVq()
+
 	export default {
 		name: 'UserCenter',
 		data: function(){

@@ -12,6 +12,7 @@
 </template>
 
 <script>
+const replyUrl = '/'
 export default {
 	name: 'replyBox',
 	props: ['replyTo'],

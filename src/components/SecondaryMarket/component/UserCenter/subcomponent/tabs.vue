@@ -39,7 +39,7 @@
 
 <style scoped>
 	.tabs{
-		background-color: #6ac1e7;
+		background-color: #66cbff;
 		border-radius: 12px;
 		margin: 0px 1rem;
 		box-shadow: 0 0 5px 1px #aaaaaa;
@@ -60,7 +60,7 @@
 		color: #000000;
 	}
 	.tab-view{
-		min-height: 20rem;
+		min-height: 25rem;
 		background-color:  #ffffff; 
 		border-radius: 0 0 12px 12px;
 		overflow-y: scroll;
@@ -97,7 +97,7 @@
 		font-size: 1.1rem;
 		font-weight: bold;
 	}
-	.tab-view >>> .button{
+	.tab-view >>> .buttons{
 		font-size: 0.75rem;
 		color: #99989a;
 		display: flex;
@@ -107,5 +107,9 @@
 		-webkit-user-select: none;
 		-webkit-touch-callout: none;
 		user-select: none;
+	}
+	.tab-view >>> .icon{
+		width: 0.75rem;
+		height: 0.75rem;
 	}
 </style>

@@ -1,15 +1,16 @@
 <template>
 	<div>
 		<ul>
-			<li class="item" v-for="(item,index) in items" @click=''>
+			<li class="item" v-for="(item,index) in items" @click='viewCollect(index)'>
 				<img class="descimg" :src="item.img">
 				<div class="desc">
 					<p class="title">{{ item.name }}</p>
 					<p class="price">￥{{ item.price }}</p>
 					<p class="date">{{ item.date }}</p>
 				</div>
-				<div class="button">
-					<p @click='deleteFavorite(index)'>删除</p>
+				<div class="buttons" @click.stop='deleteFavorite(index)'>
+					<img class="icon" :src="buttons.delete">
+					<p>删除</p>
 				</div>
 				<confirmbox v-if="item.beforeDelete" @confirm="confirmDelete(index)" @cancel="item.beforeDelete = false"></confirmbox>
 			</li>
@@ -22,34 +23,38 @@
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/confirmbox.vue'
 	import util from './shared/util'
+	import delete_ from '../media/delete.png'
+
+	const getCollection = '/secondhand/collention/usercollection'
+	const deleteCollection = '/secondhand/collention/deletecollection'
+
 	export default {
 		name: 'favorite',
 		components: {
 			'confirmbox': confirmBox
 		},
 		mounted() {
-			marketFetch.getJsonData('/secondhand/collention/usercollection',{}).then((result) => this.updateFavorite(result))
+			marketFetch.getJsonData(getCollection,{}).then((result) => this.updateFavorite(result))
 		},
 		data: function(){
 			var dict = new Map([['id','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
 			return {
 				items: [],
-				dict: dict
+				dict: dict,
+				buttons: {
+					delete: delete_
+				}
 			}
 		},
 		methods: {
-			showConfirmation: function(index){
-
-			},
 			deleteFavorite: function(index){
 				this.items[index].beforeDelete = true;
 			},
 			confirmDelete: function(index){
-				//request delete
+				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].id})
 				this.items.splice(index,1)
 			},
 			updateFavorite: function(items){
-				//item has no img date and url
 				items.forEach((item,index,items) =>{
 					let tmp = {}
 					this.dict.forEach((from,to,set) => {
@@ -60,6 +65,9 @@
 					tmp['date'] = util.computeDate(item['creatTime'])
 					this.items.push(tmp)
 				})
+			},
+			viewCollect: function(index){
+				this.$router.push('/second/details')
 			}
 		},
 		props: ['userid']

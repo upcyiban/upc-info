@@ -24,6 +24,8 @@
 	import confirmBox from './shared/confirmbox.vue'
 	import replyBox from './shared/replybox.vue'
 	import util from './shared/util'
+	const getComment = '/secondhand/browse/historyreview'
+
 	export default {
 		name: 'comment',
 		components: {
@@ -31,7 +33,7 @@
 			'confirmbox': confirmBox,
 		},
 		mounted() {
-			marketFetch.getJsonData('/secondhand/browse/historyreview',{}).then((result) => this.updateComments(result))
+			marketFetch.getJsonData(getComment,{}).then((result) => this.updateComments(result))
 		},
 		data: function(){
 			var dict = new Map([['commentid','id'],['content','detail'],['nick','ybname'],['avatar','ybhead']])
@@ -43,16 +45,19 @@
 			}
 		},
 		methods: {
+			// if deletebox and replybox are required
+			// please uncomment
+
 			listenStart(index,event) {
 				this.startTime = event.timeStamp
 			},
 			listenEnd: function(index,event){
 				let delta = event.timeStamp - this.startTime
-				if(delta > 500)this.comments[index].beforeDelete = true
-				else if(delta > 10) this.replyComment(index)
+//here				if(delta > 500)this.comments[index].beforeDelete = true
+//				else if(delta > 10) this.replyComment(index)
 			},
 			replyComment: function(index){
-				this.replyStatus = true
+//and here				this.replyStatus = true
 				if(this.comments[index]){
 					this.replyTo = this.comments[index].commentid
 				}
@@ -77,19 +82,20 @@
 			},
 			updateComments(comments){
 				comments.forEach((comment,index,comments) => {
+					if(comment && comment.isdelete != 0)return true
 					let tmp = {}
 					this.dict.forEach((from,to,dict) => {
 						if(comment.hasOwnProperty(from)){tmp[to] = comment[from] ? comment[from] : ''}
 					})
 					tmp['time'] = util.computeDate(comment['createtime'])
 					tmp['beforeDelete'] = false
-					tmp['descimg'] = this.requestImg(index,comment['id'])
+					this.requestImg(index,comment['id'])
 					this.comments.push(tmp)
 				})
 			},
 			requestImg(index,id) {
 				marketFetch.getJsonData('/secondhand/browse/onearticle',{articleid: id}).then((result) => {
-					this.comments[index].descimg = util.firstImg(result['imgurl'])
+					this.$set(this.comments[index],'descimg',util.firstImg(result['imgurl']))
 				})
 			}
 		},
@@ -119,7 +125,7 @@
 		color: #9e9898;
 		font-size: 0.75rem;
 		margin: 0;
-		padding-bottom: 0.5rem;
+		margin-bottom: 0.75rem;
 	}
 	.comment .content{
 		color: #606060;

@@ -7,6 +7,7 @@
 			<div class="">
 				<p class="info nick">{{ profile.nick }}</p>
 				<p class="info id"> ID: {{ profile.id }}</p>
+			<router-link :to="{path: '/second'}"><img class="edit" :src="edit"></router-link>
 			</div>
 			<hr class="deviding">
 			<table class="contacts" nowarp>
@@ -24,10 +25,13 @@
 </template>
 
 <script>
+	import edit from '../media/edit4.png'
 	export default {
 		name: 'profile',
 		data: function(){
-			return {}
+			return {
+				edit:edit
+			}
 		},
 		props: ['profile']
 	}
@@ -35,7 +39,7 @@
 
 <style scoped>
 	.profile-div{
-		background-color: #6ac1e7;
+		background-color: #66cbff;
 		border-radius: 10px;
 		box-shadow: 0 0 5px 1px #aaaaaa;
 		margin: 4rem 1rem 1.5rem 1rem;
@@ -44,7 +48,7 @@
 		width: 72px;
 		height: 72px;
 		border-radius: 64px;
-		background-color: #6ac1e7;
+		background-color: #66cbff;
     	position: absolute;
     	left: 50%;
     	transform: translate(-50%,-50%);
@@ -55,6 +59,14 @@
 		border-radius: 32px;
 		position: relative;
 		top: 4px;
+	}
+	.edit{
+		width: 1rem;
+		height: 1rem;
+		float: right;
+		position: relative;
+		right: 2rem;
+		top: 1rem;
 	}
 	.info-view{
 		padding-top: 48px;
@@ -69,13 +81,10 @@
 	.info.nick{
 		font-size: 1.75rem;
 	}
-	.info.id{
-		font-size: 1.25rem;
-	}
 	.deviding{
 		border: 0;
 		border-top: 2px dashed #fefefe;
-		margin-top: 1rem;
+		margin-top: 1.5rem;
 		margin-bottom: 1rem;
 		width: 85%;
 		overflow: visible;
