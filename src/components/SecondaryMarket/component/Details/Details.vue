@@ -8,7 +8,7 @@
             <hr style="border: 1px solid #EBEBEB;border-bottom: none">
             <p class="banner">{{managerData.managerDetail}}</p>
             <div v-for="item in managerData.imgUrl" class="banner">
-                <img :src="item" alt="图片加载失败" style="width: 21rem;height: 16rem">
+                <img :src="item" alt="图片加载失败" style="width: 21rem;height: 16rem;display: block;" class="box-center">
             </div>
         </div>
         <reply-box class="second-market"></reply-box>
@@ -23,17 +23,19 @@
 
         <div style="height: 8rem"></div>
         <div class="footer box-center second-market" v-if="showDiscuss">
-            <label  >
+            <label @focusout="changeDiscuss" >
                 <input type="text" v-model="discussDetail" @key.enter="addDiscuss" autofocus>
                 <button @click="addDiscuss">提交</button>
             </label>
         </div>
         <div class="footer clear second-market box-center" v-if="!showDiscuss">
-            <li class="float-left" @click="addCollection"><img :src="collectionOff" alt="图片加载失败">&nbsp;收藏</li>
-            <li class="float-left" @click="changeDiscuss"><img :src="discuss" alt="图片加载失败">&nbsp;评论</li>
-            <li class="float-left text-center">
-                <button>我想要</button>
-            </li>
+            <ul>
+                <li class="float-left" @click="addCollection"><img :src="collectionOff" alt="图片加载失败">&nbsp;收藏</li>
+                <li class="float-left" @click="changeDiscuss"><img :src="discuss" alt="图片加载失败">&nbsp;评论</li>
+                <li class="float-left text-center">
+                    <button>我想要</button>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -175,11 +177,17 @@
         right: 0;
         background-color: white;
     }
-
+    .Details .footer ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
     .Details .footer li {
         width: 8rem;
         color: #767676;
         cursor: pointer;
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 
     .Details .footer img {
@@ -188,10 +196,10 @@
     }
 
     .Details .footer li button {
-        width: 60%;
+        width: 4rem;
         background: #FE1E1E;
         border: none;
-        height: 50px;
+        height: 2.2rem;
         font-size: 0.9rem;
         color: #FEE4EB;
         cursor: pointer;
@@ -224,7 +232,7 @@
         border: none;
         color: white;
         height: 1.5rem;
-        width: 2rem;
+        width: 5rem;
     }
 
     .Details .discuss-list {

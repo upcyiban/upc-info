@@ -16,6 +16,7 @@
         },
         methods: {
             upload(e) {
+                alert(e.target.value)
                 this.$emit('addFile' , e.target)
             }
         }

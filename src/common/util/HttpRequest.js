@@ -20,7 +20,7 @@ class HttpRequest {
             window.r = r
             if (r.toString() === 'TypeError: Failed to fetch') {
                 if (this.yibanAuth && this.yibanAuth.haveVq()) {
-                    alert('请检查链接')
+                    alert('请检查网络连接')
                 }
             }
         })
@@ -72,6 +72,7 @@ class HttpRequest {
         this._fetchBefore && this._fetchBefore.forEach(item => item(url , body))
         return fetchData(url , body)
             .catch(r => {
+                alert(r.toString())
                 return this._fetchError && this._fetchError.forEach(item => item(r))
             }).then(data => {
                 this._fetchAfter && this._fetchAfter.forEach(item => item(data))
@@ -115,6 +116,8 @@ class HttpRequest {
                 }
             }
         }
+        alert(fd.get('file').name)
+        console.log(fd.get('file'))
         console.log('POST method' , this.commonUrl+url)
         console.log('formData' , body)
         return fetch(this.commonUrl + url, {

@@ -1,14 +1,14 @@
 <template>
     <div class="UserBox">
         <ul class="clear">
-            <li class="float-left">
+            <li>
                 <img :src="userData.userHeader"/>
             </li>
-            <li class="float-left second">
-                <span class="user-name">{{userData.userName}}</span>
+            <li>
+                <span>{{userData.userName}}</span>
                 <!--<p class="time">两小时前发布</p>-->
             </li>
-            <li class="float-right">
+            <li>
                 <p>${{managerPrice}}</p>
             </li>
         </ul>
@@ -33,8 +33,12 @@
         height: 2.8571rem;
         margin: 0.8rem 0;
         line-height: 2.8571rem;
+        overflow: hidden;
     }
-
+    .UserBox ul {
+        display: flex;
+        justify-content: space-around;
+    }
     .UserBox ul li {
         height: 2.8571rem;
         /*line-height: 1.4285rem;*/
@@ -42,15 +46,7 @@
         margin-right: 1rem;
     }
 
-    .UserBox ul li:first-child {
-        width: 2.8571rem;
-        border-radius: 1.4285rem;
-        overflow: hidden;
-    }
-
     .UserBox ul li:last-child {
-        flex-direction: column-reverse;
-        align-self: flex-start;
         color: red;
         font-size: 1.5rem;
         line-height: 2.8rem;
@@ -60,6 +56,8 @@
         width: 2.8571rem;
         height: 2.8571rem;
         line-height: 2.8571rem;
+        border-radius: 1.4285rem;
+        overflow: hidden;
     }
     .UserBox img {
         width: 100%;

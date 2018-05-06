@@ -76,6 +76,7 @@
             addFile(fileElement) {
                 uploadFile.fetchFile(fileElement).then(fileUrl => {
                     console.log(fileUrl);
+                    alert(fileUrl)
                     this.fileList.push(fileUrl)
                 })
             },
