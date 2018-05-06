@@ -1,5 +1,6 @@
 import {commonUrl} from "../../config/config"
 import {UserData, YibanAuth} from "./getYibanData"
+import {yibanAuth} from "../../components/SecondaryMarket/config/fetchUtil"
 
 class HttpRequest {
 
@@ -18,7 +19,9 @@ class HttpRequest {
         this.addFetchListen('error' , (r) => {
             window.r = r
             if (r.toString() === 'TypeError: Failed to fetch') {
-                alert('请检查网络链接')
+                if (this.yibanAuth && this.yibanAuth.haveVq()) {
+                    alert('请检查网络连接')
+                }
             }
         })
     }
@@ -50,7 +53,6 @@ class HttpRequest {
     _fetchCheckToken(method , url , body) {
         if (!UserData.haveLocalToken() && this.yibanAuth) {
             return this.yibanAuth.refreshToken().then(() => {
-                console.log(UserData.haveLocalToken())
                 return this._fetchWithListener(method , url , body)
             })
         } else {
@@ -70,6 +72,7 @@ class HttpRequest {
         this._fetchBefore && this._fetchBefore.forEach(item => item(url , body))
         return fetchData(url , body)
             .catch(r => {
+                alert(r.toString())
                 return this._fetchError && this._fetchError.forEach(item => item(r))
             }).then(data => {
                 this._fetchAfter && this._fetchAfter.forEach(item => item(data))
@@ -113,6 +116,8 @@ class HttpRequest {
                 }
             }
         }
+        alert(fd.get('file').name)
+        console.log(fd.get('file'))
         console.log('POST method' , this.commonUrl+url)
         console.log('formData' , body)
         return fetch(this.commonUrl + url, {
@@ -123,12 +128,21 @@ class HttpRequest {
         })
     }
 
+    checkJsonData(json) {
+        return json.status && json.status === 500
+    }
+
     getJsonData (url, body) {
         /**
          * @namespace r.json
          */
         return this._fetchCheckToken('get' , url, body).then(r => {
             return r.json()
+        }).then(json => {
+            if (this.checkJsonData(json)) {
+                console.log('与后端交互出错' , 'GET '+ url , body)
+            }
+            return json
         })
     }
 
@@ -141,6 +155,11 @@ class HttpRequest {
     postJsonData (url, body) {
         return this._fetchCheckToken('post' , url, body).then(r => {
             return r.json()
+        }).then(json => {
+            if (this.checkJsonData(json)) {
+                console.log('与后端交互出错' , 'POST ' + url , body)
+            }
+            return json
         })
     }
 

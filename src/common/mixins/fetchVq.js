@@ -6,14 +6,14 @@ function fetchVq (yibanAuth) {
                 yibanAuth: yibanAuth
             }
         },
+        watch: {
+            title(title) {
+                document.querySelector('title').innerHTML = title
+            }
+        },
         created() {
             this.yibanAuth && this.yibanAuth.fetchVq()
-        },
-        beforeMount() {
-            if (this.title !== null && this.title !== undefined) {
-                document.querySelector('title').innerHTML = this.title
-            }
-            // this.yibanAuth && this.yibanAuth.refreshToken()
+            document.querySelector('title').innerHTML = this.title
         }
     }
 }

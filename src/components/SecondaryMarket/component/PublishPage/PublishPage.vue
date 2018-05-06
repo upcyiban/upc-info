@@ -1,9 +1,9 @@
 <template>
-    <div class="PublishPage box-center">
+    <div class="PublishPage box-center second-market">
         <header-section>
             <p>发布</p>
         </header-section>
-        <load-image :loadState="loadState" :src="loading"></load-image>
+        <load-image :loadState="loadState"></load-image>
         <input-box type="text" placeholder="标题" @userInput="updateData" dataKey="managerTitle"
                    :value="managerTitle" class="input-box box-center"></input-box>
         <input-box type="text" placeholder="价格" @userInput="updateData" dataKey="managerPrice"
@@ -25,7 +25,7 @@
         <br><br>
         <div class="clear input-box box-center">
             <p style="font-size: 1rem;color: #7F7F7F">分类描述</p>
-            <classification :classesList="classesList" dataKey="chooseList" @choose="updateData"></classification>
+            <classification :classesList="classesList" dataKey="chooseList" @choose="updateData" :choosed="chooseList.chooseList"></classification>
         </div>
         <br>
         <div class="input-box text-center upload-message box-center" @click="userPublish">
@@ -35,18 +35,18 @@
 </template>
 
 <script>
-    import HeaderSection from '../../../../common/components/HeaderSection.vue'
+    import HeaderSection from '../../common-component/HeaderSection.vue'
     import InputBox from '../../common-component/InputBox.vue'
     import TextBox from '../../common-component/TextBox.vue'
     import Upload from './Upload.vue'
     import LoadImage from '../../../../common/components/LoadImage.vue'
     import Classification from '../../common-component/Classification.vue'
-    import updateData from "../../../../common/mixins/UpdateData"
-    import publishGoods from "../../fetch/publishGoods"
-    import loading from "../../../../common/mixins/loading"
-    import fetchVq from "../../../../common/mixins/fetchVq"
-    import {marketFetch, yibanAuth , uploadFile} from "../../config/fetchUtil"
-    import getClassification from "../../common-component/mixins/getClassification"
+    import updateData from '../../../../common/mixins/UpdateData'
+    import publishGoods from '../../fetch/publishGoods'
+    import loading from '../../../../common/mixins/loading'
+    import fetchVq from '../../../../common/mixins/fetchVq'
+    import {marketFetch, yibanAuth , uploadFile} from '../../config/fetchUtil'
+    import getClassification from '../../common-component/mixins/getClassification'
 
     export default {
         name: 'PublishPage',
@@ -58,7 +58,10 @@
                 managerTitle: '',
                 managerMessage: '',
                 fileList: [],
-                chooseList: []
+                chooseList: {
+                    chooseValue: [],
+                    chooseList: []
+                }
             }
         },
         components: {
@@ -73,6 +76,7 @@
             addFile(fileElement) {
                 uploadFile.fetchFile(fileElement).then(fileUrl => {
                     console.log(fileUrl);
+                    alert(fileUrl)
                     this.fileList.push(fileUrl)
                 })
             },
@@ -100,7 +104,6 @@
 
 <style scoped>
     .PublishPage {
-        max-width: 800px;
     }
     .PublishPage .input-box {
         width: 90%;

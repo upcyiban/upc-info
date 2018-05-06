@@ -1,7 +1,7 @@
 <template>
-    <div class="Discuss">
+    <div class="Discuss" @click="click">
         <p>{{data}}</p>
-        <button @click="click" style="width: 50px;height: 50px;">click</button>
+        <button @click="click1" style="width: 50px;height: 50px;">click</button>
     </div>
 </template>
 
@@ -14,8 +14,14 @@
             }
         },
         methods: {
-            click() {
+            click(e) {
+                console.log(e.target)
+                this.data = 123
                 this.data = [1, 2, 3, 4, 5][2]
+            },
+            click1(e) {
+                this.data = 1234
+                console.log(e.target)
             }
         }
     }
