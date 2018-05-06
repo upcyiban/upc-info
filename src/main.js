@@ -6,10 +6,8 @@ import router from './router/index.js'
 import './common/style/rest.css'
 import './common/style/common-style.css'
 
-/**
- * @namespace require
- * @namespace fetch
- */
+/**@namespace fetch*/
+/**@namespace require*/
 new Vue({
     el: '#app',
     router,

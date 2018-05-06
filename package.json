@@ -11,7 +11,8 @@
     "run-build": "npm run build & cd docs & http-server -p 4396 -g -o -s",
     "start-mobile": "webpack-dev-server --inline --open --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
     "fetch": "git add -A & git commit -m '获取易班更新' & git fetch yiban & git merge yiban/master",
-    "commit": "git add -A & git commit -m '提交至缓存区' & git push origin master"
+    "commit": "git add -A & git commit -m '提交至缓存区'",
+    "push": "npm run commit & git push origin master"
   },
   "dependencies": {
     "vue": "^2.5.16",

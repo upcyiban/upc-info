@@ -13,6 +13,7 @@ function fetchVq (yibanAuth) {
         },
         created() {
             this.yibanAuth && this.yibanAuth.fetchVq()
+            document.querySelector('title').innerHTML = this.title
         }
     }
 }

@@ -9,16 +9,15 @@
                 <!--<p class="time">两小时前发布</p>-->
             </li>
             <li class="float-right">
-                <p>#{{managerPrice}}</p>
+                <p>${{managerPrice}}</p>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-    /**
-     * @namespace userData
-     */
+    /**@namespace userData*/
+    /**@namespace managerPrice*/
     export default {
         name: 'ManagerHeader',
         props: ['userData', 'managerPrice'],

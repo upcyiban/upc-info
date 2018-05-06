@@ -1,11 +1,14 @@
 <template>
-    <div class="HomePage">
+    <div class="HomePage second-market box-center">
         <header-section>
             <p>中国石油大学二手市场物品交易社区</p>
         </header-section>
         <search @fetchSearch="fetchSearch"></search>
         <load-image :loadState="loadState"></load-image>
-        <hr style="border: 1px solid #EBEBEB;border-bottom: none">
+        <hr style="border: 1px solid #EBEBEB;border-bottom: none" v-if="!(pageList.length <= 0 || pageList[0].managerList.length <= 0)">
+        <p v-if="pageList.length <= 0 || pageList[0].managerList.length <= 0" style="color: rgb(179, 167, 167);font-size: 0.7rem;margin-top: 1rem" class="text-center">
+            没有搜索结果
+        </p>
         <div v-for="page in pageList" :page-num="page.pageData.number">
             <div v-for="item in page.managerList">
                 <router-link :to="`/second/details/${item.managerData.id}`" style="display: block;">
@@ -42,9 +45,6 @@
 </template>
 
 <script>
-    /**
-     * @namespace require
-     */
     import Search from '../../common-component/Search.vue'
     import LoadImage from '../../../../common/components/LoadImage.vue'
     import ManagerSection from './ManagerSection/index.vue'
@@ -105,7 +105,7 @@
                     })
                 } else if (e.choose && e.choose.length > 0){
                     this.fetch.getJsonData('/secondhand/browse/findbyarticlekind' , {
-                        kind: e.choose[0]
+                        kind: e.choose.join('%')
                     }).then(json => {
                         this.setPageWithData(json)
                     })
@@ -121,9 +121,6 @@
 
 <style scoped>
     .HomePage {
-        font-size: 1rem;
-        max-width: 800px;
-        margin: 0 auto;
     }
 
     .HomePage .bottom-style {

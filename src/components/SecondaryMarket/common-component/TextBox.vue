@@ -31,6 +31,7 @@
     }
     .TextBox textarea {
         width: 100%;
+        border: none;
     }
     .TextBox textarea:focus + span {
         display: none;

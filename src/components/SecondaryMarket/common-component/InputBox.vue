@@ -41,6 +41,7 @@
     .InputBox input{
         width: 100%;
         height: 100%;
+        border: none;
         line-height: 1.5rem;
         font-size: 1.5rem;
         border-bottom: 1px solid #CECDCE;

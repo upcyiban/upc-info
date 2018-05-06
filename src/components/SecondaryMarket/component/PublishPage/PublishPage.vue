@@ -1,5 +1,5 @@
 <template>
-    <div class="PublishPage box-center">
+    <div class="PublishPage box-center second-market">
         <header-section>
             <p>发布</p>
         </header-section>
@@ -103,7 +103,6 @@
 
 <style scoped>
     .PublishPage {
-        max-width: 800px;
     }
     .PublishPage .input-box {
         width: 90%;

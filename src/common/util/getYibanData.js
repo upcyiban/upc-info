@@ -1,6 +1,7 @@
 import { vqKey, yibanIdKey} from "../../config/config"
 import Token from "./Token"
 import getRequestParamList from "./getRequest"
+import HttpRequest from './HttpRequest'
 
 class YibanAuth {
     vqUrl
@@ -86,6 +87,38 @@ class UserData {
 
     static getLocalToken () {
         return window.sessionStorage.token
+    }
+
+    static haveLocalUserData() {
+        let userData = window.sessionStorage.userData
+        return userData !== null && userData !== undefined && userData !== 'null' && userData !== 'undefined'
+    }
+
+    static getLocalUserData() {
+        return JSON.parse(window.sessionStorage.userData)
+    }
+
+    static fetchUserData() {
+        const valueMap = {
+            yibanId: 'yb_userid',
+            exp: 'yb_exp',
+            money: 'yb_money',
+            schoolId: 'yb_schoolid',
+            schoolName: 'yb_schoolname',
+            sex: 'yb_sex',
+            userName: 'yb_username',
+            userNick: 'yb_usernick'
+        }
+        return new HttpRequest('http://yb.upc.edu.cn:8084')
+            .getJsonData('/leinuo/weekcp/user/getYiMeByToken')
+            .then(json => {
+                let userData = JSON.parse(json.data)
+                for (let key in valueMap) {
+                    userData[key] = userData[valueMap[key]]
+                }
+                window.sessionStorage.userData = JSON.stringify(userData)
+                return userData
+            })
     }
 }
 
