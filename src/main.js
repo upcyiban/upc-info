@@ -6,13 +6,13 @@ import router from './router/index.js'
 import './common/style/rest.css'
 import './common/style/common-style.css'
 
-import 'babel-polyfill';
-require('es6-promise').polyfill();
-import 'fetch-detector';
-import 'fetch-ie8';
+import 'babel-polyfill'
+import 'fetch-detector'
+import 'fetch-ie8'
+require('es6-promise').polyfill()
 
-/**@namespace fetch*/
-/**@namespace require*/
+/** @namespace fetch */
+/** @namespace require */
 new Vue({
     el: '#app',
     router,

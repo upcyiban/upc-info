@@ -4,7 +4,7 @@
  * @param component
  * @returns {Promise.<TResult>}
  */
-function fetchDiscussList (articleId , component) {
+function fetchDiscussList (articleId, component) {
     return component.fetch.getJsonData('/secondhand/browse/review', {
         articleid: articleId
     }).then(json => {

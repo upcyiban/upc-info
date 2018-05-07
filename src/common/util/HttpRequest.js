@@ -1,9 +1,8 @@
-import {commonUrl} from "../../config/config"
-import {UserData, YibanAuth} from "./getYibanData"
-import {yibanAuth} from "../../components/SecondaryMarket/config/fetchUtil"
+import {commonUrl} from '../../config/config'
+import {UserData, YibanAuth} from './getYibanData'
+import {yibanAuth} from '../../components/SecondaryMarket/config/fetchUtil'
 
 class HttpRequest {
-
     commonUrl = commonUrl
     yibanAuth
     _fetchBefore = []
@@ -14,9 +13,9 @@ class HttpRequest {
      * @param commonUrl string 后端地址
      */
     constructor (commonUrl) {
-        this.commonUrl = (commonUrl !== null && commonUrl !== undefined) ?
-            commonUrl : this.commonUrl
-        this.addFetchListen('error' , (r) => {
+        this.commonUrl = (commonUrl !== null && commonUrl !== undefined)
+            ? commonUrl : this.commonUrl
+        this.addFetchListen('error', (r) => {
             window.r = r
             if (r.toString() === 'TypeError: Failed to fetch') {
                 if (this.yibanAuth && this.yibanAuth.haveVq()) {
@@ -26,7 +25,7 @@ class HttpRequest {
         })
     }
 
-    addFetchListen(type , event) {
+    addFetchListen (type, event) {
         if (type === 'before') {
             this._fetchBefore.push(event)
         } else if (type === 'after') {
@@ -36,31 +35,31 @@ class HttpRequest {
         }
     }
 
-    removeFetchListen(type , event) {
+    removeFetchListen (type, event) {
         let index
         if (type === 'before') {
             index = this._fetchBefore.indexOf(event)
-            index !== -1 && this._fetchBefore.splice(index , 1)
+            index !== -1 && this._fetchBefore.splice(index, 1)
         } else if (type === 'after') {
             index = this._fetchAfter.indexOf(event)
-            index !== -1 && this._fetchAfter.splice(index , 1)
+            index !== -1 && this._fetchAfter.splice(index, 1)
         } else {
             index = this._fetchError.indexOf(event)
-            index !== -1 && this._fetchError.splice(index , 1)
+            index !== -1 && this._fetchError.splice(index, 1)
         }
     }
 
-    _fetchCheckToken(method , url , body) {
+    _fetchCheckToken (method, url, body) {
         if (!UserData.haveLocalToken() && this.yibanAuth) {
             return this.yibanAuth.refreshToken().then(() => {
-                return this._fetchWithListener(method , url , body)
+                return this._fetchWithListener(method, url, body)
             })
         } else {
-            return this._fetchWithListener(method , url , body)
+            return this._fetchWithListener(method, url, body)
         }
     }
 
-    _fetchWithListener(method , url , body) {
+    _fetchWithListener (method, url, body) {
         let fetchData
         if (method.toUpperCase() === 'GET') {
             fetchData = this._getData.bind(this)
@@ -69,8 +68,8 @@ class HttpRequest {
         } else {
             return console.log('不支持提交put与delete方法')
         }
-        this._fetchBefore && this._fetchBefore.forEach(item => item(url , body))
-        return fetchData(url , body)
+        this._fetchBefore && this._fetchBefore.forEach(item => item(url, body))
+        return fetchData(url, body)
             .catch(r => {
                 alert(r.toString())
                 return this._fetchError && this._fetchError.forEach(item => item(r))
@@ -98,7 +97,7 @@ class HttpRequest {
         url = this.commonUrl + url
         console.log('get method', url)
         return fetch(url, {
-            method: 'get',
+            method: 'get'
             // 后端跨域不允许携带cookie？等到后端支持跨域携带cookie以后取消掉改注释
             // credentials: "include"
         })
@@ -116,19 +115,17 @@ class HttpRequest {
                 }
             }
         }
-        alert(fd.get('file').name)
-        console.log(fd.get('file'))
-        console.log('POST method' , this.commonUrl+url)
-        console.log('formData' , body)
+        console.log('POST method', this.commonUrl + url)
+        console.log('formData', body)
         return fetch(this.commonUrl + url, {
             method: 'post',
-            body: fd,
+            body: fd
             // 后端跨域不允许携带cookie？等到后端支持跨域携带cookie以后取消掉改注释
             // credentials: "include"
         })
     }
 
-    checkJsonData(json) {
+    checkJsonData (json) {
         return json.status && json.status === 500
     }
 
@@ -136,35 +133,35 @@ class HttpRequest {
         /**
          * @namespace r.json
          */
-        return this._fetchCheckToken('get' , url, body).then(r => {
+        return this._fetchCheckToken('get', url, body).then(r => {
             return r.json()
         }).then(json => {
             if (this.checkJsonData(json)) {
-                console.log('与后端交互出错' , 'GET '+ url , body)
+                console.log('与后端交互出错', 'GET ' + url, body)
             }
             return json
         })
     }
 
     getTextData (url, body) {
-        return this._fetchCheckToken('get' , url, body).then(r => {
+        return this._fetchCheckToken('get', url, body).then(r => {
             return r.text()
         })
     }
 
     postJsonData (url, body) {
-        return this._fetchCheckToken('post' , url, body).then(r => {
+        return this._fetchCheckToken('post', url, body).then(r => {
             return r.json()
         }).then(json => {
             if (this.checkJsonData(json)) {
-                console.log('与后端交互出错' , 'POST ' + url , body)
+                console.log('与后端交互出错', 'POST ' + url, body)
             }
             return json
         })
     }
 
     postTextData (url, body) {
-        return this._fetchCheckToken('post' , url, body).then(r => {
+        return this._fetchCheckToken('post', url, body).then(r => {
             return r.text()
         })
     }

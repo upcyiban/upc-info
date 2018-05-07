@@ -5,9 +5,7 @@
 
     </div>
 </template>
-
 <script>
-
     export default {
         name: 'ReplyBox',
         data () {
@@ -15,7 +13,7 @@
                 replyList: []
             }
         },
-        created() {
+        created () {
         },
         components: {
         }

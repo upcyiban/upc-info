@@ -1,7 +1,7 @@
-import {createItem} from "./getManagerList"
+import {createItem} from './getManagerList'
 
 function findManagerById (id) {
-    return this.fetch.getJsonData('/secondhand/browse/onearticle' , {
+    return this.fetch.getJsonData('/secondhand/browse/onearticle', {
         articleid: id
     }).then(json => {
         if (json.code === 0) {

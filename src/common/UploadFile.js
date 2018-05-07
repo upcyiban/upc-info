@@ -7,11 +7,11 @@ class UploadFile {
     httpRequest
     filePrefix = 'http://yb.upc.edu.cn'
 
-    constructor (httpRequest , filePrefix , uploadUrl) {
+    constructor (httpRequest, filePrefix, uploadUrl) {
         this.httpRequest = httpRequest
         filePrefix && (this.filePrefix = filePrefix)
-        this.uploadUrl = (uploadUrl !== null && uploadUrl !== undefined) ?
-            uploadUrl : this.uploadUrl
+        this.uploadUrl = (uploadUrl !== null && uploadUrl !== undefined)
+            ? uploadUrl : this.uploadUrl
     }
 
     /**
@@ -21,19 +21,19 @@ class UploadFile {
      * @param iframeDocument 标定document，如果要兼容ie createElement有iframe的兼容问题，
      *                          具体百度，自然知道这个参数是啥
      */
-    fetchFile (fileElement , type , iframeDocument) {
-        iframeDocument = (iframeDocument !== null && iframeDocument !== undefined) ?
-            iframeDocument : document
+    fetchFile (fileElement, type, iframeDocument) {
+        iframeDocument = (iframeDocument !== null && iframeDocument !== undefined)
+            ? iframeDocument : document
         let form = iframeDocument.createElement('form')
         form.appendChild(fileElement.cloneNode())
         let formData = new FormData(form)
         if (type === 'text') {
-            return this.httpRequest.postTextData(this.uploadUrl , formData)
+            return this.httpRequest.postTextData(this.uploadUrl, formData)
                 .then(filePath => {
                     return `${this.filePrefix}/${filePath.data}`
                 })
         } else {
-            return this.httpRequest.postJsonData(this.uploadUrl , formData)
+            return this.httpRequest.postJsonData(this.uploadUrl, formData)
                 .then(filePath => {
                     return `${this.filePrefix}/${filePath.data}`
                 })

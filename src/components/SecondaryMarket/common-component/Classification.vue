@@ -29,7 +29,7 @@
                 default: () => []
             }
         },
-        beforeMount() {
+        beforeMount () {
             this.chooseList = this._props.choosed
         },
         data () {
@@ -38,13 +38,13 @@
             }
         },
         methods: {
-            choose(e) {
+            choose (e) {
                 const index = parseInt(e.target.dataset.index)
                 const chooseIndex = this.chooseList.indexOf(index)
                 if (chooseIndex === -1) {
                     this.chooseList.push(index)
                 } else {
-                    //删除当前的元素
+                    // 删除当前的元素
                     this.chooseList.splice(chooseIndex , 1)
                 }
                 console.log(this.chooseList)
@@ -53,7 +53,7 @@
                 const chooseValue = chooseList.map((item) => {
                     return this._props.classesList[item]
                 })
-                this.$emit('choose' , {
+                this.$emit('choose', {
                     key: this._props.dataKey,
                     value: {
                         chooseValue,
@@ -61,12 +61,12 @@
                     }
                 })
             },
-            includes(index) {
+            includes (index) {
                 const flag = this.chooseList.indexOf(index) === -1
-                return flag ? "" : "border-color:black;color:black"
+                return flag ? '' : 'border-color:black;color:black'
             }
         }
-    };
+    }
 </script>
 
 

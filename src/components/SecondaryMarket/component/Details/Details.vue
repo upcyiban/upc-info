@@ -41,7 +41,6 @@
 </template>
 
 <script>
-    import LoadImage from '../../../../common/components/LoadImage.vue'
     import HeaderSection from '../../common-component/HeaderSection.vue'
     import ManagerHeader from '../../common-component/ManagerHeader.vue'
     import ReplyBox from '../../common-component/ReplyBox.vue'
@@ -55,8 +54,8 @@
     import userData from '../../../../common/mixins/userData'
     import fetchDiscussList from '../../fetch/fetchDiscussList'
 
-    /**@namespace $route.params.articleId*/
-    /**@namespace managerData*/
+    /** @namespace $route.params.articleId */
+    /** @namespace managerData */
     export default {
         name: 'Details',
         mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth), userData],
@@ -147,7 +146,6 @@
             findManagerById
         }
     }
-
 </script>
 
 

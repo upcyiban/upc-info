@@ -1,6 +1,6 @@
-function addCollection (articleId , component) {
+function addCollection (articleId, component) {
     return component.fetch.postJsonData('/secondhand/collention/createcollection', {
-        articleid: articleId,
+        articleid: articleId
     }).then(json => {
         return !(json.code && json.code === 0)
     })

@@ -16,12 +16,12 @@
 </template>
 
 <script>
-    /**@namespace userData*/
-    /**@namespace managerPrice*/
+    /** @namespace userData */
+    /** @namespace managerPrice */
     export default {
         name: 'ManagerHeader',
         props: ['userData', 'managerPrice'],
-        data() {
+        data () {
             return {}
         }
     }

@@ -13,6 +13,6 @@
             }
         },
         props: ['loadState']
-    };
+    }
 </script>
 
