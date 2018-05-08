@@ -5,10 +5,11 @@ import App from './App.vue'
 import router from './router/index.js'
 import './common/style/rest.css'
 import './common/style/common-style.css'
-
 import 'babel-polyfill'
 import 'fetch-detector'
 import 'fetch-ie8'
+import './components/registerConsoleListen'
+
 require('es6-promise').polyfill()
 
 /** @namespace fetch */

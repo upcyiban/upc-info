@@ -2,7 +2,7 @@
     <div class="Classification">
         <br>
         <ul class="clear">
-            <li class="float-left"  v-for="(item , index) in classesList"
+            <li class="float-left"  v-for="(item, index) in classesList"
                 :data-index="index" :style="`${includes(index)}`" @click.stop="choose">
                 <span :data-index="index">{{item}}</span>
             </li>
@@ -45,7 +45,7 @@
                     this.chooseList.push(index)
                 } else {
                     // 删除当前的元素
-                    this.chooseList.splice(chooseIndex , 1)
+                    this.chooseList.splice(chooseIndex, 1)
                 }
                 console.log(this.chooseList)
                 const chooseList = this.chooseList.sort()
@@ -80,7 +80,7 @@
         border: 1px solid #D7D7D7;
         padding: 0.2rem;
         border-radius: 0.3rem;
-        font-family: "Arial Narrow";
+        font-family: "微软雅黑 Light",serif;
         cursor: pointer;
     }
 </style>
