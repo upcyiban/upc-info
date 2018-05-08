@@ -3,6 +3,7 @@ const Discuss = () => import('../component/Discuss/Discuss.vue')
 const HomePage = () => import('../component/HomePage/HomePage.vue')
 const Details = () => import('../component/Details/Details.vue')
 const PublishPage = () => import('../component/PublishPage/PublishPage.vue')
+const UserCenter = () => import('../component/UserCenter/UserCenter.vue')
 const SecondaryMarket = [
     {
         path: '/second/discuss',
@@ -19,6 +20,10 @@ const SecondaryMarket = [
     {
         path: '/second/publish',
         component: PublishPage
+    },
+    {
+        path: '/second/user-center',
+        component: UserCenter
     }
 ]
 export default SecondaryMarket
