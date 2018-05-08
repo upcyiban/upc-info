@@ -8,7 +8,7 @@ const backEndUrl = 'http://yb.upc.edu.cn:8085'
 const devBackEndUrl = 'http://yb.upc.edu.cn:8084'
 // const devBackEndUrl = 'http://yb.upc.edu.cn:8084'
 
-const fetchUtil = createFetchWithAuth(backEndUrl , vqUrl , appName , device)
+const fetchUtil = createFetchWithAuth(backEndUrl, vqUrl, appName, device)
 
 const filePrefix = 'http://yb.upc.edu.cn'
 const marketFetch = fetchUtil.httpRequest
@@ -17,7 +17,6 @@ const yibanAuth = fetchUtil.yibanAuth
 const upload = new HttpRequest(devBackEndUrl)
 upload.yibanAuth = yibanAuth
 
-const uploadFile = new UploadFile(upload , filePrefix)
+const uploadFile = new UploadFile(upload, filePrefix)
 
-
-export {marketFetch , yibanAuth , uploadFile}
+export {marketFetch, yibanAuth, uploadFile}

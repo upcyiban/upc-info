@@ -1,13 +1,13 @@
-const UserCenter = () => import('../component/UserCenter/UserCenter.vue')
+import '../common-style/index.css'
 const Discuss = () => import('../component/Discuss/Discuss.vue')
 const HomePage = () => import('../component/HomePage/HomePage.vue')
 const Details = () => import('../component/Details/Details.vue')
 const PublishPage = () => import('../component/PublishPage/PublishPage.vue')
-import '../common-style/index.css'
+const UserCenter = () => import('../component/UserCenter/UserCenter.vue')
 const SecondaryMarket = [
     {
-        path: '/second/usercenter',
-        component: UserCenter,
+        path: '/second/discuss',
+        component: Discuss
     },
     {
         path: '/second/home-page',
@@ -20,6 +20,10 @@ const SecondaryMarket = [
     {
         path: '/second/publish',
         component: PublishPage
+    },
+    {
+        path: '/second/user-center',
+        component: UserCenter
     }
 ]
 export default SecondaryMarket

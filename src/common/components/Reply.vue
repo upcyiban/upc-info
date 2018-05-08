@@ -18,7 +18,7 @@
                 }
             }
         },
-        created() {
+        created () {
             console.log(this._props.replyList)
         },
         data () {

@@ -1,6 +1,5 @@
 
 function loading (httpRequest) {
-
     return {
         data: function () {
             return {
@@ -9,20 +8,20 @@ function loading (httpRequest) {
             }
         },
         methods: {
-            showLoading() {
+            showLoading () {
                 this.loadState = true
             },
-            hiddenLoading() {
+            hiddenLoading () {
                 this.loadState = false
             }
         },
-        created() {
-            this.fetch.addFetchListen('before' , this.showLoading)
-            this.fetch.addFetchListen('after' , this.hiddenLoading)
+        created () {
+            this.fetch.addFetchListen('before', this.showLoading)
+            this.fetch.addFetchListen('after', this.hiddenLoading)
         },
-        beforeDestroy() {
-            this.fetch.removeFetchListen('before' , this.showLoading)
-            this.fetch.removeFetchListen('after' , this.hiddenLoading)
+        beforeDestroy () {
+            this.fetch.removeFetchListen('before', this.showLoading)
+            this.fetch.removeFetchListen('after', this.hiddenLoading)
         }
     }
 }

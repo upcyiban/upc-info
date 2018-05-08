@@ -11,6 +11,4 @@ const vqKey = 'verify_request'
  */
 const stateKey = 'state'
 
-
-
-export {commonUrl , yibanIdKey , vqKey , stateKey}
+export {commonUrl, yibanIdKey, vqKey, stateKey}

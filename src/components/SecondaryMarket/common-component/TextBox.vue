@@ -9,17 +9,17 @@
 </template>
 
 <script>
-    import userInput from "./mixins/UserInput"
+    import userInput from './mixins/UserInput'
     export default {
         name: 'TextBox',
         mixins: [userInput],
-        props: ['placeholder' , 'classes'],
+        props: ['placeholder', 'classes'],
         data () {
             return {
             }
         }
 
-    };
+    }
 </script>
 
 

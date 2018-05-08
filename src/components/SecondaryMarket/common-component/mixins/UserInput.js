@@ -1,16 +1,16 @@
 const userInput = {
-    mounted() {
+    mounted () {
         this._props.value && (this.inputValue = this._props.value)
     },
-    props: ['value' , 'dataKey'],
-    data() {
+    props: ['value', 'dataKey'],
+    data () {
         return {
             inputValue: ''
         }
     },
     methods: {
-        input(e) {
-            this.$emit('userInput' , {
+        input (e) {
+            this.$emit('userInput', {
                 /**
                  * @namespace this._props.dataKey
                  */

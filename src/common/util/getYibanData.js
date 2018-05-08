@@ -1,7 +1,7 @@
-import { vqKey, yibanIdKey} from "../../config/config"
-import Token from "./Token"
-import getRequestParamList from "./getRequest"
+import Token from './Token'
+import getRequestParamList from './getRequest'
 import HttpRequest from './HttpRequest'
+import {vqKey, yibanIdKey} from '../../config/config'
 
 class YibanAuth {
     vqUrl
@@ -18,7 +18,7 @@ class YibanAuth {
      * @param appName 当前轻应用的名称
      * @param device 当前设备
      */
-    constructor (vqUrl , httpRequest , appName , device) {
+    constructor (vqUrl, httpRequest, appName, device) {
         this.vqUrl = vqUrl
         this.httpRequest = httpRequest
         this.appName = appName
@@ -50,19 +50,19 @@ class YibanAuth {
         return window.sessionStorage.vq
     }
 
-    setVq(vq) {
+    setVq (vq) {
         window.sessionStorage.vq = vq
     }
 
-    refreshToken() {
+    refreshToken () {
         const tokenUtil = new Token(this.httpRequest)
-        return tokenUtil.fetchTokenByText(this.appName , this.device , this.getVq())
+        return tokenUtil.fetchTokenByText(this.appName, this.device, this.getVq())
     }
     getVqByUrl () {
         const locationUrl = window.location.href
-        if (!locationUrl.includes('?')
-            && !locationUrl.includes('=')
-            && !locationUrl.includes(this.vqKey)) {
+        if (!locationUrl.includes('?') &&
+            !locationUrl.includes('=') &&
+            !locationUrl.includes(this.vqKey)) {
             return null
         }
         /**
@@ -74,12 +74,10 @@ class YibanAuth {
         window.sessionStorage.vq = paramList[vqKey]
         window.location = window.localStorage.backUrl
         return paramList[vqKey]
-
     }
 }
 
 class UserData {
-
     static haveLocalToken () {
         let token = window.sessionStorage.token
         return token !== null && token !== undefined && token !== 'null' && token !== 'undefined'
@@ -89,16 +87,16 @@ class UserData {
         return window.sessionStorage.token
     }
 
-    static haveLocalUserData() {
+    static haveLocalUserData () {
         let userData = window.sessionStorage.userData
         return userData !== null && userData !== undefined && userData !== 'null' && userData !== 'undefined'
     }
 
-    static getLocalUserData() {
+    static getLocalUserData () {
         return JSON.parse(window.sessionStorage.userData)
     }
 
-    static fetchUserData() {
+    static fetchUserData () {
         const valueMap = {
             yibanId: 'yb_userid',
             exp: 'yb_exp',

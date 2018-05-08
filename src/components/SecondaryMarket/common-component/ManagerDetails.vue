@@ -16,7 +16,7 @@
 <script>
     export default {
         name: 'ManagerDetails',
-        props: ['images' , 'describe'],
+        props: ['images', 'describe'],
         data () {
             return {}
         }

@@ -3,16 +3,16 @@ class Token {
     constructor (httpRequest) {
         this.httpRequest = httpRequest
     }
-    fetchTokenByText (appName , device , vq) {
-        const fd = new FormData();
-        fd.append('appName' , appName)
-        fd.append('vq' , vq)
-        fd.append('device' , device)
+    fetchTokenByText (appName, device, vq) {
+        const fd = new FormData()
+        fd.append('appName', appName)
+        fd.append('vq', vq)
+        fd.append('device', device)
         /**
          * @namespace fetch
          */
-        return fetch(this.httpRequest.commonUrl + '/auth' , {
-            method : 'POST',
+        return fetch(this.httpRequest.commonUrl + '/auth', {
+            method: 'POST',
             body: fd
         }).then(token => {
             return token.json()

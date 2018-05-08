@@ -1,13 +1,15 @@
 import {UserData} from '../util/getYibanData'
-const userData =  {
-    data() {
+const userData = {
+    data () {
         return {
             userData: {}
         }
     },
-    created() {
+    created () {
         if (!UserData.haveLocalUserData()) {
-            UserData.fetchUserData().then(userData => this.userData = userData)
+            UserData.fetchUserData().then(userData => {
+                this.userData = userData
+            })
         } else {
             this.userData = UserData.getLocalUserData()
         }

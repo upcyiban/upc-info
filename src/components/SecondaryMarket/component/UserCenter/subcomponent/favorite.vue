@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul>
-			<li class="item" v-for="(item,index) in items" @click='viewCollect(index)'>
+			<li class="item" v-for="(item,index) in items" @click="viewCollect(item.articleid)">
 				<img class="descimg" :src="item.img">
 				<div class="desc">
 					<p class="title">{{ item.name }}</p>
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-	import HttpRequest from '@/common/util/HttpRequest'
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/confirmbox.vue'
 	import util from './shared/util'
-	import delete_ from '../media/delete.png'
+	import delete_ from '@/components/SecondaryMarket/media/delete.png'
+	import edit from '@/components/SecondaryMarket/media/edit.png'
 
 	const getCollection = '/secondhand/collention/usercollection'
 	const deleteCollection = '/secondhand/collention/deletecollection'
@@ -37,7 +37,7 @@
 			marketFetch.getJsonData(getCollection,{}).then((result) => this.updateFavorite(result))
 		},
 		data: function(){
-			var dict = new Map([['id','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
+			var dict = new Map([['articleid','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
 			return {
 				items: [],
 				dict: dict,
@@ -66,8 +66,8 @@
 					this.items.push(tmp)
 				})
 			},
-			viewCollect: function(index){
-				this.$router.push('/second/details')
+			viewCollect: function(id){
+				this.$router.push(`/second/details/${id}`)
 			}
 		},
 		props: ['userid']
@@ -75,7 +75,7 @@
 </script>
 
 <style scoped>
-	.item>img{
+	.item .descimg{
 		margin: 0.75rem;
 		float: left;
 	}

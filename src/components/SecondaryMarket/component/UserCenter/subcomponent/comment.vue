@@ -2,16 +2,16 @@
 	<div>
 		<ul class="comments list">
 			<li class="comment" v-for="(comment,index) in comments" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchend="listenEnd(index,$event)">
-				<div>
-					<div class="user">
-						<img :src="comment.avatar" class="avatar">
-						<p class="nick">{{ comment.nick }}</p>
-						<p class="time">{{ comment.time }}</p>
+					<div>
+						<div class="user">
+							<img :src="comment.avatar" class="avatar">
+							<p class="nick">{{ comment.nick }}</p>
+							<p class="time">{{ comment.time }}</p>
+						</div>
+						<p class="content">评论了: {{ comment.content }}</p>
 					</div>
-					<p class="content">评论了: {{ comment.content }}</p>
-				</div>
-				<img class="descimg right" :src="comment.descimg" @click.stop="detail(index)">
-				<confirmbox v-if="comment.beforeDelete" @confirm="confirmDelete(index)" @cancel="comment.beforeDelete = false"></confirmbox>
+					<img class="descimg right" :src="comment.descimg" @click.stop="detail(index)">
+					<confirmbox v-if="comment.beforeDelete" @confirm="confirmDelete(index)" @cancel="comment.beforeDelete = false"></confirmbox>
 			</li>
 		</ul>
 		<replybox v-if="replyStatus" :replyTo="replyTo" @success="replyEnd"></replybox>
@@ -19,12 +19,13 @@
 </template>
 
 <script>
-	import HttpRequest from '@/common/util/HttpRequest'
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/confirmbox.vue'
 	import replyBox from './shared/replybox.vue'
 	import util from './shared/util'
+
 	const getComment = '/secondhand/browse/historyreview'
+	const deleteComment = '/secondhand/publish/deletereview'
 
 	export default {
 		name: 'comment',
@@ -36,7 +37,7 @@
 			marketFetch.getJsonData(getComment,{}).then((result) => this.updateComments(result))
 		},
 		data: function(){
-			var dict = new Map([['commentid','id'],['content','detail'],['nick','ybname'],['avatar','ybhead']])
+			var dict = new Map([['commentid','id'],['content','detail'],['nick','ybname'],['avatar','ybhead'],['articleid','articleId']])
 			return {
 				comments: [],
 				replyStatus: false,
@@ -53,7 +54,8 @@
 			},
 			listenEnd: function(index,event){
 				let delta = event.timeStamp - this.startTime
-//here				if(delta > 500)this.comments[index].beforeDelete = true
+				if(delta > 500)this.comments[index].beforeDelete = true
+				else if(delta > 10)this.$router.push(`/second/details/${this.comments[index].articleid}`)
 //				else if(delta > 10) this.replyComment(index)
 			},
 			replyComment: function(index){
@@ -70,7 +72,7 @@
 				this.comments[index].beforeDelete = true
 			},
 			confirmDelete: function(index){
-				///requestdelete
+				marketFetch.postJsonData(deleteComment,{reviewid: this.comments[index].commentid})
 				if(this.comments[index].commentid == this.replyTo){
 					this.replyEnd()
 				}
@@ -78,7 +80,7 @@
 			},
 			detail: function(index){
 				//go to details
-				this.$router.push('/')
+				this.$router.push('`/second/details/${comment.articleid}`')
 			},
 			updateComments(comments){
 				comments.forEach((comment,index,comments) => {
@@ -89,7 +91,7 @@
 					})
 					tmp['time'] = util.computeDate(comment['createtime'])
 					tmp['beforeDelete'] = false
-					this.requestImg(index,comment['id'])
+					this.requestImg(index,comment['articleId'])
 					this.comments.push(tmp)
 				})
 			},
@@ -104,7 +106,7 @@
 </script>
 
 <style>
-	.comment>div{
+	.comment div{
 		z-index: 999;
 		text-align: left;
 		width: 70%;

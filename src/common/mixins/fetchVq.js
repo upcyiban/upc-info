@@ -1,17 +1,17 @@
 function fetchVq (yibanAuth) {
     return {
-        data() {
+        data () {
             return {
                 title: '没有设置title,请详细阅读代码文档',
                 yibanAuth: yibanAuth
             }
         },
         watch: {
-            title(title) {
+            title (title) {
                 document.querySelector('title').innerHTML = title
             }
         },
-        created() {
+        created () {
             this.yibanAuth && this.yibanAuth.fetchVq()
             document.querySelector('title').innerHTML = this.title
         }

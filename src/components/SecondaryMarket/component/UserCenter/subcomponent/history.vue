@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul>
-			<li class="history" v-for="(record,index) in history">
+			<li class="history" v-for="(record,index) in history" @click="viewArticle(record.articleid)">
 				<img class="descimg" :src="record.img">
 				<div class="desc">
 					<p class="title">{{ record.name }}</p>
@@ -25,12 +25,11 @@
 </template>
 
 <script>
-	import HttpRequest from '@/common/util/HttpRequest'
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/confirmbox.vue'
 	import util from './shared/util'
-	import delete_ from '../media/delete.png'
-	import edit from '../media/edit.png'
+	import delete_ from '@/components/SecondaryMarket/media/delete.png'
+	import edit from '@/components/SecondaryMarket/media/edit.png'
 
 	const getHistory = '/secondhand/browse/historyArticle'
 	const deleteHistory = '/secondhand/publish/deletearticle'
@@ -45,7 +44,7 @@
 			marketFetch.getJsonData(getHistory,{}).then((result) => this.updateHistory(result))
 		},
 		data: function(){
-			var dict = new Map([['id','id'],['name','name'],['price','price'],['commentnum','reviews'],['collectnum','collections']])
+			var dict = new Map([['articleid','id'],['name','name'],['price','price'],['commentnum','reviews'],['collectnum','collections']])
 			return {
 				history: [],
 				dict: dict,
@@ -77,6 +76,9 @@
 					tmp['img'] = util.firstImg(record['imgurl'])
 					this.history.push(tmp)
 				})
+			},
+			viewArticle: function(id){
+				this.$router.push(`/second/details/${id}`)
 			}
 		},
 		props: ['userid']
@@ -84,7 +86,7 @@
 </script>
 
 <style scoped>
-	.history>img{
+	.history .descimg{
 		float: left;
 		margin: 0.75rem;
 	}

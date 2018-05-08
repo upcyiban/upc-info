@@ -1,43 +1,22 @@
 <template>
-	<div>
-		<navbar title="中国石油大学二手物品交易社区">
-			<!-- <img src="./images/back.png" @click="back" class="back"> -->
+	<div class="main box-center second-market">
+		<header-section title="中国石油大学二手物品交易社区">
 			<p>中国石油大学二手物品交易社区</p>
-		</navbar>
-		</navbar>
+		</header-section>
 		<prof :profile="profile"></prof>
-		<tabs :userid="profile.id"></tabs>
-		<!-- <div class="footer">
-            <ul class="clear">
-                <li class="float-left">
-                    <img :src="find" >
-                    <p>发现</p>
-                </li>
-                <li class="float-left add">
-                    <router-link to="/second/publish" class="absolute-horizontal-center" style="display: block">
-                        <span>+</span>
-                    </router-link>
-                    <img style="opacity: 0;" src="">
-                    <p>发布</p>
-                </li>
-                <li class="float-left">
-                    <img :src="user" >
-                    <p>我的</p>
-                </li>
-            </ul>
-        </div> -->
+		<tabs class="tabs" :userid="profile.id"></tabs>
+		<div class="placeholder"></div>
+		<footer-section current-page="user"></footer-section>
 	</div>
 </template>
 
 <script>
-	import HttpRequest from '@/common/util/HttpRequest'
 	import {marketFetch,yibanAuth} from '@/components/SecondaryMarket/config/fetchUtil'
-	import navbar from '@/common/components/HeaderSection'
+	import headerSection from '../../common-component/HeaderSection'
+	import footerSection from '../../common-component/footerSection'
 	import profile from './subcomponent/profile'
 	import tabs from './subcomponent/tabs'
 	import loadImg from '../../media/loading.gif'
-
-	// yibanAuth.getVq()
 
 	export default {
 		name: 'UserCenter',
@@ -79,7 +58,8 @@
 			},
 		},
 		components: {
-			'navbar': navbar,
+			'header-section': headerSection,
+			'footer-section': footerSection,
 			'prof': profile,
 			'tabs': tabs,
 		}
@@ -87,7 +67,10 @@
 </script>
 
 <style scoped>
-	div{
+	.main{
+		position: relative;
+		width: 100%;
+		max-width: 800px;
 		text-align: center;
 	}
 	.back{
@@ -96,5 +79,8 @@
 		position: absolute;
 		top: 8px;
 		left: 8px;
+	}
+	.placeholder{
+		margin-bottom: 5rem;
 	}
 </style>

@@ -16,12 +16,12 @@
     export default {
         name: 'InputBox',
         mixins: [userInput],
-        props: ['type' , 'placeholder' , 'classes'],
+        props: ['type', 'placeholder', 'classes'],
         data () {
             return {
             }
         }
-    };
+    }
 </script>
 
 

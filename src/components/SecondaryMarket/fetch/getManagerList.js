@@ -14,7 +14,7 @@ function createItem (item) {
         userData: {
             userHeader: item.ybhead,
             userId: item.userid,
-            userName: item.ybname,
+            userName: item.ybname
         },
         managerData: {
             id: item.id,
@@ -32,7 +32,7 @@ function createItem (item) {
 }
 
 function createPage (json) {
-    const {last , first , totalElements , totalPages , sort ,numberOfElements , size , number} = json
+    const {last, first, totalElements, totalPages, sort,numberOfElements, size, number} = json
     return {
         last,
         first,
@@ -47,7 +47,7 @@ function createPage (json) {
 
 function getManagerList (pageNum) {
     const fetch = this.fetch
-    return fetch.getJsonData('/secondhand/browse/article' , {
+    return fetch.getJsonData('/secondhand/browse/article', {
         page: pageNum,
         pagesize: 10
     }).then(json => {
@@ -60,5 +60,5 @@ function getManagerList (pageNum) {
         }
     })
 }
-export {createItem , createPage}
+export {createItem, createPage}
 export default getManagerList

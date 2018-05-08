@@ -10,7 +10,6 @@ export default {
 				else return parseInt(delta / 86400) + '天前'
 	},
 	firstImg(url) {
-		console.log(url)
 		if(typeof url === "undefined" || !(url.startsWith('['))) return url
 		else return url.substring(1,url.length-1).split('"')[1]
 	},

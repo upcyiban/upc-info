@@ -4,7 +4,7 @@ export default {
             classesList: []
         }
     },
-    created() {
+    created () {
         this.fetch.getJsonData('/secondhand/browse/allkind')
             .then(json => {
                 this.classesList = json.map(item => {
