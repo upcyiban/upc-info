@@ -132,6 +132,13 @@
             addDiscuss () {
                 addDiscuss(this.$route.params.articleId, this.discussDetail, this).then(data => {
                     data ? this.changeDiscuss() : alert('发表评论失败')
+                    if (data) {
+                        this.changeDiscuss()
+                        // this.discussList.push(this.discussDetail)
+                        alert('发表评论成功')
+                    } else {
+                        alert('发表评论失败')
+                    }
                 })
             },
             changeDiscuss () {
