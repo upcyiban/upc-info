@@ -79,7 +79,6 @@
 				this.comments.splice([index],1)
 			},
 			detail: function(index){
-				//go to details
 				this.$router.push('`/second/details/${comment.articleid}`')
 			},
 			updateComments(comments){

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul>
-			<li class="history" v-for="(record,index) in history" @click="viewArticle(record.articleid)">
+			<li class="history" v-for="(record,index) in history" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchend="listenEnd(index,$event)">
 				<img class="descimg" :src="record.img">
 				<div class="desc">
 					<p class="title">{{ record.name }}</p>
@@ -55,6 +55,13 @@
 			}
 		},
 		methods: {
+			listenStart: function(index,event){
+				this.startTime = event.timeSramp
+			},
+			listenEnd: function(index,event){
+				let delta = event.timeStamp - this.startTime
+				if(delta > 10)viewArticle(this.history[index].articleid)
+			},
 			editPost: function(index){
 				//go to publish page
 				this.$router.push(editHistory)
@@ -63,7 +70,7 @@
 				this.history[index].beforeDelete = true;
 			},
 			confirmDelete: function(index){
-				marketFetch.postJsonData(deleteHistory,{articleid: this.history[index].id})
+				marketFetch.postJsonData(deleteHistory,{articleid: this.history[index].articleid})
 				this.history.splice(index,1)
 			},
 			updateHistory: function(records){

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul>
-			<li class="item" v-for="(item,index) in items" @click="viewCollect(item.articleid)">
+			<li class="item" v-for="(item,index) in items" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchend="listenEnd(index,$event)">
 				<img class="descimg" :src="item.img">
 				<div class="desc">
 					<p class="title">{{ item.name }}</p>
@@ -47,11 +47,18 @@
 			}
 		},
 		methods: {
+			listenStart: function(index,event){
+				this.startTime = event.timeSramp
+			},
+			listenEnd: function(index,event){
+				let delta = event.timeStamp - this.startTime
+				if(delta > 10)viewArticle(this.history[index].articleid)
+			},
 			deleteFavorite: function(index){
 				this.items[index].beforeDelete = true;
 			},
 			confirmDelete: function(index){
-				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].id})
+				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].articleid})
 				this.items.splice(index,1)
 			},
 			updateFavorite: function(items){
