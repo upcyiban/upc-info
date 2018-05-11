@@ -8,7 +8,7 @@ import './common/style/common-style.css'
 import 'babel-polyfill'
 import 'fetch-detector'
 import 'fetch-ie8'
-import './components/registerConsoleListen'
+// import './components/registerConsoleListen'
 
 require('es6-promise').polyfill()
 

@@ -115,8 +115,7 @@ class HttpRequest {
                 }
             }
         }
-        console.log('POST method', this.commonUrl + url)
-        console.log('formData', body)
+        console.log('POST method', this.commonUrl + url, body)
         return fetch(this.commonUrl + url, {
             method: 'post',
             body: fd

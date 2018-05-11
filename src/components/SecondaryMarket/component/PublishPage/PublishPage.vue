@@ -45,12 +45,12 @@
     import publishGoods from '../../fetch/publishGoods'
     import loading from '../../../../common/mixins/loading'
     import fetchVq from '../../../../common/mixins/fetchVq'
-    import {marketFetch, yibanAuth , uploadFile} from '../../config/fetchUtil'
+    import {marketFetch, yibanAuth, uploadFile} from '../../config/fetchUtil'
     import getClassification from '../../common-component/mixins/getClassification'
 
     export default {
         name: 'PublishPage',
-        mixins: [updateData , loading(marketFetch , this) , fetchVq(yibanAuth) , getClassification],
+        mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), getClassification],
         data () {
             return {
                 title: '发布',
@@ -73,20 +73,19 @@
             LoadImage
         },
         methods: {
-            addFile(fileElement) {
+            addFile (fileElement) {
                 uploadFile.fetchFile(fileElement).then(fileUrl => {
-                    console.log(fileUrl);
-                    alert(fileUrl)
+                    console.log(fileUrl)
                     this.fileList.push(fileUrl)
                 })
             },
-            deleteImage(e) {
+            deleteImage (e) {
                 const deleteFileIndex = parseInt(e.target.dataset.index)
-                this.fileList = this.fileList.filter( (item , index) => {
+                this.fileList = this.fileList.filter((item, index) => {
                     return index !== deleteFileIndex
                 })
             },
-            userPublish() {
+            userPublish () {
                 const price = parseInt(this.managerPrice)
                 if (isNaN(price)) {
                     alert('请在价格框中输入数字')
@@ -96,9 +95,9 @@
                     this.$router.push({path: '/second/home-page'})
                 })
             },
-            publishGoods,
+            publishGoods
         }
-    };
+    }
 </script>
 
 

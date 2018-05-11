@@ -1,11 +1,23 @@
-
+const keySet = {
+    articleId: 'articleId',
+    createTime: 'createtime',
+    isDelete: 'isdelete',
+    updateTime: 'updatetime',
+    ybHeader: 'ybhead',
+    ybId: 'ybid',
+    ybName: 'ybname'
+}
 function addDiscuss (articleId, discuss, component) {
     return component.fetch.postJsonData('/secondhand/publish/review', {
         articleid: articleId,
         detail: discuss
     }).then(json => {
-        console.log(json.code && json.code === 0, json.code)
-        return !(json.code && json.code === 0)
+        for (let key in keySet) {
+            const item = keySet[key]
+            json[key] = json[item]
+        }
+        console.log(json)
+        return json
     })
 }
 

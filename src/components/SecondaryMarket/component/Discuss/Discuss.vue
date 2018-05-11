@@ -14,12 +14,12 @@
             }
         },
         methods: {
-            click(e) {
+            click (e) {
                 console.log(e.target)
                 this.data = 123
                 this.data = [1, 2, 3, 4, 5][2]
             },
-            click1(e) {
+            click1 (e) {
                 this.data = 1234
                 console.log(e.target)
             }

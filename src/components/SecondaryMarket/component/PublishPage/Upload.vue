@@ -15,12 +15,11 @@
             return {}
         },
         methods: {
-            upload(e) {
-                alert(e.target.value)
-                this.$emit('addFile' , e.target)
+            upload (e) {
+                this.$emit('addFile', e.target)
             }
         }
-    };
+    }
 </script>
 
 
