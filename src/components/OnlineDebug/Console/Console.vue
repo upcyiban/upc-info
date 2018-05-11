@@ -1,5 +1,5 @@
 <template>
-    <div class="Console">
+    <div class="Console box-center">
         <div class="text-center">
             <button @click="clearLogMessage">clear</button>
             <button data-key="Log" @click="changeStatus" :class="`open-${showLog}`">log</button>
@@ -19,7 +19,9 @@
                     <p v-if="isConsoleStyle(item.args[0])" :style="computeStyle(item.args)">{{item.args[0]}}</p>
                     <message v-if="!isConsoleStyle(item.args[0])" :key="key" :message="arg" v-for="(arg, key) in item.args"></message>
                 </td>
-                <td>Stack</td>
+                <td>
+                    <stack :stack="item.stack"></stack>
+                </td>
             </tr>
         </table>
         <button @click="showMore" class="show-more">我还要打十个</button>
@@ -28,13 +30,11 @@
 </template>
 
 <script>
-    import Message from './Message.vue'
-    import consoleListen from '../../registerConsoleListen'
+    import Stack from './DataComponent/Stack.vue'
     export default {
         name: 'Console',
         data () {
             return {
-                consoleListen: consoleListen,
                 logMessage: [],
                 showMessageList: [],
                 showWarn: false,
@@ -97,16 +97,13 @@
                 }
                 const index = e.target.dataset.index
                 const item = this.showMessageList[index]
-                console.log(item)
-                window.a = this.showMessageList
-                window.b = this.logMessage
-                window.c = item
                 this.logMessage.splice(this.logMessage.indexOf(item), 1)
                 this.showMessageList.splice(index, 1)
+                window.localStorage.logMessage = JSON.stringify(this.logMessage)
             }
         },
         components: {
-            Message
+            Stack
         }
     }
 </script>
@@ -130,6 +127,7 @@
     }
     table tr td:first-child {
         color: #0084ff;
+        cursor: pointer;
     }
     table th {
         text-align: left;
@@ -142,6 +140,9 @@
     }
     table tr th:first-child {
         width: 2rem;
+    }
+    table tr th:last-child {
+         width: 16rem;
     }
     table tr:first-child {
         background: #fafafa;
@@ -185,7 +186,7 @@
     .open-false:before {
         content: '×';
         font-size: 0.8rem;
-        color: red;
+        color: #00abff;
     }
 
     .show-more {
