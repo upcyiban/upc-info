@@ -54,7 +54,7 @@
 		font-size: 1rem;
 		color: #ffffff;
 		flex: 1;
-		margin: 12px auto;
+		margin: 1rem auto;
 	}
 	.button.active{
 		color: #000000;
@@ -71,7 +71,7 @@
 	}
 	.tab-view >>> li{
 		list-style: none;
-		min-height: 5.5rem;
+		min-height: 6rem;
 		width: 100%;
 		position: relative;
 		border-bottom: 1px solid #e4e3e3;
@@ -79,7 +79,7 @@
 	}
 	.tab-view >>> .desc{
 		position: relative;
-		top: 0.25rem;
+		top: 0.5rem;
 		text-align: left;
 	}
 	.tab-view >>> .descimg{
@@ -103,7 +103,7 @@
 		display: flex;
 		position: absolute;
 		right: 1rem;
-		bottom: 0.5rem;
+		bottom: 1rem;
 		-webkit-user-select: none;
 		-webkit-touch-callout: none;
 		user-select: none;

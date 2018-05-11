@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul class="comments list">
-			<li class="comment" v-for="(comment,index) in comments" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchend="listenEnd(index,$event)">
+			<li class="comment" v-for="(comment,index) in comments" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchmove="listenMove($event)" @touchend="listenEnd(index,$event)">
 					<div>
 						<div class="user">
 							<img :src="comment.avatar" class="avatar">
@@ -48,15 +48,46 @@
 		methods: {
 			// if deletebox and replybox are required
 			// please uncomment
-
-			listenStart(index,event) {
-				this.startTime = event.timeStamp
+			listenStart: function(index,event){
+				if(event.type == 'mousedown'){
+					this.mousedown = {
+						startTime: event.timeStamp,
+						startX: event.pageX,
+						startY: event.pageY,
+					}
+				}
+				else if(event.type == 'touchstart'){
+					this.touchstart = {
+						startTime: event.timeStamp,
+						startX: event.touches[0].clientX,
+						startY: event.touches[0].clientY,
+					}
+				}
+			},
+			listenMove: function(event){
+				this.touchend = {
+					endX: event.touches[0].clientX,
+					endY: event.touches[0].clientY,
+				}
 			},
 			listenEnd: function(index,event){
-				let delta = event.timeStamp - this.startTime
-				if(delta > 500)this.comments[index].beforeDelete = true
-				else if(delta > 10)this.$router.push(`/second/details/${this.comments[index].articleid}`)
-//				else if(delta > 10) this.replyComment(index)
+				if(event.type == 'mouseup'){
+					let delta = event.timeStamp - this.mousedown.startTime,
+					distX = event.clientX - this.mousedown.startX,
+					distY = event.clientY - this.mousedown.startY
+					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 20){
+						this.$router.push(`/second/details/${this.comments[index].articleid}`)
+					}
+				}
+				else if(event.type == 'touchend'){
+					let delta = event.timeStamp - this.touchstart.startTime,
+					distX = this.touchend.endX ? this.touchend.endX - this.touchstart.startX : 0,
+					distY = this.touchend.endY ? this.touchend.endY - this.touchstart.startY : 0
+					this.touchstart = this.touchend = {}
+					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
+						this.$router.push(`/second/details/${this.comments[index].articleid}`)
+					}
+				}
 			},
 			replyComment: function(index){
 //and here				this.replyStatus = true
@@ -114,35 +145,33 @@
 		height: 2.5rem;
 		width: 2.5rem;
 		float: left;
-		margin: 0.5rem;
+		margin: 1rem 0.5rem 0 1rem;
 		border-radius: 2.5rem;
 	}
 	.comment .nick{
-		font-size: 1.25rem;
+		font-size: 1rem;
 		margin: 0;
-		padding: 0.5rem 0;
+		padding: 1rem 0 0.5rem 0;
 	}
 	.comment .time{
 		color: #9e9898;
 		font-size: 0.75rem;
 		margin: 0;
-		margin-bottom: 0.75rem;
+		margin-bottom: 1rem;
 	}
 	.comment .content{
 		color: #606060;
 		font-size: 0.9rem;
-		line-height: 1.05rem;
 		position: relative;
 		left: 1rem;
 		margin: 0;
 		max-width: 80%;
-		padding-bottom: 0.5rem;
 	}
 	.descimg.right{
 		margin: 0;
 		position: absolute;
 		top: 50%;
-		right: 1rem;
+		right: 1.25rem;
 		transform: translate(0,-50%);
 	}
 </style>

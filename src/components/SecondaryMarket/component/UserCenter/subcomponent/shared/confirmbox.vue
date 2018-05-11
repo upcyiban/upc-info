@@ -1,9 +1,13 @@
 <template>
 	<transition name="showConfirmation">
 		<div class="confirm-box">
-			<p>确认删除？</p>
-			<button class="cfm btn" @mouseup.stop="confirm" @touchend.stop="confirm">确认</button>
-			<button class="ccl btn" @click.stop="cancel" @touchend.stop="cancel">取消</button>
+			<div class="ctn">
+				<p>确认删除？</p>
+				<div class="btns">
+					<button class="cfm btn" @mouseup.stop="confirm" @touchend.stop="confirm">确认</button>
+					<button class="ccl btn" @mouseup.stop="cancel" @touchend.stop="cancel">取消</button>
+				</div>
+			</div>
 		</div>
 	</transition>
 </template>
@@ -24,8 +28,8 @@
 
 <style scoped>
 	.confirm-box{
-		width: 40%;
-		height: 3.25rem;
+		width: 45%;
+		height: 4rem;
 		background: #ffffff;
 		border: 1px solid #cfcfcf;
 		text-align: center;
@@ -42,8 +46,20 @@
 		font-size: 0.8rem;
 		margin: 0.25rem;
 	}
+	.ctn{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 100%;
+		transform: translate(-50%,-50%);
+	}
+	.btns{
+		display: inline-block;
+	}
 	.btn{
-		margin: 0.25rem;
+		width: 3rem;
+		height: 1.25rem;
+		margin: 0.5rem 0.5rem;
 		border-radius: 2rem;
 		background-image: none;
 		outline-style: none;  

@@ -56,6 +56,7 @@
 	.avatar{
 		width: 64px;
 		height: 64px;
+		margin: 0;
 		border-radius: 32px;
 		position: relative;
 		top: 4px;

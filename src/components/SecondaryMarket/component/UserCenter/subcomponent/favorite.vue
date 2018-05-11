@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul>
-			<li class="item" v-for="(item,index) in items" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchend="listenEnd(index,$event)">
+			<li class="item" v-for="(item,index) in items" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchmove="listenMove($event)" @touchend="listenEnd(index,$event)">
 				<img class="descimg" :src="item.img">
 				<div class="desc">
 					<p class="title">{{ item.name }}</p>
@@ -43,16 +43,50 @@
 				dict: dict,
 				buttons: {
 					delete: delete_
-				}
+				},
 			}
 		},
 		methods: {
 			listenStart: function(index,event){
-				this.startTime = event.timeSramp
+				if(event.type == 'mousedown'){
+					this.mousedown = {
+						startTime: event.timeStamp,
+						startX: event.pageX,
+						startY: event.pageY,
+					}
+				}
+				else if(event.type == 'touchstart'){
+					this.touchstart = {
+						startTime: event.timeStamp,
+						startX: event.touches[0].clientX,
+						startY: event.touches[0].clientY,
+					}
+				}
+			},
+			listenMove: function(event){
+				this.touchend = {
+					endX: event.touches[0].clientX,
+					endY: event.touches[0].clientY,
+				}
 			},
 			listenEnd: function(index,event){
-				let delta = event.timeStamp - this.startTime
-				if(delta > 10)viewArticle(this.history[index].articleid)
+				if(event.type == 'mouseup'){
+					let delta = event.timeStamp - this.mousedown.startTime,
+					distX = event.clientX - this.mousedown.startX,
+					distY = event.clientY - this.mousedown.startY
+					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 20){
+						this.viewArticle(this.item[index].articleid)
+					}
+				}
+				else if(event.type == 'touchend'){
+					let delta = event.timeStamp - this.touchstart.startTime,
+					distX = this.touchend.endX ? this.touchend.endX - this.touchstart.startX : 0,
+					distY = this.touchend.endY ? this.touchend.endY - this.touchstart.startY : 0
+					this.touchstart = this.touchend = {}
+					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
+						this.viewArticle(this.items[index].articleid)
+					}
+				}
 			},
 			deleteFavorite: function(index){
 				this.items[index].beforeDelete = true;
@@ -73,7 +107,7 @@
 					this.items.push(tmp)
 				})
 			},
-			viewCollect: function(id){
+			viewArticle: function(id){
 				this.$router.push(`/second/details/${id}`)
 			}
 		},
@@ -83,7 +117,7 @@
 
 <style scoped>
 	.item .descimg{
-		margin: 0.75rem;
+		margin: 1rem 0.5rem 1rem 1.25rem;
 		float: left;
 	}
 	.date{
