@@ -23,13 +23,13 @@
 			'tab-comment': comment,
 			'tab-history': history,
 		},
-		data: function(){
+		data () {
 			return {
 				currentTab: 'favorite'
 			}
 		},
 		computed: {
-			currentTabComponent: function(){
+			currentTabComponent () {
 				return 'tab-' + this.currentTab
 			}
 		},

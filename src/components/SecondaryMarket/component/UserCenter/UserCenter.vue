@@ -20,10 +20,12 @@
 
 	export default {
 		name: 'UserCenter',
-		data: function(){
+		created () {
 			marketFetch.getJsonData('/second/user/info',{}).then((result) => {
 				this.updateUserInfo(result)
 			})
+		},
+		data () {
 			var dict = new Map([['id','userid'],['nick','username'],['avatar','ybhead'],['qq','qq'],['wechat','wechat'],['phone','phone'],['email','email']])
 			return {
 				currentTab: 'favorite',
@@ -40,20 +42,20 @@
 			}
 		},
 		computed: {
-			currentTabComponent: function(){
+			currentTabComponent () {
 				return 'tab-' + this.currentTab
 			}
 		},
 		methods: {
-			changeTab: function(to){
+			changeTab (to) {
 				this.currentTab = to
 			},
-			back: function(){
+			back () {
 				this.$router.push('/second/homepage')
 			},
-			updateUserInfo: function(i){
+			updateUserInfo (info) {
 				this.dict.forEach((from,to,set) => {
-					if(i.hasOwnProperty(from))this.profile[to] = i[from] ? i[from] : '无'
+					if(info.hasOwnProperty(from))this.profile[to] = info[from] ? info[from] : '无'
 				})
 			},
 		},

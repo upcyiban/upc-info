@@ -28,7 +28,7 @@
 	import edit from '@/components/SecondaryMarket/media/editProfile.png'
 	export default {
 		name: 'profile',
-		data: function(){
+		data () {
 			return {
 				edit:edit
 			}
@@ -49,9 +49,9 @@
 		height: 72px;
 		border-radius: 64px;
 		background-color: #66cbff;
-    	position: absolute;
-    	left: 50%;
-    	transform: translate(-50%,-50%);
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%,-50%);
 	}
 	.avatar{
 		width: 64px;

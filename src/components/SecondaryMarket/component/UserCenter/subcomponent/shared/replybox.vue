@@ -12,26 +12,28 @@
 </template>
 
 <script>
-const replyUrl = '/'
-export default {
-	name: 'replyBox',
-	props: ['replyTo'],
-	data: function(){
-		return {
-			content: ''
-		}
-	},
-	methods: {
-		send: function(content){
-			//post data
-			console.log(this.replyTo+':'+this.content)
-			this.success()
+	//no secondary reply at present
+	const replyUrl = '/'
+
+	export default {
+		name: 'replyBox',
+		props: ['replyTo'],
+		data () {
+			return {
+				content: ''
+			}
 		},
-		success: function(){
-			this.$emit('success')
+		methods: {
+			send (content) {
+				//post data
+				console.log(this.replyTo+':'+this.content)
+				this.success()
+			},
+			success () {
+				this.$emit('success')
+			}
 		}
 	}
-}
 </script>
 
 <style scoped>

@@ -20,8 +20,8 @@
 
 <script>
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
-	import confirmBox from './shared/confirmbox.vue'
-	import replyBox from './shared/replybox.vue'
+	import confirmBox from './shared/ConfirmBox.vue'
+	import replyBox from './shared/ReplyBox.vue'
 	import util from './shared/util'
 
 	const getComment = '/secondhand/browse/historyreview'
@@ -33,10 +33,10 @@
 			'replybox': replyBox,
 			'confirmbox': confirmBox,
 		},
-		mounted() {
+		mounted () {
 			marketFetch.getJsonData(getComment,{}).then((result) => this.updateComments(result))
 		},
-		data: function(){
+		data () {
 			var dict = new Map([['commentid','id'],['content','detail'],['nick','ybname'],['avatar','ybhead'],['articleid','articleId']])
 			return {
 				comments: [],
@@ -46,17 +46,15 @@
 			}
 		},
 		methods: {
-			// if deletebox and replybox are required
-			// please uncomment
-			listenStart: function(index,event){
-				if(event.type == 'mousedown'){
+			listenStart (index,event) {
+				if(event.type === 'mousedown'){
 					this.mousedown = {
 						startTime: event.timeStamp,
 						startX: event.pageX,
 						startY: event.pageY,
 					}
 				}
-				else if(event.type == 'touchstart'){
+				else if(event.type === 'touchstart'){
 					this.touchstart = {
 						startTime: event.timeStamp,
 						startX: event.touches[0].clientX,
@@ -64,14 +62,14 @@
 					}
 				}
 			},
-			listenMove: function(event){
+			listenMove (event) {
 				this.touchend = {
 					endX: event.touches[0].clientX,
 					endY: event.touches[0].clientY,
 				}
 			},
-			listenEnd: function(index,event){
-				if(event.type == 'mouseup'){
+			listenEnd (index,event) {
+				if(event.type === 'mouseup'){
 					let delta = event.timeStamp - this.mousedown.startTime,
 					distX = event.clientX - this.mousedown.startX,
 					distY = event.clientY - this.mousedown.startY
@@ -79,40 +77,45 @@
 						this.$router.push(`/second/details/${this.comments[index].articleid}`)
 					}
 				}
-				else if(event.type == 'touchend'){
+				else if(event.type === 'touchend'){
 					let delta = event.timeStamp - this.touchstart.startTime,
-					distX = this.touchend.endX ? this.touchend.endX - this.touchstart.startX : 0,
-					distY = this.touchend.endY ? this.touchend.endY - this.touchstart.startY : 0
+					distX = this.touchend && this.touchend.endX ? this.touchend.endX - this.touchstart.startX : 0,
+					distY = this.touchend && this.touchend.endY ? this.touchend.endY - this.touchstart.startY : 0
 					this.touchstart = this.touchend = {}
-					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
+					if(delta > 500){
+						this.showConfirmation(index)
+					}
+					else if(delta > 10 && Math.abs(distY) < 25){
 						this.$router.push(`/second/details/${this.comments[index].articleid}`)
 					}
 				}
 			},
-			replyComment: function(index){
-//and here				this.replyStatus = true
+			replyComment (index) {
+				// if replybox is required
+				// please uncomment
+				// this.replyStatus = true
 				if(this.comments[index]){
 					this.replyTo = this.comments[index].commentid
 				}
 			},
-			replyEnd: function(){
+			replyEnd () {
 				this.replyStatus = false
 				this.replyTo = ''
 			},
-			showConfirmation: function(index){
+			showConfirmation (index) {
 				this.comments[index].beforeDelete = true
 			},
-			confirmDelete: function(index){
+			confirmDelete (index) {
 				marketFetch.postJsonData(deleteComment,{reviewid: this.comments[index].commentid})
 				if(this.comments[index].commentid == this.replyTo){
 					this.replyEnd()
 				}
 				this.comments.splice([index],1)
 			},
-			detail: function(index){
+			detail (index) {
 				this.$router.push('`/second/details/${comment.articleid}`')
 			},
-			updateComments(comments){
+			updateComments (comments) {
 				comments.forEach((comment,index,comments) => {
 					if(comment && comment.isdelete != 0)return true
 					let tmp = {}
@@ -125,7 +128,7 @@
 					this.comments.push(tmp)
 				})
 			},
-			requestImg(index,id) {
+			requestImg (index,id) {
 				marketFetch.getJsonData('/secondhand/browse/onearticle',{articleid: id}).then((result) => {
 					this.$set(this.comments[index],'descimg',util.firstImg(result['imgurl']))
 				})
@@ -136,7 +139,7 @@
 </script>
 
 <style>
-	.comment div{
+	.comment>div{
 		z-index: 999;
 		text-align: left;
 		width: 70%;

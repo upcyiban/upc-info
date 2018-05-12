@@ -1,6 +1,6 @@
 <template>
 	<transition name="showConfirmation">
-		<div class="confirm-box">
+		<div class="confirm-box absolute-center">
 			<div class="ctn">
 				<p>确认删除？</p>
 				<div class="btns">
@@ -16,10 +16,10 @@
 	export default {
 		name: 'confirm-box',
 		methods: {
-			confirm: function(){
+			confirm () {
 				this.$emit('confirm')
 			},
-			cancel: function(){
+			cancel () {
 				this.$emit('cancel')
 			}
 		}
@@ -32,35 +32,32 @@
 		height: 4rem;
 		background: #ffffff;
 		border: 1px solid #cfcfcf;
-		text-align: center;
 		border-radius: 3px;
 		z-index: 900;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%,-50%);
 		transform-origin: top left;
 		-webkit-touch-callout: none;
 	}
 	p{
-		font-size: 0.8rem;
-		margin: 0.25rem;
+		font-size: 1rem;
+		margin-top: 0.5rem;
 	}
 	.ctn{
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		width: 100%;
 		transform: translate(-50%,-50%);
+		text-align: center;
+		width: 100%;
 	}
 	.btns{
-		display: inline-block;
+		display: flex;
 	}
 	.btn{
+		flex: 1;
 		width: 3rem;
-		height: 1.25rem;
-		margin: 0.5rem 0.5rem;
-		border-radius: 2rem;
+		height: 1.5rem;
+		margin: 0.5rem 0.75rem;
+		border-radius: 3rem;
 		background-image: none;
 		outline-style: none;  
 	}

@@ -34,22 +34,22 @@
 		//currentPage取值为find,publish,user三者之一
 		props: ['currentPage'],
 		computed: {
-			find() {
-				if(this.currentPage == 'find') return findOn
+			find () {
+				if(this.currentPage === 'find') return findOn
 				else return findOff
 			},
 			user() {
-				if(this.currentPage == 'user') return userOn
+				if(this.currentPage === 'user') return userOn
 				else return userOff
 			}
 		},
 		methods: {
-			backTop() {
+			backTop () {
 				window.scrollTo(0,0)
 			},
-			isCurrent(queryPage) {
-				if(queryPage == 'user') return '/second/user-center'
-				else if(queryPage == 'find') return '/second/home-page'
+			isCurrent (queryPage) {
+				if(queryPage === 'user') return '/second/user-center'
+				else if(queryPage === 'find') return '/second/home-page'
 				else return ''
 			}
 		}
