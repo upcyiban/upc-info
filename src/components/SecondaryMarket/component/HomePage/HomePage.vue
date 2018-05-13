@@ -36,8 +36,10 @@
                     <p>发布</p>
                 </li>
                 <li class="float-left">
-                    <img :src="user" >
-                    <p>我的</p>
+                    <router-link to="/second/user-center">
+                        <img :src="user" >
+                        <p>我的</p>
+                    </router-link>
                 </li>
             </ul>
         </div>
