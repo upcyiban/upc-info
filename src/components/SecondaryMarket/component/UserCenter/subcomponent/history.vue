@@ -59,8 +59,8 @@
 				if(event.type === 'mousedown'){
 					this.mousedown = {
 						startTime: event.timeStamp,
-						startX: event.pageX,
-						startY: event.pageY,
+						startX: event.clientX,
+						startY: event.clientY,
 					}
 				}
 				else if(event.type === 'touchstart'){
