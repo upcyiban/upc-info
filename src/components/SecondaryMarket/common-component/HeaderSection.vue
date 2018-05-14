@@ -7,11 +7,20 @@
 <script>
     export default {
         name: 'HeaderSection',
+        props : ['firstLogin'],
         data () {
             return {
             }
-        }
+        }，
+        created: {
+            firstLogin: function () {
+                var flag = "firstLogin"
+                if (!flag) {
+                    this.$router.push('/second/user-information')
+                }
+            }
     }
+}
 </script>
 
 
