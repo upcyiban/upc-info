@@ -23,7 +23,6 @@
 	import confirmBox from './shared/ConfirmBox.vue'
 	import util from './shared/util'
 	import delete_ from '@/components/SecondaryMarket/media/delete.png'
-	import edit from '@/components/SecondaryMarket/media/edit.png'
 
 	const getCollection = '/secondhand/collention/usercollection'
 	const deleteCollection = '/secondhand/collention/deletecollection'

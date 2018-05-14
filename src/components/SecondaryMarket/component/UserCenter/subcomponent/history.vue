@@ -10,10 +10,6 @@
 				</div>
 				<div class="buttons">
 					<div class="button">
-						<img class="icon" :src="button.edit">
-						<p @click.stop="editPost(index)">编辑</p>
-					</div>
-					<div class="button">
 						<img class="icon" :src="button.delete">
 						<p @click.stop="deletePost(index)">删除</p>
 					</div>
@@ -29,7 +25,6 @@
 	import confirmBox from './shared/ConfirmBox.vue'
 	import util from './shared/util'
 	import delete_ from '@/components/SecondaryMarket/media/delete.png'
-	import edit from '@/components/SecondaryMarket/media/edit.png'
 
 	const getHistory = '/secondhand/browse/historyArticle'
 	const deleteHistory = '/secondhand/publish/deletearticle'
@@ -50,7 +45,6 @@
 				dict: dict,
 				button: {
 					delete: delete_,
-					edit: edit
 				}
 			}
 		},
