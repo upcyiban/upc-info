@@ -1,6 +1,5 @@
 import {commonUrl} from '../../config/config'
-import {UserData, YibanAuth} from './getYibanData'
-import {yibanAuth} from '../../components/SecondaryMarket/config/fetchUtil'
+import {UserData} from './getYibanData'
 
 class HttpRequest {
     commonUrl = commonUrl
