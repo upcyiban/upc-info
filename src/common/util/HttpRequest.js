@@ -1,6 +1,5 @@
 import {commonUrl} from '../../config/config'
-import {UserData, YibanAuth} from './getYibanData'
-import {yibanAuth} from '../../components/SecondaryMarket/config/fetchUtil'
+import {UserData} from './getYibanData'
 
 class HttpRequest {
     commonUrl = commonUrl
@@ -19,7 +18,7 @@ class HttpRequest {
             window.r = r
             if (r.toString() === 'TypeError: Failed to fetch') {
                 if (this.yibanAuth && this.yibanAuth.haveVq()) {
-                    alert('请检查网络连接')
+                    console.log('请检查网络连接')
                 }
             }
         })
@@ -71,7 +70,7 @@ class HttpRequest {
         this._fetchBefore && this._fetchBefore.forEach(item => item(url, body))
         return fetchData(url, body)
             .catch(r => {
-                alert(r.toString())
+                console.log(r.toString())
                 return this._fetchError && this._fetchError.forEach(item => item(r))
             }).then(data => {
                 this._fetchAfter && this._fetchAfter.forEach(item => item(data))
@@ -115,8 +114,7 @@ class HttpRequest {
                 }
             }
         }
-        console.log('POST method', this.commonUrl + url)
-        console.log('formData', body)
+        console.log('POST method', this.commonUrl + url, body)
         return fetch(this.commonUrl + url, {
             method: 'post',
             body: fd

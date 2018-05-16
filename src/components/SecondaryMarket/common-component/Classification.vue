@@ -47,9 +47,7 @@
                     // 删除当前的元素
                     this.chooseList.splice(chooseIndex, 1)
                 }
-                console.log(this.chooseList)
                 const chooseList = this.chooseList.sort()
-                console.log(chooseList)
                 const chooseValue = chooseList.map((item) => {
                     return this._props.classesList[item]
                 })

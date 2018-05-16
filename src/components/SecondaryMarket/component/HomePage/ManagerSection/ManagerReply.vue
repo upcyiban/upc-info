@@ -15,7 +15,7 @@
         data () {
             return {}
         },
-        beforeMount(){
+        beforeMount () {
         },
         props: ['replyList']
     }

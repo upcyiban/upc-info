@@ -5,7 +5,7 @@ function publishGoods () {
         'kind': JSON.stringify(this.chooseList.chooseValue),
         'detail': this.managerMessage,
         'imgurl': JSON.stringify(this.fileList),
-        'price': this.managerPrice,
+        'price': parseFloat(this.managerPrice),
         'degree': '未添加崭新度'
     })
 }

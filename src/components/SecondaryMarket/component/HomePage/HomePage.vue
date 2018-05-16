@@ -60,20 +60,20 @@
 
     export default {
         name: 'HomePage',
-        mixins: [updateData , loading(marketFetch) , fetchVq(yibanAuth) , lazyLoad],
+        mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth), lazyLoad],
         data () {
             return {
                 title: '中国石油大学 二手市场',
                 find: require('../../media/findOn.png'),
                 user: require('../../media/userOff.png'),
                 pageList: [],
-                pageListData:[],
-                //flag描述pageListData的属性是首页的数据还是搜索的数据
+                pageListData: [],
+                // flag描述pageListData的属性是首页的数据还是搜索的数据
                 flag: true,
                 nextPageNumber: 1
             }
         },
-        created() {
+        created () {
             this.getManagerList(0).then(data => {
                 this.addPage(data)
             })
@@ -85,10 +85,10 @@
             LoadImage
         },
         methods: {
-            backTop() {
-                window.scrollTo(0 , 0)
+            backTop () {
+                window.scrollTo(0, 0)
             },
-            setPageWithData(json) {
+            setPageWithData (json) {
                 if (this.flag) {
                     this.pageListData = this.pageList
                     this.flag = false
@@ -98,7 +98,7 @@
                     pageData: this.pageList[0].pageData
                 }]
             },
-            fetchSearch(e) {
+            fetchSearch (e) {
                 if (e.name) {
                     this.fetch.getJsonData('/secondhand/browse/findbyarticlename' , {
                         name: e.name

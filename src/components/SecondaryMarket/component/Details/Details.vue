@@ -23,8 +23,8 @@
 
         <div style="height: 8rem"></div>
         <div class="footer box-center second-market" v-if="showDiscuss">
-            <label @focusout="changeDiscuss" >
-                <input type="text" v-model="discussDetail" @key.enter="addDiscuss" autofocus>
+            <label >
+                <input type="text" v-model="discussDetail" @key.enter="addDiscuss">
                 <button @click="addDiscuss">提交</button>
             </label>
         </div>
@@ -131,14 +131,8 @@
             },
             addDiscuss () {
                 addDiscuss(this.$route.params.articleId, this.discussDetail, this).then(data => {
-                    data ? this.changeDiscuss() : alert('发表评论失败')
-                    if (data) {
-                        this.changeDiscuss()
-                        // this.discussList.push(this.discussDetail)
-                        alert('发表评论成功')
-                    } else {
-                        alert('发表评论失败')
-                    }
+                    this.discussList.unshift(data)
+                    this.changeDiscuss()
                 })
             },
             changeDiscuss () {

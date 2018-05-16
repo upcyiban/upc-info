@@ -18,7 +18,7 @@
     import ManagerReply from './ManagerReply.vue'
     export default {
         name: 'index',
-        props: ['userData' , 'managerImage' , 'managerData'],
+        props: ['userData', 'managerImage', 'managerData'],
         data () {
             return {
                 managerReplyList: [
@@ -38,7 +38,7 @@
             ManagerDetails,
             ManagerReply
         }
-    };
+    }
 </script>
 
 
