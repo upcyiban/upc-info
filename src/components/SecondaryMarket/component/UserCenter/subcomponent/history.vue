@@ -97,11 +97,13 @@
 				this.$router.push(editHistory)
 			},
 			deletePost (index) {
-				this.history[index].beforeDelete = true;
+				this.history[index].beforeDelete = true
 			},
 			confirmDelete (index) {
-				marketFetch.postJsonData(deleteHistory,{articleid: this.history[index].articleid})
-				this.history.splice(index,1)
+				this.history[index].beforeDelete = false
+				marketFetch.postJsonData(deleteHistory,{articleid: this.history[index].articleid}).then((result) => {
+					if(result.code === 1 || result.detail === 'don\'t delete again') this.history.splice(index,1)
+				})
 			},
 			updateHistory (records) {
 				records.forEach((record,index,records) =>{

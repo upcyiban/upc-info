@@ -36,7 +36,7 @@
 			marketFetch.getJsonData(getCollection,{}).then((result) => this.updateFavorite(result))
 		},
 		data () {
-			var dict = new Map([['articleid','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
+			var dict = new Map([['id','id'],['articleid','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
 			return {
 				items: [],
 				dict: dict,
@@ -91,11 +91,12 @@
 				}
 			},
 			deleteFavorite (index) {
-				this.items[index].beforeDelete = true;
+				this.items[index].beforeDelete = true
 			},
 			confirmDelete (index) {
-				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].articleid})
-				this.items.splice(index,1)
+				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].id}).then((result) => {
+					if(result.code === 1 || result.detail === 'don\'t delete again') this.items.splice(index,1)
+				})
 			},
 			updateFavorite (items) {
 				items.forEach((item,index,items) =>{
