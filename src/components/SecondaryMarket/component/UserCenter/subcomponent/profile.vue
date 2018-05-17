@@ -12,7 +12,7 @@
 			<table class="contacts" nowarp>
 				<tr>
 					<td class="col1">QQ: {{ profile.qq }}</td>
-					<td class="col2">微信: {{ profile.wechat }}</td>
+					<td class="col2">微信: {{ profile.wchat }}</td>
 				</tr>
 				<tr>
 					<td class="col1">手机: {{ profile.phone }}</td>

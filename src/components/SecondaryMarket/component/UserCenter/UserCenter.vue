@@ -24,12 +24,12 @@
 			marketFetch.getJsonData('/second/user/info', {}).then((result) => {
 				this.updateUserInfo(result)
 			}),
-			marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
+                marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
 				this.isExist(result)
 			})
 		},
 		data () {
-			var dict = new Map([['id','userid'],['nick','username'],['avatar','ybhead'],['qq','qq'],['wechat','wechat'],['phone','phone'],['email','email']])
+			var dict = new Map([['id','userid'],['nick','username'],['avatar','ybhead'],['qq','qq'],['wchat','wchat'],['phone','phone'],['email','email']])
 			return {
 				currentTab: 'favorite',
 				profile: {
@@ -38,7 +38,7 @@
 					avatar: loadImg,
 					qq: '无',
 					phone: '无',
-					wechat: '无',
+					wchat: '无',
 					email: '无',
 				},
 				dict: dict

@@ -78,7 +78,7 @@
                     alert("请至少完善一项信息")
                     return false
                 }
-                this.$router.push('/second/user-center')
+                //this.$router.push('/second/user-center')
                 return this.fetch.postJsonData('/second/user/signup', {
                     'qq': this.userQQ,
                     'phone': this.userPhone,
@@ -86,7 +86,18 @@
                     'email': this.userEmail
                 }).then(json => {
                     console.log(json)
+                    this.check()
                 })
+            },
+            check () {
+                marketFetch.getJsonData('/second/user/exist', {}).then((exist) => {
+                    this.isExist(exist)
+                })
+            },
+            isExist (exist) {
+                if (exist) {
+                    this.$router.push('/second/user-center')
+                }
             }
         },
         components: {
