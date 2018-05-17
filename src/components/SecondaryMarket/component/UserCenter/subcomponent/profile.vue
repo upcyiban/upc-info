@@ -7,7 +7,6 @@
 			<div class="">
 				<p class="info nick">{{ profile.nick }}</p>
 				<p class="info id"> ID: {{ profile.id }}</p>
-			<router-link :to="{path: '/second/user-information'}"><img class="edit" :src="edit"></router-link>
 			</div>
 			<hr class="deviding">
 			<table class="contacts" nowarp>

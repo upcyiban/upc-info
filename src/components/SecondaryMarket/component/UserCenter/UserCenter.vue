@@ -21,8 +21,11 @@
 	export default {
 		name: 'UserCenter',
 		created () {
-			marketFetch.getJsonData('/second/user/info',{}).then((result) => {
+			marketFetch.getJsonData('/second/user/info', {}).then((result) => {
 				this.updateUserInfo(result)
+			}),
+			marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
+				this.isExist(result)
 			})
 		},
 		data () {
@@ -54,10 +57,15 @@
 				this.$router.push('/second/homepage')
 			},
 			updateUserInfo (info) {
-				this.dict.forEach((from,to,set) => {
-					if(info.hasOwnProperty(from))this.profile[to] = info[from] ? info[from] : '无'
+			    this.dict.forEach((from,to,set) => {
+					if (info.hasOwnProperty(from)) this.profile[to] = info[from] ? info[from] : '无'
 				})
 			},
+			isExist (exist) {
+			    if (!exist) {
+                    this.$router.push('/second/user-information')
+                }
+			}
 		},
 		components: {
 			'header-section': headerSection,

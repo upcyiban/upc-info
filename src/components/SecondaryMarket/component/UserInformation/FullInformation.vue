@@ -1,11 +1,15 @@
 <template>
     <div class="infor">
-        <HeaderSection :fristLogin="flag"></HeaderSection>
         <div class="head">
-            <p>个人信息</p>
+            <p>请完善个人信息</p>
         </div>
         <div class="full">
             <ul>
+                <li>
+                    <span>QQ</span>
+                    <input-box dataKey="userQQ" :value="userQQ" type="text" placeholder="请输入你的QQ" @userInput="updateData" ></input-box>
+                </li>
+                <br>
                 <li>
                     <span>微信</span>
                     <input-box dataKey="userWchat" :value="userWchat" type="text" placeholder="请输入你的微信" @userInput="updateData" ></input-box>
@@ -44,34 +48,39 @@
                 userPhone: '',
                 userWchat: '',
                 userEmail: '',
-                flag: 0
+                userQQ: ''
             }
         },
         methods: {
             fulluser: function () {
-                if (this.userWchat == ""){
-                    alert("微信号不能为空")
+                var flag = 0
+                if (this.userQQ !== "") {
+                    flag = 1
+                }
+                if (this.userWchat !== "") {
+                    flag = 1
+                }
+                if (this.userPhone !== "") {
+                    flag =  1
+                    if (!(/^1[34578]\d{9}$/.test(this.userPhone))) {
+                        alert("请填写正确的手机号")
+                        return false
+                    }
+                }
+                if (this.userEmail !== "") {
+                    flag = 1
+                    if (!(/^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/.test(this.userEmail))) {
+                        alert("请输入正确的邮箱地址")
+                        return false
+                    }
+                }
+                if (flag == 0) {
+                    alert("请至少完善一项信息")
                     return false
                 }
-                if (this.userPhone == ""){
-                    alert("手机号不能为空")
-                    return false
-                }
-                if(!(/^1[34578]\d{9}$/.test(this.userPhone))){
-                    alert("请填写正确的手机号")
-                    return false
-                }
-                if (this.userEmail == ""){
-                    alert("邮箱不能为空")
-                    return false
-                }
-                if (!( /^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/.test(this.userEmail))){
-                    alert("请输入正确的邮箱地址")
-                    return false
-                }
-                this.$router.push('/second/home-page')
-                flag = 1
-                return this.fetch.postJsonData('/second/user/addotherinfo', {
+                this.$router.push('/second/user-center')
+                return this.fetch.postJsonData('/second/user/signup', {
+                    'qq': this.userQQ,
                     'phone': this.userPhone,
                     'wchat': this.userWchat,
                     'email': this.userEmail
@@ -81,7 +90,6 @@
             }
         },
         components: {
-            HeaderSection,
             InputBox
         }
     }
@@ -100,33 +108,6 @@
 
     .infor .full {
         font-size: 1.5rem;
-    }
-
-    . infor .full input {
-        font-size: 0.75rem;
-    }
-
-    .infor .full input {
-        height: 35px;
-        width: 83%;
-        border: none;
-        border-radius: 10px;
-        outline-style: none;
-        background-color: #E8E8E8;
-        text-indent: 10px;
-    }
-
-    .infor .full input {
-        float: right;
-    }
-
-    .infor .back {
-        background-color: transparent;
-        border: 0;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translate(0, -50%);
     }
 
     .infor .submit {

@@ -25,6 +25,10 @@ const SecondaryMarket = [
     {
         path: '/second/user-center',
         component: UserCenter
+    },
+    {
+        path: '/second/user-information',
+        component: FullInformation
     }
 ]
 export default SecondaryMarket
