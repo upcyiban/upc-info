@@ -10,6 +10,10 @@
 				</div>
 				<div class="buttons">
 					<div class="button">
+						<img class="icon" :src="button.edit">
+						<p @click.stop="editPost(index)">编辑</p>
+					</div>
+					<div class="button">
 						<img class="icon" :src="button.delete">
 						<p @click.stop="deletePost(index)">删除</p>
 					</div>
@@ -24,11 +28,12 @@
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/ConfirmBox.vue'
 	import util from './shared/util'
+	import edit from '@/components/SecondaryMarket/media/edit.png'
 	import delete_ from '@/components/SecondaryMarket/media/delete.png'
 
 	const getHistory = '/secondhand/browse/historyArticle'
 	const deleteHistory = '/secondhand/publish/deletearticle'
-	const editHistory = '/second/publish'
+	const editHistory = '/second/edit-article/'
 
 	export default {
 		name: 'history',
@@ -44,6 +49,7 @@
 				history: [],
 				dict: dict,
 				button: {
+					edit: edit,
 					delete: delete_,
 				}
 			}
@@ -94,7 +100,7 @@
 				}
 			},
 			editPost (index) {
-				this.$router.push(editHistory)
+				this.$router.push(editHistory + this.history[index].articleid)
 			},
 			deletePost (index) {
 				this.history[index].beforeDelete = true

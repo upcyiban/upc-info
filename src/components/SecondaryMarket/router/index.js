@@ -3,6 +3,7 @@ const Discuss = () => import('../component/Discuss/Discuss.vue')
 const HomePage = () => import('../component/HomePage/HomePage.vue')
 const Details = () => import('../component/Details/Details.vue')
 const PublishPage = () => import('../component/PublishPage/PublishPage.vue')
+const EditArticle = () => import('../component/PublishPage/EditArticle.vue')
 const UserCenter = () => import('../component/UserCenter/UserCenter.vue')
 const SecondaryMarket = [
     {
@@ -20,6 +21,10 @@ const SecondaryMarket = [
     {
         path: '/second/publish',
         component: PublishPage
+    },
+    {
+        path: '/second/edit-article/:articleId',
+        component: EditArticle
     },
     {
         path: '/second/user-center',
