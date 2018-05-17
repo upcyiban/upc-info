@@ -10,11 +10,11 @@
         props : ['firstLogin'],
         data () {
             return {
+                flag : this.firstLogin
             }
-        }，
+        },
         created: {
             firstLogin: function () {
-                var flag = "firstLogin"
                 if (!flag) {
                     this.$router.push('/second/user-information')
                 }

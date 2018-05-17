@@ -34,7 +34,6 @@
     import updateData from "@/common/mixins/UpdateData"
     import InputBox from '../../common-component/InputBox'
     import userInput from "../../common-component/mixins/UserInput"
-    import HeaderSection from "../../common-component/HeaderSection.vue"
 
     export default {
         name: 'Fullinformation',
@@ -45,7 +44,7 @@
                 userPhone: '',
                 userWchat: '',
                 userEmail: '',
-                flag: false
+                flag: 0
             }
         },
         methods: {
@@ -71,7 +70,7 @@
                     return false
                 }
                 this.$router.push('/second/home-page')
-                flag = true
+                flag = 1
                 return this.fetch.postJsonData('/second/user/addotherinfo', {
                     'phone': this.userPhone,
                     'wchat': this.userWchat,
@@ -82,7 +81,8 @@
             }
         },
         components: {
-            HeaderSection
+            HeaderSection,
+            InputBox
         }
     }
 </script>
