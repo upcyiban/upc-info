@@ -26,4 +26,5 @@ const SecondaryMarket = [
         component: UserCenter
     }
 ]
+
 export default SecondaryMarket

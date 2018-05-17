@@ -21,7 +21,7 @@
         name: 'ObjectClass',
         props: {
             object: {
-                type: Object,
+                type: [Object, Array],
                 default: function () {
                     return {
                         key: '空元素'

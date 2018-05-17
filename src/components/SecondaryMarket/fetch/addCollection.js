@@ -2,7 +2,7 @@ function addCollection (articleId, component) {
     return component.fetch.postJsonData('/secondhand/collention/createcollection', {
         articleid: articleId
     }).then(json => {
-        return !(json.code && json.code === 0)
+        return !json.id
     })
 }
 export default addCollection

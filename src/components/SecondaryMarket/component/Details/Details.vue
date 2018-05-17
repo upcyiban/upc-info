@@ -23,17 +23,23 @@
 
         <div style="height: 8rem"></div>
         <div class="footer box-center second-market" v-if="showDiscuss">
-            <label >
+            <label>
                 <input type="text" v-model="discussDetail" @key.enter="addDiscuss">
                 <button @click="addDiscuss">提交</button>
             </label>
         </div>
         <div class="footer clear second-market box-center" v-if="!showDiscuss">
             <ul>
-                <li class="float-left" @click="addCollection"><img :src="collectionOff" alt="图片加载失败">&nbsp;收藏</li>
+                <li class="float-left" @click="addCollection" v-if="!isCollected"><img :src="collectionOff"
+                                                                                       alt="图片加载失败">&nbsp;收藏
+                </li>
+                <li class="float-left" @click="addCollection" v-if="isCollected"><img :src="collectionOn" alt="图片加载失败">&nbsp;收藏
+                </li>
                 <li class="float-left" @click="changeDiscuss"><img :src="discuss" alt="图片加载失败">&nbsp;评论</li>
                 <li class="float-left text-center">
-                    <button>我想要</button>
+                    <router-link to="/second/user-center">
+                        <button @click="showUserCenter">我想要</button>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -45,7 +51,7 @@
     import ManagerHeader from '../../common-component/ManagerHeader.vue'
     import ReplyBox from '../../common-component/ReplyBox.vue'
     import updateData from '../../../../common/mixins/UpdateData'
-    import {marketFetch, yibanAuth} from '../../config/fetchUtil'
+    import { marketFetch, yibanAuth } from '../../config/fetchUtil'
     import loading from '../../../../common/mixins/loading'
     import fetchVq from '../../../../common/mixins/fetchVq'
     import findManagerById from '../../fetch/findManagerById'
@@ -72,11 +78,19 @@
                 discuss: require('../../media/discuss.png'),
                 showDiscuss: false,
                 discussDetail: '',
-                discussList: []
+                discussList: [],
+                isCollected: false
             }
         },
         created () {
             this.routeUpdate(parseInt(this.$route.params.articleId))
+                .then(() => {
+                    this.fetch.getTextData('/secondhand/collention/iscollection', {
+                        articleid: this.$route.params.articleId
+                    }).then(r => {
+                        this.isCollected = r === 'true'
+                    })
+                })
             this.fetchDiscussList()
         },
         watch: {
@@ -94,14 +108,17 @@
             routeUpdate (id) {
                 const localData = this.getLocalData(id)
                 if (localData === null) {
-                    this.fetchWithSave(id)
+                    return this.fetchWithSave(id)
                 } else {
-                    this.managerData = localData.managerData
-                    this.managerUserData = localData.managerUserData
+                    return new Promise((resolve) => {
+                        this.managerData = localData.managerData
+                        this.managerUserData = localData.managerUserData
+                        resolve()
+                    })
                 }
             },
             fetchWithSave (id) {
-                this.findManagerById(id).then(data => {
+                return this.findManagerById(id).then(data => {
                     if (data.code !== 0) {
                         this.managerData = data.managerData
                         this.managerUserData = data.userData
@@ -126,7 +143,12 @@
             },
             addCollection () {
                 addCollection(this.$route.params.articleId, this).then(data => {
-                    data ? alert('请勿重复收藏') : alert('收藏成功')
+                    if (data === false) {
+                        this.isCollected = true
+                        alert('收藏成功')
+                    } else {
+                        alert('请勿重新收藏')
+                    }
                 })
             },
             addDiscuss () {
@@ -143,6 +165,9 @@
                     .then(discussList => {
                         this.discussList = discussList
                     })
+            },
+            showUserCenter () {
+                console.log(123)
             },
             findManagerById
         }
@@ -176,11 +201,13 @@
         right: 0;
         background-color: white;
     }
+
     .Details .footer ul {
         width: 100%;
         display: flex;
         justify-content: space-around;
     }
+
     .Details .footer li {
         width: 8rem;
         color: #767676;

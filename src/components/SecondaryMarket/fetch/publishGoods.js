@@ -1,5 +1,6 @@
 
 function publishGoods () {
+    window.fileList = this.fileList
     return this.fetch.postJsonData('/secondhand/publish/article', {
         'name': this.managerTitle,
         'kind': JSON.stringify(this.chooseList.chooseValue),
