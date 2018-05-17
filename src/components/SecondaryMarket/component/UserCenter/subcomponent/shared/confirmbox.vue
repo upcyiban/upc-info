@@ -59,7 +59,8 @@
 		margin: 0.5rem 0.75rem;
 		border-radius: 3rem;
 		background-image: none;
-		outline-style: none;  
+		outline-style: none;
+		font-size: 0.8rem;
 	}
 	.cfm{
 		border: 1px solid #ffc107;

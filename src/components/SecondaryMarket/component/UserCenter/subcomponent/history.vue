@@ -28,12 +28,12 @@
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/ConfirmBox.vue'
 	import util from './shared/util'
-	import delete_ from '@/components/SecondaryMarket/media/delete.png'
 	import edit from '@/components/SecondaryMarket/media/edit.png'
+	import delete_ from '@/components/SecondaryMarket/media/delete.png'
 
 	const getHistory = '/secondhand/browse/historyArticle'
 	const deleteHistory = '/secondhand/publish/deletearticle'
-	const editHistory = '/second/publish'
+	const editHistory = '/second/edit-article/'
 
 	export default {
 		name: 'history',
@@ -49,8 +49,8 @@
 				history: [],
 				dict: dict,
 				button: {
+					edit: edit,
 					delete: delete_,
-					edit: edit
 				}
 			}
 		},
@@ -59,8 +59,8 @@
 				if(event.type === 'mousedown'){
 					this.mousedown = {
 						startTime: event.timeStamp,
-						startX: event.pageX,
-						startY: event.pageY,
+						startX: event.clientX,
+						startY: event.clientY,
 					}
 				}
 				else if(event.type === 'touchstart'){
@@ -100,14 +100,16 @@
 				}
 			},
 			editPost (index) {
-				this.$router.push(editHistory)
+				this.$router.push(editHistory + this.history[index].articleid)
 			},
 			deletePost (index) {
-				this.history[index].beforeDelete = true;
+				this.history[index].beforeDelete = true
 			},
 			confirmDelete (index) {
-				marketFetch.postJsonData(deleteHistory,{articleid: this.history[index].articleid})
-				this.history.splice(index,1)
+				this.history[index].beforeDelete = false
+				marketFetch.postJsonData(deleteHistory,{articleid: this.history[index].articleid}).then((result) => {
+					if(result.code === 1 || result.detail === 'don\'t delete again') this.history.splice(index,1)
+				})
 			},
 			updateHistory (records) {
 				records.forEach((record,index,records) =>{

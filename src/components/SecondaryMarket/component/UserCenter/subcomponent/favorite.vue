@@ -23,7 +23,6 @@
 	import confirmBox from './shared/ConfirmBox.vue'
 	import util from './shared/util'
 	import delete_ from '@/components/SecondaryMarket/media/delete.png'
-	import edit from '@/components/SecondaryMarket/media/edit.png'
 
 	const getCollection = '/secondhand/collention/usercollection'
 	const deleteCollection = '/secondhand/collention/deletecollection'
@@ -37,7 +36,7 @@
 			marketFetch.getJsonData(getCollection,{}).then((result) => this.updateFavorite(result))
 		},
 		data () {
-			var dict = new Map([['articleid','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
+			var dict = new Map([['id','id'],['articleid','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
 			return {
 				items: [],
 				dict: dict,
@@ -51,8 +50,8 @@
 				if(event.type === 'mousedown'){
 					this.mousedown = {
 						startTime: event.timeStamp,
-						startX: event.pageX,
-						startY: event.pageY,
+						startX: event.clientX,
+						startY: event.clientY,
 					}
 				}
 				else if(event.type === 'touchstart'){
@@ -75,7 +74,7 @@
 					distX = event.clientX - this.mousedown.startX,
 					distY = event.clientY - this.mousedown.startY
 					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 20){
-						this.viewArticle(this.item[index].articleid)
+						this.viewArticle(this.items[index].articleid)
 					}
 				}
 				else if(event.type === 'touchend'){
@@ -92,11 +91,12 @@
 				}
 			},
 			deleteFavorite (index) {
-				this.items[index].beforeDelete = true;
+				this.items[index].beforeDelete = true
 			},
 			confirmDelete (index) {
-				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].articleid})
-				this.items.splice(index,1)
+				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].id}).then((result) => {
+					if(result.code === 1 || result.detail === 'don\'t delete again') this.items.splice(index,1)
+				})
 			},
 			updateFavorite (items) {
 				items.forEach((item,index,items) =>{
