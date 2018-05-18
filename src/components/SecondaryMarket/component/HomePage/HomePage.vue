@@ -1,7 +1,7 @@
 <template>
     <div class="HomePage second-market box-center">
         <header-section>
-            <p>中国石油大学二手市场物品交易社区</p>
+            <p>二手市场</p>
         </header-section>
         <search @fetchSearch="fetchSearch"></search>
         <load-image :loadState="loadState"></load-image>

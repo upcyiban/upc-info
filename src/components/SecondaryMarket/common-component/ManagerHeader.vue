@@ -4,7 +4,7 @@
             <li>
                 <img :src="userData.userHeader"/>
             </li>
-            <li>
+            <li class="second">
                 <span>{{userData.userName}}</span>
                 <!--<p class="time">两小时前发布</p>-->
             </li>
@@ -34,6 +34,9 @@
         margin: 0.8rem 0;
         line-height: 2.8571rem;
         overflow: hidden;
+    }
+    .UserBox .second {
+        width: 5rem;
     }
     .UserBox ul {
         display: flex;
