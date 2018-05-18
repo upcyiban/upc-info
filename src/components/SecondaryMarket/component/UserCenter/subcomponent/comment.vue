@@ -50,8 +50,8 @@
 				if(event.type === 'mousedown'){
 					this.mousedown = {
 						startTime: event.timeStamp,
-						startX: event.pageX,
-						startY: event.pageY,
+						startX: event.clientX,
+						startY: event.clientY,
 					}
 				}
 				else if(event.type === 'touchstart'){
@@ -73,7 +73,10 @@
 					let delta = event.timeStamp - this.mousedown.startTime,
 					distX = event.clientX - this.mousedown.startX,
 					distY = event.clientY - this.mousedown.startY
-					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 20){
+					if(delta > 500){
+						this.showConfirmation(index)
+					}
+					else if(delta > 10 && Math.abs(distY) < 20){
 						this.$router.push(`/second/details/${this.comments[index].articleid}`)
 					}
 				}

@@ -24,14 +24,8 @@
 </template>
 
 <script>
-	import edit from '@/components/SecondaryMarket/media/editProfile.png'
 	export default {
 		name: 'profile',
-		data () {
-			return {
-				edit:edit
-			}
-		},
 		props: ['profile']
 	}
 </script>
