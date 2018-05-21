@@ -27,7 +27,8 @@
 <script>
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/ConfirmBox.vue'
-	import util from './shared/util'
+	import util from './shared/util.js'
+	import listen from './shared/listen.js'
 	import edit from '@/components/SecondaryMarket/media/edit.png'
 	import delete_ from '@/components/SecondaryMarket/media/delete.png'
 
@@ -40,6 +41,14 @@
 		components: {
 			'confirmbox': confirmBox
 		},
+		mixins: [listen((self,index,event,delta,distX,distY) => {
+			if(delta > 500){
+				return
+			}
+			else if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
+				self.viewArticle(self.items[index].articleid)
+			}
+		})],
 		mounted () {
 			marketFetch.getJsonData(getHistory,{}).then((result) => this.updateHistory(result))
 		},
@@ -55,50 +64,6 @@
 			}
 		},
 		methods: {
-			listenStart (index,event) {
-				if(event.type === 'mousedown'){
-					this.mousedown = {
-						startTime: event.timeStamp,
-						startX: event.clientX,
-						startY: event.clientY,
-					}
-				}
-				else if(event.type === 'touchstart'){
-					this.touchstart = {
-						startTime: event.timeStamp,
-						startX: event.touches[0].clientX,
-						startY: event.touches[0].clientY,
-					}
-				}
-			},
-			listenMove (event) {
-				this.touchend = {
-					endX: event.touches[0].clientX,
-					endY: event.touches[0].clientY,
-				}
-			},
-			listenEnd (index,event) {
-				if(event.type === 'mouseup'){
-					let delta = event.timeStamp - this.mousedown.startTime,
-					distX = event.clientX - this.mousedown.startX,
-					distY = event.clientY - this.mousedown.startY
-					if(event.path[2].className != 'buttons' && delta > 10 && Math.abs(distY) < 20){
-						this.viewArticle(this.history[index].articleid)
-					}
-				}
-				else if(event.type === 'touchend'){
-					let delta = event.timeStamp - this.touchstart.startTime,
-					distX = this.touchend && this.touchend.endX ? this.touchend.endX - this.touchstart.startX : 0,
-					distY = this.touchend && this.touchend.endY ? this.touchend.endY - this.touchstart.startY : 0
-					this.touchstart = this.touchend = {}
-					if(delta > 500){
-						return
-					}
-					else if(event.path[2].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
-						this.viewArticle(this.history[index].articleid)
-					}
-				}
-			},
 			editPost (index) {
 				this.$router.push(editHistory + this.history[index].articleid)
 			},

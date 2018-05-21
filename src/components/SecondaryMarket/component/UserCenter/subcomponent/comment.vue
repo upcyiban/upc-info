@@ -8,9 +8,9 @@
 							<p class="nick">{{ comment.nick }}</p>
 							<p class="time">{{ comment.time }}</p>
 						</div>
-						<p class="content">评论了: {{ comment.content }}</p>
+						<p class="content">评论了：{{ comment.content }}</p>
 					</div>
-					<img class="descimg right" :src="comment.descimg" @click.stop="detail(index)">
+					<img v-if="comment.descimg" class="descimg right" :src="comment.descimg" @click.stop="detail(index)">
 					<confirmbox v-if="comment.beforeDelete" @confirm="confirmDelete(index)" @cancel="comment.beforeDelete = false"></confirmbox>
 			</li>
 		</ul>
@@ -22,7 +22,8 @@
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/ConfirmBox.vue'
 	import replyBox from './shared/ReplyBox.vue'
-	import util from './shared/util'
+	import util from './shared/util.js'
+	import listen from './shared/listen.js'
 
 	const getComment = '/secondhand/browse/historyreview'
 	const deleteComment = '/secondhand/publish/deletereview'
@@ -33,11 +34,19 @@
 			'replybox': replyBox,
 			'confirmbox': confirmBox,
 		},
+		mixins: [listen((self,index,event,delta,distX,distY) => {
+			if(delta > 500){
+				self.showConfirmation(index)
+			}
+			else if(delta > 10 && Math.abs(distY) < 25){
+				self.detail(index)
+			}
+		})],
 		mounted () {
 			marketFetch.getJsonData(getComment,{}).then((result) => this.updateComments(result))
 		},
 		data () {
-			var dict = new Map([['commentid','id'],['content','detail'],['nick','ybname'],['avatar','ybhead'],['articleid','articleId']])
+			var dict = new Map([['articleid','articleId'],['reviewid','reivewId'],['content','detail'],['nick','ybname'],['avatar','ybhead']])
 			return {
 				comments: [],
 				replyStatus: false,
@@ -46,59 +55,12 @@
 			}
 		},
 		methods: {
-			listenStart (index,event) {
-				if(event.type === 'mousedown'){
-					this.mousedown = {
-						startTime: event.timeStamp,
-						startX: event.clientX,
-						startY: event.clientY,
-					}
-				}
-				else if(event.type === 'touchstart'){
-					this.touchstart = {
-						startTime: event.timeStamp,
-						startX: event.touches[0].clientX,
-						startY: event.touches[0].clientY,
-					}
-				}
-			},
-			listenMove (event) {
-				this.touchend = {
-					endX: event.touches[0].clientX,
-					endY: event.touches[0].clientY,
-				}
-			},
-			listenEnd (index,event) {
-				if(event.type === 'mouseup'){
-					let delta = event.timeStamp - this.mousedown.startTime,
-					distX = event.clientX - this.mousedown.startX,
-					distY = event.clientY - this.mousedown.startY
-					if(delta > 500){
-						this.showConfirmation(index)
-					}
-					else if(delta > 10 && Math.abs(distY) < 20){
-						this.$router.push(`/second/details/${this.comments[index].articleid}`)
-					}
-				}
-				else if(event.type === 'touchend'){
-					let delta = event.timeStamp - this.touchstart.startTime,
-					distX = this.touchend && this.touchend.endX ? this.touchend.endX - this.touchstart.startX : 0,
-					distY = this.touchend && this.touchend.endY ? this.touchend.endY - this.touchstart.startY : 0
-					this.touchstart = this.touchend = {}
-					if(delta > 500){
-						this.showConfirmation(index)
-					}
-					else if(delta > 10 && Math.abs(distY) < 25){
-						this.$router.push(`/second/details/${this.comments[index].articleid}`)
-					}
-				}
-			},
 			replyComment (index) {
 				// if replybox is required
 				// please uncomment
 				// this.replyStatus = true
 				if(this.comments[index]){
-					this.replyTo = this.comments[index].commentid
+					this.replyTo = this.comments[index].reviewid
 				}
 			},
 			replyEnd () {
@@ -109,14 +71,14 @@
 				this.comments[index].beforeDelete = true
 			},
 			confirmDelete (index) {
-				marketFetch.postJsonData(deleteComment,{reviewid: this.comments[index].commentid})
-				if(this.comments[index].commentid == this.replyTo){
+				marketFetch.postJsonData(deleteComment,{reviewid: this.comments[index].reviewid})
+				if(this.comments[index].reviewid == this.replyTo){
 					this.replyEnd()
 				}
 				this.comments.splice([index],1)
 			},
 			detail (index) {
-				this.$router.push('`/second/details/${comment.articleid}`')
+				this.$router.push(`/second/details/${this.comments[index].articleid}`)
 			},
 			updateComments (comments) {
 				comments.forEach((comment,index,comments) => {
@@ -125,17 +87,12 @@
 					this.dict.forEach((from,to,dict) => {
 						if(comment.hasOwnProperty(from)){tmp[to] = comment[from] ? comment[from] : ''}
 					})
+					tmp['descimg'] = util.firstImg(comment['articleImgUrl'])
 					tmp['time'] = util.computeDate(comment['createtime'])
 					tmp['beforeDelete'] = false
-					this.requestImg(index,comment['articleId'])
 					this.comments.push(tmp)
 				})
 			},
-			requestImg (index,id) {
-				marketFetch.getJsonData('/secondhand/browse/onearticle',{articleid: id}).then((result) => {
-					this.$set(this.comments[index],'descimg',util.firstImg(result['imgurl']))
-				})
-			}
 		},
 		props: ['userid']
 	}
@@ -170,14 +127,13 @@
 		font-size: 0.9rem;
 		position: relative;
 		left: 1rem;
-		margin: 0;
-		max-width: 80%;
+		margin-bottom: 0.9rem;
+		max-width: 90%;
 	}
 	.descimg.right{
 		margin: 0;
 		position: absolute;
-		top: 50%;
-		right: 1.25rem;
-		transform: translate(0,-50%);
+		top: 1rem;
+		right: 1rem;
 	}
 </style>
