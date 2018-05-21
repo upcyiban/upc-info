@@ -11,4 +11,8 @@ export default {
 		if(typeof url === 'undefined') return ''
 		else return JSON.parse(url)[0]
 	},
+	limitWords (content,maxLength) {
+		if(content.length > maxLength)return `${content.substr(0,maxLength)}…`
+		else return content
+	}
 }

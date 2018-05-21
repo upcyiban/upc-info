@@ -1,4 +1,13 @@
 export default function (onEndAction) {
+	/*
+		Usage: mixins: [listen(onEndAction)]
+		function onEndAction takes 6 arguments:
+			this: to get caller attributes and methods
+			index: element index which triggers the event
+			event: triggered event
+			delta: time from listenStart to listenEnd
+			distX/distY: distance moved
+	*/
 	return {
 		methods: {
 			listenStart (index,event) {

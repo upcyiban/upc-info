@@ -46,7 +46,7 @@
 			marketFetch.getJsonData(getComment,{}).then((result) => this.updateComments(result))
 		},
 		data () {
-			var dict = new Map([['articleid','articleId'],['reviewid','reivewId'],['content','detail'],['nick','ybname'],['avatar','ybhead']])
+			var dict = new Map([['articleid','articleId'],['reviewid','reivewId'],['nick','ybname'],['avatar','ybhead']])
 			return {
 				comments: [],
 				replyStatus: false,
@@ -87,6 +87,7 @@
 					this.dict.forEach((from,to,dict) => {
 						if(comment.hasOwnProperty(from)){tmp[to] = comment[from] ? comment[from] : ''}
 					})
+					tmp['content'] = util.limitWords(comment['detail'],30)
 					tmp['descimg'] = util.firstImg(comment['articleImgUrl'])
 					tmp['time'] = util.computeDate(comment['createtime'])
 					tmp['beforeDelete'] = false
