@@ -35,7 +35,6 @@
 		border-radius: 3px;
 		z-index: 900;
 		transform-origin: top left;
-		-webkit-touch-callout: none;
 	}
 	p{
 		font-size: 1rem;

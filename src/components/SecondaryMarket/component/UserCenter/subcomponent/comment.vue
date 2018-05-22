@@ -35,7 +35,7 @@
 			'confirmbox': confirmBox,
 		},
 		mixins: [listen((self,index,event,delta,distX,distY) => {
-			if(delta > 500){
+			if(delta > 500 && Math.abs(distY) < 25){
 				self.showConfirmation(index)
 			}
 			else if(delta > 10 && Math.abs(distY) < 25){
@@ -113,13 +113,18 @@
 		border-radius: 2.5rem;
 	}
 	.comment .nick{
+		max-width: 90%;
 		font-size: 1rem;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 		margin: 0;
 		padding: 1rem 0 0.5rem 0;
 	}
 	.comment .time{
 		color: #9e9898;
 		font-size: 0.75rem;
+		overflow: hidden;
 		margin: 0;
 		margin-bottom: 1rem;
 	}

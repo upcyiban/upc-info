@@ -42,7 +42,7 @@
 			'confirmbox': confirmBox
 		},
 		mixins: [listen((self,index,event,delta,distX,distY) => {
-			if(delta > 500){
+			if(delta > 500 && Math.abs(distY) < 25){
 				return
 			}
 			else if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
