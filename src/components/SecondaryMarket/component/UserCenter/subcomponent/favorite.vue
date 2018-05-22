@@ -21,7 +21,8 @@
 <script>
 	import {marketFetch} from '@/components/SecondaryMarket/config/fetchUtil'
 	import confirmBox from './shared/ConfirmBox.vue'
-	import util from './shared/util'
+	import util from './shared/util.js'
+	import listen from './shared/listen.js'
 	import delete_ from '@/components/SecondaryMarket/media/delete.png'
 
 	const getCollection = '/secondhand/collention/usercollection'
@@ -32,11 +33,19 @@
 		components: {
 			'confirmbox': confirmBox
 		},
+		mixins: [listen((self,index,event,delta,distX,distY) => {
+			if(delta > 500 && Math.abs(distY) < 25){
+				return
+			}
+			else if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
+				self.viewArticle(self.items[index].articleid)
+			}
+		})],
 		mounted () {
 			marketFetch.getJsonData(getCollection,{}).then((result) => this.updateFavorite(result))
 		},
 		data () {
-			var dict = new Map([['id','id'],['articleid','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
+			var dict = new Map([['collectionid','id'],['articleid','articleId'],['img','articleUserYBHead'],['name','articleName'],['price','articlePrice']])
 			return {
 				items: [],
 				dict: dict,
@@ -46,55 +55,11 @@
 			}
 		},
 		methods: {
-			listenStart (index,event) {
-				if(event.type === 'mousedown'){
-					this.mousedown = {
-						startTime: event.timeStamp,
-						startX: event.clientX,
-						startY: event.clientY,
-					}
-				}
-				else if(event.type === 'touchstart'){
-					this.touchstart = {
-						startTime: event.timeStamp,
-						startX: event.touches[0].clientX,
-						startY: event.touches[0].clientY,
-					}
-				}
-			},
-			listenMove (event) {
-				this.touchend = {
-					endX: event.touches[0].clientX,
-					endY: event.touches[0].clientY,
-				}
-			},
-			listenEnd (index,event) {
-				if(event.type === 'mouseup'){
-					let delta = event.timeStamp - this.mousedown.startTime,
-					distX = event.clientX - this.mousedown.startX,
-					distY = event.clientY - this.mousedown.startY
-					if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 20){
-						this.viewArticle(this.items[index].articleid)
-					}
-				}
-				else if(event.type === 'touchend'){
-					let delta = event.timeStamp - this.touchstart.startTime,
-					distX = this.touchend && this.touchend.endX ? this.touchend.endX - this.touchstart.startX : 0,
-					distY = this.touchend && this.touchend.endY ? this.touchend.endY - this.touchstart.startY : 0
-					this.touchstart = this.touchend = {}
-					if(delta > 500){
-						return
-					}
-					else if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
-						this.viewArticle(this.items[index].articleid)
-					}
-				}
-			},
 			deleteFavorite (index) {
 				this.items[index].beforeDelete = true
 			},
 			confirmDelete (index) {
-				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].id}).then((result) => {
+				marketFetch.postJsonData(deleteCollection,{collectionid: this.items[index].collectionid}).then((result) => {
 					if(result.code === 1 || result.detail === 'don\'t delete again') this.items.splice(index,1)
 				})
 			},
@@ -106,12 +71,12 @@
 						tmp.beforeDelete = false
 					})
 					tmp['img'] = util.firstImg(item['articleImg'])
-					tmp['date'] = util.computeDate(item['creatTime'])
+					tmp['date'] = util.computeDate(item['articleDate'])
 					this.items.push(tmp)
 				})
 			},
-			viewArticle (id) {
-				this.$router.push(`/second/details/${id}`)
+			viewArticle (collectionid) {
+				this.$router.push(`/second/details/${collectionid}`)
 			}
 		},
 		props: ['userid']

@@ -8,7 +8,11 @@ export default {
 				else return parseInt(delta / 86400) + '天前'
 	},
 	firstImg (url) {
-		if(typeof url === "undefined" || !(url.startsWith('['))) return url
-		else return url.substring(1,url.length-1).split('"')[1]
+		if(typeof url === 'undefined') return ''
+		else return JSON.parse(url)[0]
 	},
+	limitWords (content,maxLength) {
+		if(content.length > maxLength)return `${content.substr(0,maxLength)}…`
+		else return content
+	}
 }
