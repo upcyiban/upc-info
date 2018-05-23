@@ -92,7 +92,7 @@
 		border-right: 2px solid #fefefe;
 	}
 	.contacts{
-		position: relative;
+		min-width: 80%;
 		font-size: 0.75rem;
 		table-layout: fixed;
 		color: #ffffff;
@@ -100,6 +100,7 @@
 		padding-bottom: 1rem;
 		border-collapse:separate;
 		border-spacing: 0.75rem 0.5rem;
+		position: relative;
 		left: 50%;
 		transform: translate(-50%,0);
 	}

@@ -34,7 +34,7 @@
 
 	const getHistory = '/secondhand/browse/historyArticle'
 	const deleteHistory = '/secondhand/publish/deletearticle'
-	const editHistory = '/second/edit-article/'
+	const editHistory = '/second/publish'
 
 	export default {
 		name: 'history',
@@ -45,8 +45,8 @@
 			if(delta > 500 && Math.abs(distY) < 25){
 				return
 			}
-			else if(event.path[1].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
-				self.viewArticle(self.items[index].articleid)
+			else if(event.path[2].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
+				self.viewArticle(self.history[index].articleid)
 			}
 		})],
 		mounted () {
@@ -65,7 +65,7 @@
 		},
 		methods: {
 			editPost (index) {
-				this.$router.push(editHistory + this.history[index].articleid)
+				this.$router.push(`${editHistory}/${this.history[index].articleid}`)
 			},
 			deletePost (index) {
 				this.history[index].beforeDelete = true

@@ -49,7 +49,6 @@
 	}
 	.button{
 		-webkit-user-select: none;
-		-webkit-touch-callout: none;
 		user-select: none;
 		font-size: 1rem;
 		color: #ffffff;
@@ -88,6 +87,10 @@
 	}
 	.tab-view >>> .desc>p{
 		margin: 0.5rem 0;
+		max-width: 50%;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 	.tab-view >>> .title{
 		font-size: 1.25rem;
@@ -105,7 +108,6 @@
 		right: 1rem;
 		bottom: 1rem;
 		-webkit-user-select: none;
-		-webkit-touch-callout: none;
 		user-select: none;
 	}
 	.tab-view >>> .icon{
