@@ -11,7 +11,8 @@
 </template>
 
 <script>
-    import { marketFetch } from '@/components/SecondaryMarket/config/fetchUtil'
+    import { marketFetch, yibanAuth } from '@/components/SecondaryMarket/config/fetchUtil'
+    import fetchVq from '@/common/mixins/fetchVq'
     import headerSection from '../../common-component/HeaderSection'
     import footerSection from '../../common-component/footerSection'
     import profile from './subcomponent/profile'
