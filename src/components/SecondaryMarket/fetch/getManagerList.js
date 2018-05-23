@@ -10,6 +10,7 @@ function createItem (item) {
     /** @namespace item.detail */
     /** @namespace item.name */
     /** @namespace item.reviews */
+    console.log(item)
     return {
         userData: {
             userHeader: item.ybhead,

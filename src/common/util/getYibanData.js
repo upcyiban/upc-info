@@ -10,6 +10,7 @@ class YibanAuth {
     device
     yibanIdKey = yibanIdKey
     vqKey = vqKey
+    fetchVqBefore
 
     /**
      * 获取易班vq以及获取token的方式
@@ -17,15 +18,18 @@ class YibanAuth {
      * @param httpRequest 当前轻应用所使用的HttpRequest工具类实体
      * @param appName 当前轻应用的名称
      * @param device 当前设备
+     * @param fetchVqBefore 获取VQ前的准备工作
      */
-    constructor (vqUrl, httpRequest, appName, device) {
+    constructor (vqUrl, httpRequest, appName, device, fetchVqBefore) {
         this.vqUrl = vqUrl
         this.httpRequest = httpRequest
         this.appName = appName
         this.device = device
+        this.fetchVqBefore = fetchVqBefore
     }
 
     fetchVq () {
+        this.fetchVqBefore && this.fetchVqBefore()
         if (this.haveVq() === false) {
             /**
              * @namespace window.localStorage.backUrl
@@ -35,7 +39,6 @@ class YibanAuth {
             window.location = this.vqUrl
         }
     }
-
     haveVq () {
         const vq = this.getVq()
         return vq !== null && vq !== undefined
@@ -72,7 +75,7 @@ class YibanAuth {
         console.log(paramList)
         window.sessionStorage.yibanId = paramList[yibanIdKey]
         window.sessionStorage.vq = paramList[vqKey]
-        window.location = window.localStorage.backUrl
+        window.history.pushState({}, '', window.localStorage.backUrl)
         return paramList[vqKey]
     }
 }

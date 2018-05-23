@@ -2,7 +2,7 @@
     <div class="ManagerSection">
         <manager-header :userData="userData" :managerPrice="managerData.managerPrice"></manager-header>
         <manager-details :images="managerData.imgUrl" :describe="managerData.managerDetail"></manager-details>
-        <manager-reply :replyList="managerReplyList"></manager-reply>
+        <!--<manager-reply :replyList="managerReplyList"></manager-reply>-->
         <hr style="border: 1px solid #EBEBEB;border-bottom: none">
         <ul class="clear manager-footer">
             <li class="float-right">留言{{managerData.reviews}}</li>

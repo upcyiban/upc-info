@@ -4,7 +4,7 @@
             <li>
                 <img :src="userData.userHeader"/>
             </li>
-            <li>
+            <li class="second">
                 <span>{{userData.userName}}</span>
                 <!--<p class="time">两小时前发布</p>-->
             </li>
@@ -35,6 +35,9 @@
         line-height: 2.8571rem;
         overflow: hidden;
     }
+    .UserBox .second {
+        width: 5rem;
+    }
     .UserBox ul {
         display: flex;
         justify-content: space-around;
@@ -51,7 +54,7 @@
         font-size: 1.5rem;
         line-height: 2.8rem;
         text-align: right;
-        width: 15rem;
+        width: 10rem;
     }
 
     .UserBox ul li:first-child {
