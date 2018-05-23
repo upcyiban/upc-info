@@ -1,16 +1,13 @@
 <template>
     <div class="PublishPage box-center second-market">
         <header-section>
-            <p>发布</p>
+            <p> {{ title }}</p>
         </header-section>
         <load-image :loadState="loadState"></load-image>
-        <input-box type="text" placeholder="标题" @userInput="updateData" dataKey="managerTitle"
-                   :value="managerTitle" class="input-box box-center"></input-box>
-        <input-box type="text" placeholder="价格" @userInput="updateData" dataKey="managerPrice"
-                   :value="managerPrice" class="input-box box-center"></input-box>
+        <input-box ref="title" type="text" placeholder="标题" @userInput="updateData" dataKey="managerTitle" :value="managerTitle" class="input-box box-center"></input-box>
+        <input-box ref="price" type="text" placeholder="价格" @userInput="updateData" dataKey="managerPrice" :value="managerPrice" class="input-box box-center"></input-box>
         <br>
-        <text-box placeholder="宝贝描述" class="input-box box-center" dataKey="managerMessage"
-                  :value="managerMessage" @userInput="updateData"></text-box>
+        <text-box ref="message" placeholder="宝贝描述" class="input-box box-center" dataKey="managerMessage" :value="managerMessage" @userInput="updateData"></text-box>
         <div class="file-list input-box box-center">
             <div v-for="(item , index) in fileList" class="file-item">
                 <div class="add-icon text-center"
@@ -25,7 +22,7 @@
         <br><br>
         <div class="clear input-box box-center">
             <p style="font-size: 1rem;color: #7F7F7F">分类描述</p>
-            <classification :classesList="classesList" dataKey="chooseList" @choose="updateData" :choosed="chooseList.chooseList"></classification>
+            <classification ref="classification" :classesList="classesList" dataKey="chooseList" @choose="updateData" :choosed="chooseList.chooseList"></classification>
         </div>
         <br>
         <div class="input-box text-center upload-message box-center" @click="userPublish">
@@ -43,6 +40,7 @@
     import Classification from '../../common-component/Classification.vue'
     import updateData from '../../../../common/mixins/UpdateData'
     import publishGoods from '../../fetch/publishGoods'
+    import updateGoods from '../../fetch/updateGoods'
     import loading from '../../../../common/mixins/loading'
     import fetchVq from '../../../../common/mixins/fetchVq'
     import {marketFetch, yibanAuth, uploadFile} from '../../config/fetchUtil'
@@ -50,10 +48,41 @@
 
     export default {
         name: 'PublishPage',
+        props: ['articleId'],
         mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), getClassification],
+        created () {
+            if(!this.articleId){
+                this.postMethod = 'publishGoods'
+                this.title = '发布'
+            }
+            else{
+                this.postMethod = 'updateGoods'
+                this.title = '编辑'
+                this.fetch.getJsonData('/second/user/info').then(
+                    (userData) => this.fetch.getJsonData('/secondhand/browse/onearticle',{
+                        articleid: this.articleId
+                    }).then((item) => {
+                        if(item.code === 0){
+                            alert('文章不存在或已删除！')
+                            this.$router.push('/second/home-page')
+                        }
+                        else if(userData.userid != item.userid){
+                            alert('没有权限编辑！')
+                            this.$router.push('/second/home-page')
+                        }
+                        this.managerId = parseInt(item.id)
+                        this.managerTitle = this.$refs.title.inputValue = item.name
+                        this.managerPrice = this.$refs.price.inputValue = item.price
+                        this.managerMessage = this.$refs.message.inputValue = item.detail
+                        this.fileList = JSON.parse(item.imgurl)
+                    })
+                )
+            }
+        },
         data () {
             return {
-                title: '发布',
+                postMethod: '',
+                title: '',
                 managerPrice: '',
                 managerTitle: '',
                 managerMessage: '',
@@ -91,11 +120,12 @@
                     alert('请在价格框中输入数字')
                     return
                 }
-                this.publishGoods().then(json => {
+                this[this.postMethod]().then(json => {
                     this.$router.push({path: '/second/home-page'})
                 })
             },
-            publishGoods
+            publishGoods,
+            updateGoods
         }
     }
 </script>

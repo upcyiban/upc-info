@@ -11,7 +11,8 @@
 </template>
 
 <script>
-    import { marketFetch } from '@/components/SecondaryMarket/config/fetchUtil'
+    import { marketFetch, yibanAuth } from '@/components/SecondaryMarket/config/fetchUtil'
+    import fetchVq from '@/common/mixins/fetchVq'
     import headerSection from '../../common-component/HeaderSection'
     import footerSection from '../../common-component/footerSection'
     import profile from './subcomponent/profile'
@@ -20,6 +21,7 @@
 
     export default {
         name: 'UserCenter',
+		mixins: [fetchVq(yibanAuth)],
         created () {
             marketFetch.getJsonData('/second/user/info', {}).then((result) => {
                 this.updateUserInfo(result)
@@ -31,6 +33,7 @@
         data () {
             let dict = new Map([['id', 'userid'], ['nick', 'username'], ['avatar', 'ybhead'], ['qq', 'qq'], ['wchat', 'wchat'], ['phone', 'phone'], ['email', 'email']])
             return {
+				title: '用户中心',
                 currentTab: 'favorite',
                 profile: {
                     nick: '加载中...',
