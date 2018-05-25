@@ -1,6 +1,6 @@
 <template>
     <div class="Upload">
-        <input type="file" name="file" @change="upload">
+        <input type="file" name="file" @change="upload" accept="image/gif, image/png, image/jpg, image/jpeg">
         <div class="add-button absolute-center">
             <div class="add box-center">+</div>
             <p>添加</p>
