@@ -176,9 +176,6 @@
 
 
 <style scoped>
-    .Details {
-    }
-
     .Details .body {
         width: 95%;
     }

@@ -25,9 +25,6 @@
 
 
 <style scoped>
-    .ManagerDetails {
-    }
-
     .ManagerDetails ul li img {
         max-height: 9rem;
         margin-right: 0.5rem;
@@ -40,7 +37,7 @@
         justify-content: space-between;
         align-items: flex-end;
     }
-    
+
     .ManagerDetails .last {
         margin-right: 0;
     }

@@ -50,7 +50,7 @@ class UploadFile {
          * fileLoader.onload(resolve) -> process(resolve) -> img.onload() -> drawWithCanvas(img)(resolve)
          *                                          |->       ->       ->        ->        ->       ->|
          * -> resolve(compressedImage) -> resolve(sendFile())
-        */
+         */
         let fileReader = new FileReader()
         let fileType = file.type
         let fileName = file.name

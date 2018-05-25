@@ -9,8 +9,8 @@
         <p v-if="pageList.length <= 0 || pageList[0].managerList.length <= 0" style="color: rgb(179, 167, 167);font-size: 0.7rem;margin-top: 1rem" class="text-center">
             没有搜索结果
         </p>
-        <div v-for="page in pageList" :page-num="page.pageData.number">
-            <div v-for="item in page.managerList">
+        <div v-for="(page,index) in pageList" :key="`page${index}`" :page-num="page.pageData.number">
+            <div v-for="item in page.managerList" :key="`item${item.managerData.id}`">
                 <router-link :to="`/second/details/${item.managerData.id}`" style="display: block;">
                     <manager-section class="bottom-style"
                                      :userData="item.userData"
@@ -122,9 +122,6 @@
 
 
 <style scoped>
-    .HomePage {
-    }
-
     .HomePage .bottom-style {
         margin-bottom: 5px;
         padding-bottom: 15px;

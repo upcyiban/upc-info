@@ -136,8 +136,6 @@
 
 
 <style scoped>
-    .PublishPage {
-    }
     .PublishPage .input-box {
         width: 90%;
         margin-top: 5px;

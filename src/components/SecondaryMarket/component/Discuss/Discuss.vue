@@ -29,7 +29,4 @@
 
 
 <style scoped>
-    .Discuss {
-
-    }
 </style>
