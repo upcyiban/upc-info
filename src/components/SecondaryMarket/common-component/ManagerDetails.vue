@@ -5,7 +5,7 @@
                 <img :src="images[0]">
             </li>
             <li v-for="(item , index) in images" class="float-left" v-if="images.length !== 1">
-                <img :src="item" v-if="index <= 1">
+                <img :src="item" :class="{last: index === images.length - 1}">
             </li>
         </ul>
         <p class="describe overflow-omit"> {{describe}}</p>
@@ -29,20 +29,20 @@
     }
 
     .ManagerDetails ul li img {
-        width: 10rem;
-        height: 10rem;
+        max-height: 9rem;
+        margin-right: 0.5rem;
     }
 
     .ManagerDetails ul {
+        overflow-x: scroll;
+        overflow-y: hidden;
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
     }
-
-    .big{
-    }
-    .ManagerDetails .big img {
-        width: 14.2857rem;
-        height: 10.7143rem;
+    
+    .ManagerDetails .last {
+        margin-right: 0;
     }
 
     .ManagerDetails .describe {

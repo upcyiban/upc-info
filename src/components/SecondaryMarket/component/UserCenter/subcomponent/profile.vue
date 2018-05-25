@@ -35,7 +35,7 @@
 		background-color: #66cbff;
 		border-radius: 10px;
 		box-shadow: 0 0 5px 1px #aaaaaa;
-		margin: 4rem 1rem 1.5rem 1rem;
+		margin: 3rem 1rem 1.5rem 1rem;
 	}
 	.profile-div>.avatar-outline{
 		width: 72px;

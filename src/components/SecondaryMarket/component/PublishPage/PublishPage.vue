@@ -120,6 +120,10 @@
                     alert('请在价格框中输入数字')
                     return
                 }
+                else if (price >= 100000 || price < 0) {
+                    alert('别开玩笑啦')
+                    return
+                }
                 this[this.postMethod]().then(json => {
                     this.$router.push({path: '/second/home-page'})
                 })

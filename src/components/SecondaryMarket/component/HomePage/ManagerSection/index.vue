@@ -1,7 +1,7 @@
 <template>
     <div class="ManagerSection">
         <manager-header :userData="userData" :managerPrice="managerData.managerPrice"></manager-header>
-        <manager-details :images="managerData.imgUrl" :describe="managerData.managerDetail"></manager-details>
+        <manager-details :images="managerData.imgUrl" :describe="managerData.name"></manager-details>
         <!--<manager-reply :replyList="managerReplyList"></manager-reply>-->
         <hr style="border: 1px solid #EBEBEB;border-bottom: none">
         <ul class="clear manager-footer">
@@ -21,16 +21,7 @@
         props: ['userData', 'managerImage', 'managerData'],
         data () {
             return {
-                managerReplyList: [
-                    {
-                        user: '用户1',
-                        message: '第一条消息'
-                    },
-                    {
-                        user: '用户二',
-                        message: '第二条消息'
-                    }
-                ]
+                managerReplyList: []
             }
         },
         components: {

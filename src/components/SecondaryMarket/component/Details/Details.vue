@@ -8,7 +8,7 @@
             <hr style="border: 1px solid #EBEBEB;border-bottom: none">
             <p class="banner">{{managerData.managerDetail}}</p>
             <div v-for="item in managerData.imgUrl" class="banner">
-                <img :src="item" alt="图片加载失败" style="width: 21rem;height: 16rem;display: block;" class="box-center">
+                <img :src="item" alt="图片加载失败" class="descimg box-center">
             </div>
         </div>
         <reply-box class="second-market"></reply-box>
@@ -186,6 +186,13 @@
     .Details .banner {
         margin: 1rem 1rem;
         color: #595959;
+        height: auto;
+        /* overflow-x: hidden; */
+    }
+
+    .Details .banner .descimg {
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .Details .footer {
@@ -263,9 +270,10 @@
 
     .Details .discuss-list {
         margin: 1rem auto;
-        padding-left: 1.2rem;
-        width: 95%;
+        padding: 0 1.2rem;
+        max-width: 95%;
         display: flex;
+        overflow-x: hidden;
     }
 
     .Details .discuss-list img {
