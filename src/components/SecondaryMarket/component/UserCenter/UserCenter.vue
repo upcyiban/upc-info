@@ -64,7 +64,6 @@
             isExist (exist) {
                 if (!exist) {
                     this.sendUrl()
-//                    this.$router.push('/second/user-information')
                 }
             },
             sendUrl () {
