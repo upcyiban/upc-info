@@ -28,12 +28,12 @@
             </ul>
         </div>
         <div>
-                <center><button class="submit" @click="fulluser">完成</button></center>
+            <center><button class="submit" @click="fulluser">完成</button></center>
         </div>
     </div>
 </template>
 <script>
-    import {yibanAuth,marketFetch} from "../../config/fetchUtil"
+    import {yibanAuth, marketFetch} from "../../config/fetchUtil"
     import loading from "@/common/mixins/loading"
     import updateData from "@/common/mixins/UpdateData"
     import InputBox from '../../common-component/InputBox'
@@ -42,18 +42,19 @@
     export default {
         name: 'Fullinformation',
         mixins: [updateData, loading(marketFetch)],
-        data() {
+        data () {
             return {
                 yibanAuth: yibanAuth,
                 userPhone: '',
                 userWchat: '',
                 userEmail: '',
-                userQQ: ''
+                userQQ: '',
+                reciveMessage: ''
             }
         },
         methods: {
             fulluser: function () {
-                var flag = 0
+                let flag = 0
                 if (this.userQQ !== "") {
                     flag = 1
                 }
@@ -61,7 +62,7 @@
                     flag = 1
                 }
                 if (this.userPhone !== "") {
-                    flag =  1
+                    flag = 1
                     if (!(/^1[34578]\d{9}$/.test(this.userPhone))) {
                         alert("请填写正确的手机号")
                         return false
@@ -74,11 +75,11 @@
                         return false
                     }
                 }
-                if (flag == 0) {
+                if (flag === 0) {
                     alert("请至少完善一项信息")
                     return false
                 }
-                //this.$router.push('/second/user-center')
+                this.getUrl()
                 return this.fetch.postJsonData('/second/user/signup', {
                     'qq': this.userQQ,
                     'phone': this.userPhone,
@@ -95,8 +96,18 @@
                 })
             },
             isExist (exist) {
-                if (exist) {
+                if (!exist) {
+                    this.$router.push(this.url)
+                }
+            },
+            getUrl () {
+                let routerQuery = this.$route.query.dataobj
+                this.reciveMessage = routerQuery
+                if (routerQuery === '1') {
                     this.$router.push('/second/user-center')
+                }
+                else {
+                    this.$router.push('/second/publish')
                 }
             }
         },
@@ -119,6 +130,11 @@
 
     .infor .full {
         font-size: 1.5rem;
+    }
+
+    .infor .full li {
+        position: relative;
+        left: 0.9rem;
     }
 
     .infor .submit {

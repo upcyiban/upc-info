@@ -21,7 +21,7 @@
 
     export default {
         name: 'UserCenter',
-		mixins: [fetchVq(yibanAuth)],
+        mixins: [fetchVq(yibanAuth)],
         created () {
             marketFetch.getJsonData('/second/user/info', {}).then((result) => {
                 this.updateUserInfo(result)
@@ -33,7 +33,7 @@
         data () {
             let dict = new Map([['id', 'userid'], ['nick', 'username'], ['avatar', 'ybhead'], ['qq', 'qq'], ['wchat', 'wchat'], ['phone', 'phone'], ['email', 'email']])
             return {
-				title: '用户中心',
+                title: '用户中心',
                 currentTab: 'favorite',
                 profile: {
                     nick: '加载中...',
@@ -44,7 +44,7 @@
                     wchat: '无',
                     email: '无'
                 },
-                dict: dict
+                dict: dict,
             }
         },
         computed: {
@@ -54,7 +54,7 @@
         },
         methods: {
             back () {
-                this.$router.push('/second/homepage')
+                this.$router.push('/second/home-page')
             },
             updateUserInfo (info) {
                 this.dict.forEach((from, to, set) => {
@@ -63,15 +63,24 @@
             },
             isExist (exist) {
                 if (!exist) {
-                    this.$router.push('/second/user-information')
+                    this.sendUrl()
+//                    this.$router.push('/second/user-information')
                 }
+            },
+            sendUrl () {
+                this.$router.push({
+                    path: '/second/user-information',
+                    query: {
+                        dataobj: '1'
+                    }
+                })
             }
         },
         components: {
             'header-section': headerSection,
             'footer-section': footerSection,
             'prof': profile,
-            'tabs': tabs,
+            'tabs': tabs
         }
     }
 </script>

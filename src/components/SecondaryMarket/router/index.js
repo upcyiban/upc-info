@@ -20,7 +20,7 @@ const SecondaryMarket = [
     },
     {
         path: '/second/publish',
-        component: PublishPage,
+        component: PublishPage
     },
     {
         path: '/second/publish/:articleId',

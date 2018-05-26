@@ -36,7 +36,7 @@ class YibanAuth {
              * @type {string}
              */
             window.localStorage.backUrl = window.location.href
-            window.location = this.vqUrl
+            // window.location = this.vqUrl
         }
     }
     haveVq () {
@@ -60,7 +60,7 @@ class YibanAuth {
             .then(response => {
                 if(response.code === 2){
                     this.setVq()
-                    window.location = this.vqUrl
+                    // window.location = this.vqUrl
                     return false
                 }
                 else return true
