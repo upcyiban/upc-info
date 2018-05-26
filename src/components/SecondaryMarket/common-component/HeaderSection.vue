@@ -23,4 +23,10 @@
         line-height: 2rem;
         color: #FFF;
     }
+
+    @media (max-width: 640px) {
+        .header {
+            display: none;
+        }
+    }
 </style>

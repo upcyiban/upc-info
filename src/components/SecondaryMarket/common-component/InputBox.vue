@@ -28,7 +28,7 @@
 <style scoped>
     .InputBox {
         position: relative;
-        height: 120px;
+        height: 4rem;
         font-size: 1.4rem;
     }
     .InputBox input:focus + span{

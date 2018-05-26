@@ -35,6 +35,7 @@
 
 <style scoped>
     .ManagerSection {
+        position: relative;
         padding: 0 20px;
     }
     .ManagerSection .ManagerReply {

@@ -17,7 +17,7 @@
                 <img :src="item" alt="图片加载失败">
                 <div class="file-item-footer text-center">{{index===0 ? '主图': '附图'}}</div>
             </div>
-            <upload @addFile="addFile" class="upload file-item"></upload>
+            <upload @addFile="addFile" class="upload file-item" v-if="fileList.length <= 5"></upload>
         </div>
         <br><br>
         <div class="clear input-box box-center">
@@ -147,8 +147,10 @@
         flex-wrap: wrap;
     }
     .PublishPage .file-item {
-        width: 6rem;
-        height: 6rem;
+        width: 30%;
+        min-height: 6rem;
+        max-height: 8rem;
+        margin-bottom: 0.5rem;
         position: relative;
     }
     .PublishPage .file-item img {
