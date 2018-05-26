@@ -77,7 +77,8 @@ class YibanAuth {
     }
     getVqByUrl () {
         const locationUrl = window.location.href
-        if (!locationUrl.includes('?') &&
+        if (!locationUrl.includes('verify_request') &&
+            !locationUrl.includes('?') &&
             !locationUrl.includes('=') &&
             !locationUrl.includes(this.vqKey)) {
             return null

@@ -28,11 +28,14 @@
         display: inline-block;
         background-color: #e0dfdf;
         position: relative;
+        left: 50%;
+        transform: translateX(-50%);
     }
     .Upload input {
         opacity: 0;
         width: 100%;
         height: 100%;
+        margin: 0 auto;
         position: absolute;
         z-index: 1000;
     }

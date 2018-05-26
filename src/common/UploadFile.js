@@ -58,14 +58,14 @@ class UploadFile {
      * @author Semesse
      * @param {File} file 从Input中取得的图片
      * @param {document} iframeDocument 标定document
-     * @returns 一个Promise对象,then接受参数为上传后文件url
+     * @returns Promise对象,resolve接受参数为compressedImage，压缩后的Blob对象
      * @memberof UploadFile
      */
     compressImage (file, iframeDocument, compressOptions) {
         /*
          * fileLoader.onload(resolve) -> process(resolve) -> img.onload() -> drawWithCanvas(img)(resolve)
          *                                          |->       ->       ->        ->        ->       ->|
-         * -> resolve(compressedImage) -> resolve(sendFile())
+         * -> resolve(compressedImage)
          */
         let fileReader = new FileReader()
         let fileType = file.type
@@ -104,17 +104,17 @@ class UploadFile {
             })
         }
         const process = resolve => () => {
-            //process使用高阶函数返回一个常函数防止在addEventListener时提前执行
+            //防止在addEventListener时提前执行
             let img = new Image()
             let formData = new FormData()
             img.src = fileReader.result
             img.onload = () => {
                 drawWithCanvas(img).then(compressedImage => {
-                    //该函数返回的Promise.resolve最终执行的函数
                     resolve(compressedImage)
                 })
             }
         }
+
         return new Promise(resolve => {
             fileReader.addEventListener('load', process(resolve))
             fileReader.readAsDataURL(file)

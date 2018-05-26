@@ -36,7 +36,10 @@
         overflow: hidden;
     }
     .UserBox .second {
-        width: 5rem;
+        width: 50%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
     .UserBox ul {
         display: flex;
