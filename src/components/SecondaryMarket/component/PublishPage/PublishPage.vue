@@ -55,22 +55,20 @@
         props: ['articleId'],
         mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), getClassification],
         created () {
-            if(!this.articleId){
+            if (!this.articleId) {
                 this.postMethod = 'publishGoods'
                 this.title = '发布'
-            }
-            else{
+            } else {
                 this.postMethod = 'updateGoods'
                 this.title = '编辑'
                 this.fetch.getJsonData('/second/user/info').then(
-                    (userData) => this.fetch.getJsonData('/secondhand/browse/onearticle',{
+                    (userData) => this.fetch.getJsonData('/secondhand/browse/onearticle', {
                         articleid: this.articleId
                     }).then((item) => {
-                        if(item.code === 0){
+                        if (item.code === 0) {
                             alert('文章不存在或已删除！')
                             this.$router.push('/second/home-page')
-                        }
-                        else if(userData.userid != item.userid){
+                        } else if (userData.userid !== item.userid) {
                             alert('没有权限编辑！')
                             this.$router.push('/second/home-page')
                         }
@@ -128,8 +126,7 @@
                 if (isNaN(price)) {
                     alert('请在价格框中输入数字')
                     return
-                }
-                else if (price >= 100000 || price < 0) {
+                } else if (price >= 100000 || price < 0) {
                     alert('别开玩笑啦')
                     return
                 }

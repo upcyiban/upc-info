@@ -7,32 +7,31 @@
 				<p class="absolute-center">回复</p>
 			</div>
 		</div>
-		</div>
 	</transition>
 </template>
 
 <script>
-	//no secondary reply at present
-	const replyUrl = '/'
+	// no secondary reply at present
+	// const replyUrl = '/'
 
 	export default {
-		name: 'replyBox',
-		props: ['replyTo'],
-		data () {
-			return {
-				content: ''
-			}
-		},
-		methods: {
-			send (content) {
-				//post data
-				console.log(this.replyTo+':'+this.content)
-				this.success()
-			},
-			success () {
-				this.$emit('success')
-			}
-		}
+	    name: 'replyBox',
+	    props: ['replyTo'],
+	    data () {
+	        return {
+	            content: ''
+	        }
+	    },
+	    methods: {
+	        send (content) {
+	            // post data
+	            console.log(this.replyTo + ':' + this.content)
+	            this.success()
+	        },
+	        success () {
+	            this.$emit('success')
+	        }
+	    }
 	}
 </script>
 

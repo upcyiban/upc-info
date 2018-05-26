@@ -1,7 +1,7 @@
 import Token from './Token'
 import getRequestParamList from './getRequest'
 import HttpRequest from './HttpRequest'
-import {commonUrl,vqKey, yibanIdKey} from '../../config/config'
+import {vqKey, yibanIdKey} from '../../config/config'
 
 class YibanAuth {
     vqUrl
@@ -42,7 +42,7 @@ class YibanAuth {
     haveVq () {
         const vq = this.getVq()
         this.verifyVq(vq)
-        return vq !== null && vq !== undefined 
+        return vq !== null && vq !== undefined
     }
 
     getVq () {
@@ -56,14 +56,13 @@ class YibanAuth {
 
     verifyVq (vq) {
         const verifyUrl = '/auth'
-        this.httpRequest.postJsonData(verifyUrl, {appName: this.appName,device: this.device,vq: this.getVq()})
+        this.httpRequest.postJsonData(verifyUrl, {appName: this.appName, device: this.device, vq: this.getVq()})
             .then(response => {
-                if(response.code === 2){
+                if (response.code === 2) {
                     this.setVq()
                     window.location = this.vqUrl
                     return false
-                }
-                else return true
+                } else return true
             })
     }
 

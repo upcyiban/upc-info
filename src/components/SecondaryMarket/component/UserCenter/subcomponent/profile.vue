@@ -25,8 +25,8 @@
 
 <script>
 	export default {
-		name: 'profile',
-		props: ['profile']
+	    name: 'profile',
+	    props: ['profile']
 	}
 </script>
 

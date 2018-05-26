@@ -100,13 +100,13 @@
             },
             fetchSearch (e) {
                 if (e.name) {
-                    this.fetch.getJsonData('/secondhand/browse/findbyarticlename' , {
+                    this.fetch.getJsonData('/secondhand/browse/findbyarticlename', {
                         name: e.name
                     }).then(json => {
                         this.setPageWithData(json)
                     })
-                } else if (e.choose && e.choose.length > 0){
-                    this.fetch.getJsonData('/secondhand/browse/findbyarticlekind' , {
+                } else if (e.choose && e.choose.length > 0) {
+                    this.fetch.getJsonData('/secondhand/browse/findbyarticlekind', {
                         kind: e.choose.join('%')
                     }).then(json => {
                         this.setPageWithData(json)

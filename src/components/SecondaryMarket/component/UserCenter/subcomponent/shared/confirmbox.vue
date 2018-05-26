@@ -14,15 +14,15 @@
 
 <script>
 	export default {
-		name: 'confirm-box',
-		methods: {
-			confirm () {
-				this.$emit('confirm')
-			},
-			cancel () {
-				this.$emit('cancel')
-			}
-		}
+	    name: 'confirm-box',
+	    methods: {
+	        confirm () {
+	            this.$emit('confirm')
+	        },
+	        cancel () {
+	            this.$emit('cancel')
+	        }
+	    }
 	}
 </script>
 

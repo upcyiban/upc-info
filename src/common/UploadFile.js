@@ -31,7 +31,7 @@ class UploadFile {
      *                          maxWidth,maxHeight: 限制长宽
      *                          compressRatio: 压缩比率
      */
-    fetchFile (fileElement, type, iframeDocument, compressOptions=this.defaultCompressOption) {
+    fetchFile (fileElement, type, iframeDocument, compressOptions = this.defaultCompressOption) {
         iframeDocument = (iframeDocument !== null && iframeDocument !== undefined)
             ? iframeDocument : document
         let file = fileElement.files[0]
@@ -69,7 +69,6 @@ class UploadFile {
          */
         let fileReader = new FileReader()
         let fileType = file.type
-        let fileName = file.name
 
         const drawWithCanvas = img => {
             return new Promise(resolve => {
@@ -77,36 +76,36 @@ class UploadFile {
                 let context = canvas.getContext('2d')
                 let originWidth = img.width
                 let originHeight = img.height
-                let targetWidth = originWidth, targetHeight = originHeight
-                let maxWidth = compressOptions.maxWidth, maxHeight = compressOptions.maxHeight
+                let targetWidth = originWidth
+                let targetHeight = originHeight
+                let maxWidth = compressOptions.maxWidth
+                let maxHeight = compressOptions.maxHeight
                 let compressedImage
 
                 if (originWidth > maxWidth) {
                     targetWidth = maxWidth
                     targetHeight = Math.round(originHeight / originWidth * maxWidth)
-                }
-                else if (originHeight > maxHeight){
+                } else if (originHeight > maxHeight) {
                     targetHeight = maxHeight
                     targetWidth = Math.round(originWidth / originHeight * maxHeight)
                 }
-                canvas.width = targetWidth;
-                canvas.height = targetHeight;
-                console.log('Compress Image:',originWidth, originHeight, targetWidth, targetHeight)
+                canvas.width = targetWidth
+                canvas.height = targetHeight
+                console.log('Compress Image:', originWidth, originHeight, targetWidth, targetHeight)
 
-                context.clearRect(0, 0, targetWidth, targetHeight);
-                context.drawImage(img, 0, 0, targetWidth, targetHeight);
+                context.clearRect(0, 0, targetWidth, targetHeight)
+                context.drawImage(img, 0, 0, targetWidth, targetHeight)
 
                 canvas.toBlob(blob => {
                     compressedImage = blob
-                    //img.onload中的resolve
+                    // img.onload中的resolve
                     resolve(compressedImage)
                 }, fileType, compressOptions.compressRatio)
             })
         }
         const process = resolve => () => {
-            //防止在addEventListener时提前执行
+            // 防止在addEventListener时提前执行
             let img = new Image()
-            let formData = new FormData()
             img.src = fileReader.result
             img.onload = () => {
                 drawWithCanvas(img).then(compressedImage => {

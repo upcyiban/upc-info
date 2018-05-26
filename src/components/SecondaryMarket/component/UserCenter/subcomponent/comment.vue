@@ -29,73 +29,72 @@
 	const deleteComment = '/secondhand/publish/deletereview'
 
 	export default {
-		name: 'comment',
-		components: {
-			'replybox': replyBox,
-			'confirmbox': confirmBox,
-		},
-		mixins: [listen((self,index,event,delta,distX,distY) => {
-			if(delta > 500 && Math.abs(distY) < 25){
-				self.showConfirmation(index)
-			}
-			else if(delta > 10 && Math.abs(distY) < 25){
-				self.detail(index)
-			}
-		})],
-		mounted () {
-			marketFetch.getJsonData(getComment,{}).then((result) => this.updateComments(result))
-		},
-		data () {
-			var dict = new Map([['articleid','articleId'],['reviewid','reivewId'],['nick','ybname'],['avatar','ybhead']])
-			return {
-				comments: [],
-				replyStatus: false,
-				replyTo: '',
-				dict: dict
-			}
-		},
-		methods: {
-			replyComment (index) {
-				// if replybox is required
-				// please uncomment
-				// this.replyStatus = true
-				if(this.comments[index]){
-					this.replyTo = this.comments[index].reviewid
-				}
-			},
-			replyEnd () {
-				this.replyStatus = false
-				this.replyTo = ''
-			},
-			showConfirmation (index) {
-				this.comments[index].beforeDelete = true
-			},
-			confirmDelete (index) {
-				marketFetch.postJsonData(deleteComment,{reviewid: this.comments[index].reviewid})
-				if(this.comments[index].reviewid == this.replyTo){
-					this.replyEnd()
-				}
-				this.comments.splice([index],1)
-			},
-			detail (index) {
-				this.$router.push(`/second/details/${this.comments[index].articleid}`)
-			},
-			updateComments (comments) {
-				comments.forEach((comment,index,comments) => {
-					if(comment && comment.isdelete != 0)return true
-					let tmp = {}
-					this.dict.forEach((from,to,dict) => {
-						if(comment.hasOwnProperty(from)){tmp[to] = comment[from] ? comment[from] : ''}
-					})
-					tmp['content'] = util.limitWords(comment['detail'],30)
-					tmp['descimg'] = util.firstImg(comment['articleImgUrl'])
-					tmp['time'] = util.computeDate(comment['createtime'])
-					tmp['beforeDelete'] = false
-					this.comments.push(tmp)
-				})
-			},
-		},
-		props: ['userid']
+	    name: 'comment',
+	    components: {
+	        'replybox': replyBox,
+	        'confirmbox': confirmBox
+	    },
+	    mixins: [listen((self, index, event, delta, distX, distY) => {
+	        if (delta > 500 && Math.abs(distY) < 25) {
+	            self.showConfirmation(index)
+	        } else if (delta > 10 && Math.abs(distY) < 25) {
+	            self.detail(index)
+	        }
+	    })],
+	    mounted () {
+	        marketFetch.getJsonData(getComment, {}).then((result) => this.updateComments(result))
+	    },
+	    data () {
+	        var dict = new Map([['articleid', 'articleId'], ['reviewid', 'reivewId'], ['nick', 'ybname'], ['avatar', 'ybhead']])
+	        return {
+	            comments: [],
+	            replyStatus: false,
+	            replyTo: '',
+	            dict: dict
+	        }
+	    },
+	    methods: {
+	        replyComment (index) {
+	            // if replybox is required
+	            // please uncomment
+	            // this.replyStatus = true
+	            if (this.comments[index]) {
+	                this.replyTo = this.comments[index].reviewid
+	            }
+	        },
+	        replyEnd () {
+	            this.replyStatus = false
+	            this.replyTo = ''
+	        },
+	        showConfirmation (index) {
+	            this.comments[index].beforeDelete = true
+	        },
+	        confirmDelete (index) {
+	            marketFetch.postJsonData(deleteComment, {reviewid: this.comments[index].reviewid})
+	            if (this.comments[index].reviewid === this.replyTo) {
+	                this.replyEnd()
+	            }
+	            this.comments.splice([index], 1)
+	        },
+	        detail (index) {
+	            this.$router.push(`/second/details/${this.comments[index].articleid}`)
+	        },
+	        updateComments (comments) {
+	            comments.forEach((comment, index, comments) => {
+	                if (comment && comment.isdelete !== 0) return true
+	                let tmp = {}
+	                this.dict.forEach((from, to, dict) => {
+	                    if (comment.hasOwnProperty(from)) { tmp[to] = comment[from] ? comment[from] : '' }
+	                })
+	                tmp['content'] = util.limitWords(comment['detail'], 30)
+	                tmp['descimg'] = util.firstImg(comment['articleImgUrl'])
+	                tmp['time'] = util.computeDate(comment['createtime'])
+	                tmp['beforeDelete'] = false
+	                this.comments.push(tmp)
+	            })
+	        }
+	    },
+	    props: ['userid']
 	}
 </script>
 

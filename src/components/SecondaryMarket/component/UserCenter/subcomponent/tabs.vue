@@ -12,28 +12,27 @@
 </template>
 
 <script>
-	import HttpRequest from '@/common/util/HttpRequest'
 	import favorite from './favorite'
 	import comment from './comment'
 	import history from './history'
 	export default{
-		name: 'tabs',
-		components: {
-			'tab-favorite': favorite,
-			'tab-comment': comment,
-			'tab-history': history,
-		},
-		data () {
-			return {
-				currentTab: 'favorite'
-			}
-		},
-		computed: {
-			currentTabComponent () {
-				return 'tab-' + this.currentTab
-			}
-		},
-		props: ['userid']
+	    name: 'tabs',
+	    components: {
+	        'tab-favorite': favorite,
+	        'tab-comment': comment,
+	        'tab-history': history
+	    },
+	    data () {
+	        return {
+	            currentTab: 'favorite'
+	        }
+	    },
+	    computed: {
+	        currentTabComponent () {
+	            return 'tab-' + this.currentTab
+	        }
+	    },
+	    props: ['userid']
 	}
 </script>
 

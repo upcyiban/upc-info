@@ -37,61 +37,60 @@
 	const editHistory = '/second/publish'
 
 	export default {
-		name: 'history',
-		components: {
-			'confirmbox': confirmBox
-		},
-		mixins: [listen((self,index,event,delta,distX,distY) => {
-			if(delta > 500 && Math.abs(distY) < 25){
-				return
-			}
-			else if(event.path[2].className != 'buttons' && delta > 10 && Math.abs(distY) < 25){
-				self.viewArticle(self.history[index].articleid)
-			}
-		})],
-		mounted () {
-			marketFetch.getJsonData(getHistory,{}).then((result) => this.updateHistory(result))
-		},
-		data () {
-			var dict = new Map([['articleid','id'],['name','name'],['price','price'],['commentnum','reviews'],['collectnum','collections']])
-			return {
-				history: [],
-				dict: dict,
-				button: {
-					edit: edit,
-					delete: delete_,
-				}
-			}
-		},
-		methods: {
-			editPost (index) {
-				this.$router.push(`${editHistory}/${this.history[index].articleid}`)
-			},
-			deletePost (index) {
-				this.history[index].beforeDelete = true
-			},
-			confirmDelete (index) {
-				this.history[index].beforeDelete = false
-				marketFetch.postJsonData(deleteHistory,{articleid: this.history[index].articleid}).then((result) => {
-					if(result.code === 1 || result.detail === 'don\'t delete again') this.history.splice(index,1)
-				})
-			},
-			updateHistory (records) {
-				records.forEach((record,index,records) =>{
-					let tmp = {}
-					this.dict.forEach((from,to,set) => {
-						if(record.hasOwnProperty(from)){tmp[to] = record[from] ? record[from] : '0'}
-					})
-					tmp.beforeDelete = false
-					tmp['img'] = util.firstImg(record['imgurl'])
-					this.history.push(tmp)
-				})
-			},
-			viewArticle (id) {
-				this.$router.push(`/second/details/${id}`)
-			}
-		},
-		props: ['userid']
+	    name: 'history',
+	    components: {
+	        'confirmbox': confirmBox
+	    },
+	    mixins: [listen((self, index, event, delta, distX, distY) => {
+	        if (delta > 500 && Math.abs(distY) < 25) {
+	
+	        } else if (event.path[2].className !== 'buttons' && delta > 10 && Math.abs(distY) < 25) {
+	            self.viewArticle(self.history[index].articleid)
+	        }
+	    })],
+	    mounted () {
+	        marketFetch.getJsonData(getHistory, {}).then((result) => this.updateHistory(result))
+	    },
+	    data () {
+	        var dict = new Map([['articleid', 'id'], ['name', 'name'], ['price', 'price'], ['commentnum', 'reviews'], ['collectnum', 'collections']])
+	        return {
+	            history: [],
+	            dict: dict,
+	            button: {
+	                edit: edit,
+	                delete: delete_
+	            }
+	        }
+	    },
+	    methods: {
+	        editPost (index) {
+	            this.$router.push(`${editHistory}/${this.history[index].articleid}`)
+	        },
+	        deletePost (index) {
+	            this.history[index].beforeDelete = true
+	        },
+	        confirmDelete (index) {
+	            this.history[index].beforeDelete = false
+	            marketFetch.postJsonData(deleteHistory, {articleid: this.history[index].articleid}).then((result) => {
+	                if (result.code === 1 || result.detail === 'don\'t delete again') this.history.splice(index, 1)
+	            })
+	        },
+	        updateHistory (records) {
+	            records.forEach((record, index, records) => {
+	                let tmp = {}
+	                this.dict.forEach((from, to, set) => {
+	                    if (record.hasOwnProperty(from)) { tmp[to] = record[from] ? record[from] : '0' }
+	                })
+	                tmp.beforeDelete = false
+	                tmp['img'] = util.firstImg(record['imgurl'])
+	                this.history.push(tmp)
+	            })
+	        },
+	        viewArticle (id) {
+	            this.$router.push(`/second/details/${id}`)
+	        }
+	    },
+	    props: ['userid']
 	}
 </script>
 

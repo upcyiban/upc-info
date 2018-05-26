@@ -33,7 +33,7 @@ function createItem (item) {
 }
 
 function createPage (json) {
-    const {last, first, totalElements, totalPages, sort,numberOfElements, size, number} = json
+    const {last, first, totalElements, totalPages, sort, numberOfElements, size, number} = json
     return {
         last,
         first,
