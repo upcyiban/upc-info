@@ -36,13 +36,13 @@ class YibanAuth {
              * @type {string}
              */
             window.localStorage.backUrl = window.location.href
-            // window.location = this.vqUrl
+            window.location = this.vqUrl
         }
     }
     haveVq () {
         const vq = this.getVq()
         this.verifyVq(vq)
-        return vq !== null && vq !== undefined 
+        return vq !== null && vq !== undefined
     }
 
     getVq () {
@@ -58,9 +58,9 @@ class YibanAuth {
         const verifyUrl = '/auth'
         this.httpRequest.postJsonData(verifyUrl, {appName: this.appName,device: this.device,vq: this.getVq()})
             .then(response => {
-                if(response.code === 2){
+                if (response.code === 2) {
                     this.setVq()
-                    // window.location = this.vqUrl
+                    window.location = this.vqUrl
                     return false
                 }
                 else return true
