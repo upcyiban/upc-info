@@ -35,7 +35,7 @@
         display: flex;
         overflow-x: scroll;
         overflow-y: hidden;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: flex-end;
     }
 
@@ -53,14 +53,18 @@
         .ManagerDetails ul {
             position: relative;
             display: block;
-            width: 60%;
             max-height: 25rem;
             overflow-x: hidden;
+        }
+
+        .ManagerDetails ul li {
+            width: 60%;
         }
 
         .ManagerDetails ul li img {
             width: 100%;
             max-height: 100%;
+            overflow-x: hidden;
             margin-bottom: 0.5rem;
         }
 
