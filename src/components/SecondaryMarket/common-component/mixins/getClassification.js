@@ -1,5 +1,5 @@
 export default {
-    data() {
+    data () {
         return {
             classesList: []
         }
@@ -7,9 +7,7 @@ export default {
     created () {
         this.fetch.getJsonData('/secondhand/browse/allkind')
             .then(json => {
-                this.classesList = json.map(item => {
-                    return item.name
-                })
+                this.classesList = json.map(item => item.name)
             })
     }
 }

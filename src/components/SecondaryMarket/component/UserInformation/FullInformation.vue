@@ -33,16 +33,16 @@
     </div>
 </template>
 <script>
-    import {yibanAuth,marketFetch} from "../../config/fetchUtil"
-    import loading from "@/common/mixins/loading"
-    import updateData from "@/common/mixins/UpdateData"
+    import {yibanAuth, marketFetch} from '../../config/fetchUtil'
+    import loading from '@/common/mixins/loading'
+    import updateData from '@/common/mixins/UpdateData'
     import InputBox from '../../common-component/InputBox'
-    import userInput from "../../common-component/mixins/UserInput"
+    import userInput from '../../common-component/mixins/UserInput'
 
     export default {
         name: 'Fullinformation',
         mixins: [updateData, loading(marketFetch)],
-        data() {
+        data () {
             return {
                 yibanAuth: yibanAuth,
                 userPhone: '',
@@ -54,31 +54,31 @@
         methods: {
             fulluser: function () {
                 var flag = 0
-                if (this.userQQ !== "") {
+                if (this.userQQ !== '') {
                     flag = 1
                 }
-                if (this.userWchat !== "") {
+                if (this.userWchat !== '') {
                     flag = 1
                 }
-                if (this.userPhone !== "") {
-                    flag =  1
+                if (this.userPhone !== '') {
+                    flag = 1
                     if (!(/^1[34578]\d{9}$/.test(this.userPhone))) {
-                        alert("请填写正确的手机号")
+                        alert('请填写正确的手机号')
                         return false
                     }
                 }
-                if (this.userEmail !== "") {
+                if (this.userEmail !== '') {
                     flag = 1
                     if (!(/^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/.test(this.userEmail))) {
-                        alert("请输入正确的邮箱地址")
+                        alert('请输入正确的邮箱地址')
                         return false
                     }
                 }
-                if (flag == 0) {
-                    alert("请至少完善一项信息")
+                if (flag === 0) {
+                    alert('请至少完善一项信息')
                     return false
                 }
-                //this.$router.push('/second/user-center')
+                // this.$router.push('/second/user-center')
                 return this.fetch.postJsonData('/second/user/signup', {
                     'qq': this.userQQ,
                     'phone': this.userPhone,

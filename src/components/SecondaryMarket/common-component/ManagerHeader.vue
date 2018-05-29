@@ -9,7 +9,7 @@
                 <!--<p class="time">两小时前发布</p>-->
             </li>
             <li>
-                <p>${{managerPrice}}</p>
+                <p>￥{{managerPrice}}</p>
             </li>
         </ul>
     </div>
@@ -36,17 +36,17 @@
         overflow: hidden;
     }
     .UserBox .second {
-        width: 5rem;
+        width: 50%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
     .UserBox ul {
         display: flex;
-        justify-content: space-around;
     }
     .UserBox ul li {
         height: 2.8571rem;
-        /*line-height: 1.4285rem;*/
         line-height: 2.8571rem;
-        margin-right: 1rem;
     }
 
     .UserBox ul li:last-child {
@@ -54,20 +54,24 @@
         font-size: 1.5rem;
         line-height: 2.8rem;
         text-align: right;
-        width: 10rem;
+        position: absolute;
+        right: 1rem;
     }
 
     .UserBox ul li:first-child {
         width: 2.8571rem;
         height: 2.8571rem;
+        margin-right: 1rem;
         line-height: 2.8571rem;
         border-radius: 1.4285rem;
         overflow: hidden;
     }
+
     .UserBox img {
         width: 100%;
         height: 100%;
     }
+
     .UserBox .second p {
         font-size: 0.7rem;
     }

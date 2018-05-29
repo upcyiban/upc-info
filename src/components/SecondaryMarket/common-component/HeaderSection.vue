@@ -19,9 +19,14 @@
     .header {
         background-color: #189FD9;
         text-align: center;
-        height: 80px;
-        line-height: 80px;
+        height: 2rem;
+        line-height: 2rem;
         color: #FFF;
-        font-size: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+        .header {
+            display: none;
+        }
     }
 </style>

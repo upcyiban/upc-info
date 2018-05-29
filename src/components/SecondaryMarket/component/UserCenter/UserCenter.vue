@@ -21,7 +21,7 @@
 
     export default {
         name: 'UserCenter',
-		mixins: [fetchVq(yibanAuth)],
+        mixins: [fetchVq(yibanAuth)],
         created () {
             marketFetch.getJsonData('/second/user/info', {}).then((result) => {
                 this.updateUserInfo(result)
@@ -33,7 +33,7 @@
         data () {
             let dict = new Map([['id', 'userid'], ['nick', 'username'], ['avatar', 'ybhead'], ['qq', 'qq'], ['wchat', 'wchat'], ['phone', 'phone'], ['email', 'email']])
             return {
-				title: '用户中心',
+                title: '用户中心',
                 currentTab: 'favorite',
                 profile: {
                     nick: '加载中...',
@@ -71,7 +71,7 @@
             'header-section': headerSection,
             'footer-section': footerSection,
             'prof': profile,
-            'tabs': tabs,
+            'tabs': tabs
         }
     }
 </script>

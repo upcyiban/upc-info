@@ -15,6 +15,21 @@
         httpRequest对象: 绑定特定轻应用后端的HttpRequest,提交请求时无须考虑是否有token
         yibanAuth对象: 绑定特定轻应用后端yiban认证对象，其中fetchVq方法会被fetchVq混入模式主动使用，其中refreshToken方法会被httpRequest属性主动使用<br /><br />
         如果httpRequest.yibanAuth为null那么就不会主动刷新token，而createFetchWithAuth函数保证了返回的httpRequest对象是拥有yibanAuth属性的
+### CompressImage函数
+>   参数:
+        file : 从input标签获取的文件
+        iframeDocument : 用来创建canvas的document/iframeDocument
+        compressOptions : 压缩选项(为一个Object)
+        ```
+        {
+            compress: boolean                       //默认true 由UploadFile决定
+            maxWidth: int                           //默认1024
+            maxHeight: int                          //默认1024
+            compressRatio: float between (0,1)      //压缩比率 默认0.9 太低可能会糊
+        }
+        ```
+>   返回值
+        Promise对象, resolve压缩后的图片(Blob)
 
 ### UploadFile类
 >   构造函数的入参是一个httpRequest对象，推荐使用createFetchWithAuth函数的返回值

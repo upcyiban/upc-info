@@ -9,7 +9,7 @@
         name: 'LoadImage',
         data () {
             return {
-                loading: require('../../components/SecondaryMarket/media/loading.gif'),
+                loading: require('../../components/SecondaryMarket/media/loading.gif')
             }
         },
         props: ['loadState']

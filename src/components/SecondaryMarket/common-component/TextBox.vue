@@ -1,7 +1,7 @@
 <template>
     <div class="TextBox" @change="input">
         <label>
-            <textarea :name="dataKey" cols="10" rows="4"
+            <textarea :name="dataKey" cols="10" rows="6"
                       :placeholder="placeholder" :class="classes" :value="inputValue"></textarea>
             <!--<span>{{placeholder}}</span>-->
         </label>
@@ -26,8 +26,9 @@
 <style scoped>
     .TextBox {
         position: relative;
-        padding-top: 0.5rem;
-        font-size: 1.4rem;
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+        overflow-x: hidden;
     }
     .TextBox textarea {
         width: 100%;
@@ -41,7 +42,7 @@
         height: 150px;
         top: 1rem;
         color: #DAD7E0;
-        line-height: 1.4rem;
+        line-height: 1.1rem;
         position: absolute;
     }
 

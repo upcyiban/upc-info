@@ -9,15 +9,19 @@
         <br>
         <text-box ref="message" placeholder="宝贝描述" class="input-box box-center" dataKey="managerMessage" :value="managerMessage" @userInput="updateData"></text-box>
         <div class="file-list input-box box-center">
-            <div v-for="(item , index) in fileList" class="file-item">
-                <div class="add-icon text-center"
-                     :data-index="index"
-                     @click="deleteImage"
-                >+</div>
-                <img :src="item" alt="图片加载失败">
-                <div class="file-item-footer text-center">{{index===0 ? '主图': '附图'}}</div>
+            <div class="item-container" v-for="(item , index) in fileList">
+                <div class="file-item box-center">
+                    <div class="add-icon text-center"
+                        :data-index="index"
+                        @click="deleteImage"
+                    >+</div>
+                    <img :src="item" alt="图片加载失败">
+                    <div class="file-item-footer text-center">{{index===0 ? '主图': '附图'}}</div>
+                </div>
             </div>
-            <upload @addFile="addFile" class="upload file-item"></upload>
+            <div class="item-container">
+                <upload @addFile="addFile" class="upload file-item" v-if="fileList.length <= 5"></upload>
+            </div>
         </div>
         <br><br>
         <div class="clear input-box box-center">
@@ -51,22 +55,20 @@
         props: ['articleId'],
         mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), getClassification],
         created () {
-            if(!this.articleId){
+            if (!this.articleId) {
                 this.postMethod = 'publishGoods'
                 this.title = '发布'
-            }
-            else{
+            } else {
                 this.postMethod = 'updateGoods'
                 this.title = '编辑'
                 this.fetch.getJsonData('/second/user/info').then(
-                    (userData) => this.fetch.getJsonData('/secondhand/browse/onearticle',{
+                    (userData) => this.fetch.getJsonData('/secondhand/browse/onearticle', {
                         articleid: this.articleId
                     }).then((item) => {
-                        if(item.code === 0){
+                        if (item.code === 0) {
                             alert('文章不存在或已删除！')
                             this.$router.push('/second/home-page')
-                        }
-                        else if(userData.userid != item.userid){
+                        } else if (userData.userid !== item.userid) {
                             alert('没有权限编辑！')
                             this.$router.push('/second/home-page')
                         }
@@ -75,6 +77,11 @@
                         this.managerPrice = this.$refs.price.inputValue = item.price
                         this.managerMessage = this.$refs.message.inputValue = item.detail
                         this.fileList = JSON.parse(item.imgurl)
+                        this.chooseList.chooseValue = JSON.parse(item.kind)
+                        this.chooseList.chooseValue.forEach(value => {
+                            let index = this.classesList.indexOf(value)
+                            this.chooseList.chooseList.push(index)
+                        })
                     })
                 )
             }
@@ -119,6 +126,9 @@
                 if (isNaN(price)) {
                     alert('请在价格框中输入数字')
                     return
+                } else if (price >= 100000 || price < 0) {
+                    alert('别开玩笑啦')
+                    return
                 }
                 this[this.postMethod]().then(json => {
                     this.$router.push({path: '/second/home-page'})
@@ -132,26 +142,45 @@
 
 
 <style scoped>
-    .PublishPage {
-    }
     .PublishPage .input-box {
         width: 90%;
         margin-top: 5px;
         margin-bottom: 5px;
     }
     .PublishPage .file-list {
+        margin-top: 1.5rem;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         flex-wrap: wrap;
+    }
+    .PublishPage .item-container {
+        width: 33.3%;
     }
     .PublishPage .file-item {
         width: 6rem;
         height: 6rem;
+        margin-bottom: 0.75rem;
         position: relative;
+    }
+    @media (min-width: 520px){
+        .PublishPage .file-item {
+            width: 6.5rem;
+            height: 6.5rem;
+            margin-bottom: 1rem;
+        }
+    }
+    @media (min-width: 640px){
+        .PublishPage .file-item {
+            width: 7rem;
+            height: 7rem;
+            margin-bottom: 1.25rem;
+        }
     }
     .PublishPage .file-item img {
         width: 100%;
         height: 100%;
+        min-width: 6rem;
+        min-height: 6rem;
     }
     .PublishPage .file-list .upload {
         align-items: flex-start;
@@ -167,7 +196,10 @@
         border: 5px solid white;
         line-height: 1.3rem;
         background-color: #6AC1E7;
+        box-shadow: 5px 2px 9px #7f888888;
         transform: rotate(45deg);
+        -webkit-user-select: none;
+        user-select: none;
     }
     .PublishPage .file-item .file-item-footer {
         position: absolute;

@@ -113,13 +113,13 @@ li {
     }
 }
 
-@media screen and (min-width: 680px) {
+@media screen and (min-width: 720px) {
     html {
         font-size: 26px;
     }
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 780px) {
     html {
         font-size: 28px;
     }
