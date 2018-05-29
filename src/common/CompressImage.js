@@ -60,9 +60,13 @@ function compressImage (file, iframeDocument, compressOptions) {
         }
     }
 
-    return new Promise(resolve => {
-        fileReader.addEventListener('load', process(resolve))
-        fileReader.readAsDataURL(file)
+    return new Promise((resolve, reject) => {
+        if (compressOptions.compress) {
+            fileReader.addEventListener('load', process(resolve))
+            fileReader.readAsDataURL(file)
+        } else {
+            resolve(file)
+        }
     })
 }
 
