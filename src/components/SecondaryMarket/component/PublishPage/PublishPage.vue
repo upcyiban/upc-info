@@ -196,7 +196,7 @@
         border: 5px solid white;
         line-height: 1.3rem;
         background-color: #6AC1E7;
-        box-shadow: 5px 2px 9px #7f888888;
+        box-shadow: 2px 1px 3px #7f888888;
         transform: rotate(45deg);
         -webkit-user-select: none;
         user-select: none;

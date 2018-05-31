@@ -4,13 +4,13 @@
             <li class="comment" v-for="(comment,index) in comments" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchmove="listenMove($event)" @touchend="listenEnd(index,$event)">
                     <div>
                         <div class="user">
-                            <img :src="comment.avatar" class="avatar">
+                            <img :src="comment.avatar" class="avatar" alt="图片加载失败">
                             <p class="nick">{{ comment.nick }}</p>
                             <p class="time">{{ comment.time }}</p>
                         </div>
                         <p class="content">评论了：{{ comment.content }}</p>
                     </div>
-                    <img v-if="comment.descimg" class="descimg right" :src="comment.descimg" @click.stop="detail(index)">
+                    <img v-if="comment.descimg" class="descimg right" :src="comment.descimg" @click.stop="detail(index)" alt="图片加载失败">
                     <confirmbox v-if="comment.beforeDelete" @confirm="confirmDelete(index)" @cancel="comment.beforeDelete = false"></confirmbox>
             </li>
         </ul>

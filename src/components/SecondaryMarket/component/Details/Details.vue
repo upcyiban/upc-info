@@ -37,11 +37,14 @@
                 </li>
                 <li class="float-left" @click="changeDiscuss"><img :src="discuss" alt="图片加载失败">&nbsp;评论</li>
                 <li class="float-left text-center">
-                    <router-link to="/second/user-center">
-                        <button @click="showUserCenter">我想要</button>
-                    </router-link>
+                    <button @click="showUserProfile">我想要</button>
                 </li>
             </ul>
+        </div>
+        <div class="mask" @click="closeProfile" v-show="showProfile">
+            <transition name="showProfile">
+                <user-profile class="user-profile" :profile="publisherProfile" v-if="showProfile"></user-profile>
+            </transition>
         </div>
     </div>
 </template>
@@ -50,6 +53,7 @@
     import HeaderSection from '../../common-component/HeaderSection.vue'
     import ManagerHeader from '../../common-component/ManagerHeader.vue'
     import ReplyBox from '../../common-component/ReplyBox.vue'
+    import UserProfile from '../../common-component/UserProfile.vue'
     import updateData from '../../../../common/mixins/UpdateData'
     import { marketFetch, yibanAuth } from '../../config/fetchUtil'
     import loading from '../../../../common/mixins/loading'
@@ -79,7 +83,9 @@
                 showDiscuss: false,
                 discussDetail: '',
                 discussList: [],
-                isCollected: false
+                isCollected: false,
+                showProfile: false,
+                publisherProfile: {}
             }
         },
         created () {
@@ -101,7 +107,8 @@
         components: {
             HeaderSection,
             ManagerHeader,
-            ReplyBox
+            ReplyBox,
+            UserProfile
         },
 
         methods: {
@@ -166,8 +173,20 @@
                         this.discussList = discussList
                     })
             },
-            showUserCenter () {
-                console.log(123)
+            showUserProfile () {
+                this.fetch.getJsonData('/second/user/otherinfo', {
+                    userid: this.managerUserData.userId
+                }).then(userInfo => {
+                    this.$set(this.publisherProfile, 'avatar', userInfo.ybhead)
+                    this.$set(this.publisherProfile, 'qq', userInfo.qq ? userInfo.qq : '无')
+                    this.$set(this.publisherProfile, 'wchat', userInfo.wchat ? userInfo.wchat : '无')
+                    this.$set(this.publisherProfile, 'phone', userInfo.phone ? userInfo.phone : '无')
+                    this.$set(this.publisherProfile, 'email', userInfo.email ? userInfo.email : '无')
+                    this.showProfile = true
+                })
+            },
+            closeProfile () {
+                this.showProfile = false
             },
             findManagerById
         }
@@ -184,7 +203,6 @@
         margin: 1rem 1rem;
         color: #595959;
         height: auto;
-        /* overflow-x: hidden; */
     }
 
     .Details .banner .descimg {
@@ -283,11 +301,13 @@
     .Details .discuss-list div {
         display: inline-block;
         margin-left: 0.7rem;
-        width: 100%;
+        width: calc(100%-1rem);
     }
 
     .Details .discuss-list p {
         margin-top: 1rem;
+        word-wrap: break-word;
+        word-break: break-all;
     }
 
     .Details .discuss-list a {
@@ -301,5 +321,37 @@
         color: blue;
         border-bottom: 1px solid blue;
         margin-bottom: -1px;
+    }
+
+    .Details .mask {
+        position: fixed;
+        top: 0%;
+        height: 100%;
+        width: 100%;
+        background: #4040407f
+    }
+
+    .Details .user-profile {
+        z-index: 900;
+        position: fixed;
+        top: 20%;
+        width: 90%;
+        transform-origin: center;
+    }
+
+     @keyframes show{
+        0%{
+            transform: scale(0.1);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+
+    .showProfile-enter-active{
+        animation: show .2s;
+    }
+    .showProfile-leave-active{
+        animation: show .2s reverse;
     }
 </style>

@@ -25,19 +25,19 @@
         <div class="footer absolute-horizontal-center">
             <ul class="clear">
                 <li class="float-left" @click="backTop">
-                    <img :src="find" >
+                    <img :src="find">
                     <p>发现</p>
                 </li>
                 <li class="float-left add">
                     <router-link to="/second/publish" class="absolute-horizontal-center" style="display: block">
-                        <span>+</span>
+                        <p class="add-icon">+</p>
                     </router-link>
                     <img style="opacity: 0;" src="">
                     <p>发布</p>
                 </li>
                 <li class="float-left">
                     <router-link to="/second/user-center">
-                        <img :src="user" >
+                        <img :src="user">
                         <p>我的</p>
                     </router-link>
                 </li>
@@ -153,10 +153,8 @@
         bottom: 1.1rem;
         background-color: #3299FF;
         border-radius: 50%;
-        line-height: 3.1rem;
-        font-size: 4rem;
+        font: 3.6rem/3.6rem arial;
         color: white;
-        vertical-align: baseline;
     }
     .HomePage .footer ul li {
         width: 32%;
