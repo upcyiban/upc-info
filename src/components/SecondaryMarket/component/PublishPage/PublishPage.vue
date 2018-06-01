@@ -55,6 +55,9 @@
         props: ['articleId'],
         mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), getClassification],
         created () {
+            marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
+                this.isExist(result)
+            })
             if (!this.articleId) {
                 this.postMethod = 'publishGoods'
                 this.title = '发布'
@@ -135,7 +138,20 @@
                 })
             },
             publishGoods,
-            updateGoods
+            updateGoods,
+            isExist (exist) {
+                if (!exist) {
+                    this.sendUrl()
+                }
+            },
+            sendUrl () {
+                this.$router.push({
+                    path: '/second/user-information',
+                    query: {
+                        dataobj: '0'
+                    }
+                })
+            }
         }
     }
 </script>

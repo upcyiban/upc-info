@@ -54,7 +54,7 @@
         },
         methods: {
             back () {
-                this.$router.push('/second/homepage')
+                this.$router.push('/second/home-page')
             },
             updateUserInfo (info) {
                 this.dict.forEach((from, to, set) => {
@@ -63,8 +63,16 @@
             },
             isExist (exist) {
                 if (!exist) {
-                    this.$router.push('/second/user-information')
+                    this.sendUrl()
                 }
+            },
+            sendUrl () {
+                this.$router.push({
+                    path: '/second/user-information',
+                    query: {
+                        dataobj: '1'
+                    }
+                })
             }
         },
         components: {

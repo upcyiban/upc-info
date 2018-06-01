@@ -39,7 +39,7 @@
         color: #DAD7E0;
     }
     .InputBox input{
-        width: 100%;
+        width: 92%;
         height: 100%;
         border: none;
         line-height: 1.5rem;

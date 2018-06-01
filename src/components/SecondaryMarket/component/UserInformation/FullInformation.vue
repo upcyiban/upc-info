@@ -6,7 +6,7 @@
         <div class="full">
             <ul>
                 <li>
-                    <span>QQ</span>
+                    <span>QQ(必填)</span>
                     <input-box dataKey="userQQ" :value="userQQ" type="text" placeholder="请输入你的QQ" @userInput="updateData" ></input-box>
                 </li>
                 <br>
@@ -28,7 +28,7 @@
             </ul>
         </div>
         <div>
-                <center><button class="submit" @click="fulluser">完成</button></center>
+            <center><button class="submit" @click="fulluser">完成</button></center>
         </div>
     </div>
 </template>
@@ -37,7 +37,6 @@
     import loading from '@/common/mixins/loading'
     import updateData from '@/common/mixins/UpdateData'
     import InputBox from '../../common-component/InputBox'
-    import userInput from '../../common-component/mixins/UserInput'
 
     export default {
         name: 'Fullinformation',
@@ -48,12 +47,13 @@
                 userPhone: '',
                 userWchat: '',
                 userEmail: '',
-                userQQ: ''
+                userQQ: '',
+                reciveMessage: ''
             }
         },
         methods: {
             fulluser: function () {
-                var flag = 0
+                let flag = 0
                 if (this.userQQ !== '') {
                     flag = 1
                 }
@@ -78,7 +78,7 @@
                     alert('请至少完善一项信息')
                     return false
                 }
-                // this.$router.push('/second/user-center')
+                this.getUrl()
                 return this.fetch.postJsonData('/second/user/signup', {
                     'qq': this.userQQ,
                     'phone': this.userPhone,
@@ -95,8 +95,17 @@
                 })
             },
             isExist (exist) {
-                if (exist) {
+                if (!exist) {
+                    this.$router.push(this.url)
+                }
+            },
+            getUrl () {
+                let routerQuery = this.$route.query.dataobj
+                this.reciveMessage = routerQuery
+                if (routerQuery === '1') {
                     this.$router.push('/second/user-center')
+                } else {
+                    this.$router.push('/second/publish')
                 }
             }
         },
@@ -119,6 +128,11 @@
 
     .infor .full {
         font-size: 1.5rem;
+    }
+
+    .infor .full li {
+        position: relative;
+        left: 0.9rem;
     }
 
     .infor .submit {
