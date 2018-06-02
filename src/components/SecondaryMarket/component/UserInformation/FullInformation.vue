@@ -102,10 +102,12 @@
             getUrl () {
                 let routerQuery = this.$route.query.dataobj
                 this.reciveMessage = routerQuery
-                if (routerQuery === '1') {
+                if (routerQuery === 'usercenter') {
                     this.$router.push('/second/user-center')
-                } else {
+                } else if (routerQuery === 'publish') {
                     this.$router.push('/second/publish')
+                } else {
+                    this.$router.push('/second/home-page')
                 }
             }
         },

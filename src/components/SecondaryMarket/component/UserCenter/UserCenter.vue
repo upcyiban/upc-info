@@ -13,6 +13,8 @@
 <script>
     import { marketFetch, yibanAuth } from '@/components/SecondaryMarket/config/fetchUtil'
     import fetchVq from '@/common/mixins/fetchVq'
+    import loading from '../../../../common/mixins/loading'
+    import checkExistence from '../../common-component/mixins/checkExistence'
     import headerSection from '../../common-component/HeaderSection'
     import footerSection from '../../common-component/footerSection'
     import profile from './subcomponent/profile'
@@ -21,13 +23,10 @@
 
     export default {
         name: 'UserCenter',
-        mixins: [fetchVq(yibanAuth)],
+        mixins: [fetchVq(yibanAuth), loading(marketFetch), checkExistence('usercenter')],
         created () {
-            marketFetch.getJsonData('/second/user/info', {}).then((result) => {
+            this.fetch.getJsonData('/second/user/info', {}).then((result) => {
                 this.updateUserInfo(result)
-            })
-            marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
-                this.isExist(result)
             })
         },
         data () {
@@ -59,19 +58,6 @@
             updateUserInfo (info) {
                 this.dict.forEach((from, to, set) => {
                     if (info.hasOwnProperty(from)) this.profile[to] = info[from] ? info[from] : '无'
-                })
-            },
-            isExist (exist) {
-                if (!exist) {
-                    this.sendUrl()
-                }
-            },
-            sendUrl () {
-                this.$router.push({
-                    path: '/second/user-information',
-                    query: {
-                        dataobj: '1'
-                    }
                 })
             }
         },

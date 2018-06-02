@@ -53,6 +53,7 @@
     import HeaderSection from '../../common-component/HeaderSection.vue'
     import updateData from '../../../../common/mixins/UpdateData'
     import loading from '../../../../common/mixins/loading'
+    import checkExistence from '../../common-component/mixins/checkExistence'
     import fetchVq from '../../../../common/mixins/fetchVq'
     import {marketFetch, yibanAuth} from '../../config/fetchUtil'
     import getManagerList, {createItem} from '../../fetch/getManagerList'
@@ -60,7 +61,7 @@
 
     export default {
         name: 'HomePage',
-        mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth), lazyLoad],
+        mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth), checkExistence('homepage'), lazyLoad],
         data () {
             return {
                 title: '中国石油大学 二手市场',

@@ -47,13 +47,14 @@
     import updateGoods from '../../fetch/updateGoods'
     import loading from '../../../../common/mixins/loading'
     import fetchVq from '../../../../common/mixins/fetchVq'
+    import checkExistence from '../../common-component/mixins/checkExistence'
     import {marketFetch, yibanAuth, uploadFile} from '../../config/fetchUtil'
     import getClassification from '../../common-component/mixins/getClassification'
 
     export default {
         name: 'PublishPage',
         props: ['articleId'],
-        mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), getClassification],
+        mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), checkExistence('publish'), getClassification],
         created () {
             marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
                 this.isExist(result)
@@ -138,20 +139,7 @@
                 })
             },
             publishGoods,
-            updateGoods,
-            isExist (exist) {
-                if (!exist) {
-                    this.sendUrl()
-                }
-            },
-            sendUrl () {
-                this.$router.push({
-                    path: '/second/user-information',
-                    query: {
-                        dataobj: '0'
-                    }
-                })
-            }
+            updateGoods
         }
     }
 </script>
