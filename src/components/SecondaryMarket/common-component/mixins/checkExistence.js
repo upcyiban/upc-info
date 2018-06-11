@@ -1,8 +1,8 @@
-function checkExistence (back) {
+function checkExistence (backUrl) {
     return {
         created () {
             this.fetch.getJsonData('/second/user/exist', {}).then((result) => {
-                this.isExist(result)
+                this.checkExistence(result)
             })
         },
         methods: {
@@ -11,7 +11,7 @@ function checkExistence (back) {
                     this.$router.push({
                         path: '/second/user-information',
                         query: {
-                            dataobj: back
+                            dataobj: backUrl
                         }
                     })
                 }

@@ -1,12 +1,12 @@
 <template>
     <div class="infor">
-        <div class="head">
-            <p>请完善个人信息</p>
-        </div>
+        <header-section class="head" title="完善个人信息">
+            <p class="absolute-center">请完善个人信息</p>
+        </header-section>
         <div class="full">
             <ul>
                 <li>
-                    <span>QQ(必填)</span>
+                    <span>QQ<span style="color: red;">(必填)</span></span>
                     <input-box dataKey="userQQ" :value="userQQ" type="text" placeholder="请输入你的QQ" @userInput="updateData" ></input-box>
                 </li>
                 <br>
@@ -27,8 +27,8 @@
                 <br>
             </ul>
         </div>
-        <div>
-            <center><button class="submit" @click="fulluser">完成</button></center>
+        <div class="submit">
+            <button class="button absolute-center" @click="fulluser">完成</button>
         </div>
     </div>
 </template>
@@ -37,18 +37,19 @@
     import loading from '@/common/mixins/loading'
     import updateData from '@/common/mixins/UpdateData'
     import InputBox from '../../common-component/InputBox'
+    import headerSection from '../../common-component/HeaderSection.vue'
 
     export default {
         name: 'Fullinformation',
         mixins: [updateData, loading(marketFetch)],
         data () {
             return {
+                title: '完善个人信息',
                 yibanAuth: yibanAuth,
                 userPhone: '',
                 userWchat: '',
                 userEmail: '',
-                userQQ: '',
-                reciveMessage: ''
+                userQQ: ''
             }
         },
         methods: {
@@ -56,6 +57,10 @@
                 let flag = 0
                 if (this.userQQ !== '') {
                     flag = 1
+                    if (!(/\d{5,11}/.test(this.userQQ))) {
+                        alert('请填写正确的QQ号')
+                        return false
+                    }
                 }
                 if (this.userWchat !== '') {
                     flag = 1
@@ -70,7 +75,7 @@
                 if (this.userEmail !== '') {
                     flag = 1
                     if (!(/^[-_A-Za-z0-9]+@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/.test(this.userEmail))) {
-                        alert('请输入正确的邮箱地址')
+                        alert('请填写正确的邮箱地址')
                         return false
                     }
                 }
@@ -78,30 +83,28 @@
                     alert('请至少完善一项信息')
                     return false
                 }
-                this.getUrl()
                 return this.fetch.postJsonData('/second/user/signup', {
                     'qq': this.userQQ,
                     'phone': this.userPhone,
                     'wchat': this.userWchat,
                     'email': this.userEmail
                 }).then(json => {
-                    console.log(json)
-                    this.check()
+                    if (json.code !== 0) {
+                        this.check()
+                    } else {
+                        alert(json.detail)
+                    }
                 })
             },
             check () {
                 marketFetch.getJsonData('/second/user/exist', {}).then((exist) => {
-                    this.isExist(exist)
+                    if (exist) {
+                        this.pushBack()
+                    }
                 })
             },
-            isExist (exist) {
-                if (!exist) {
-                    this.$router.push(this.url)
-                }
-            },
-            getUrl () {
+            pushBack () {
                 let routerQuery = this.$route.query.dataobj
-                this.reciveMessage = routerQuery
                 if (routerQuery === 'usercenter') {
                     this.$router.push('/second/user-center')
                 } else if (routerQuery === 'publish') {
@@ -112,20 +115,15 @@
             }
         },
         components: {
-            InputBox
+            InputBox,
+            headerSection
         }
     }
 </script>
 
 <style scoped>
-    .infor .head {
-        background-color: #189FD9;
-        text-align: center;
-        height: 80px;
-        line-height: 80px;
-        color: #FFF;
-        position: relative;
-        font-size: 1.5rem;
+    .infor {
+        overflow-x: hidden;
     }
 
     .infor .full {
@@ -138,12 +136,20 @@
     }
 
     .infor .submit {
+        position: relative;
+    }
+
+    .infor .button {
+        position: relative;
+        color: #fff;
         background-color: #189FD9;
         border: none;
-        width: 97%;
+        width: 90%;
+        height: 1.5rem;
         border-radius: 6px;
-        padding: 10px 20px;
-        margin: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
     }
 
     .infor .full {
