@@ -145,7 +145,9 @@
         background-color: #189FD9;
         border: none;
         width: 90%;
-        height: 1.5rem;
+        height: 2.5rem;
+        margin-top: 2rem;
+        font-size: 1.25rem;
         border-radius: 6px;
         top: 50%;
         left: 50%;

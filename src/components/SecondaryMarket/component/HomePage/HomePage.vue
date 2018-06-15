@@ -1,7 +1,7 @@
 <template>
     <div class="HomePage second-market box-center">
         <header-section>
-            <p>二手市场</p>
+            <p>跳蚤市场</p>
         </header-section>
         <search @fetchSearch="fetchSearch"></search>
         <load-image :loadState="loadState"></load-image>
@@ -64,7 +64,7 @@
         mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth), checkExistence('homepage'), lazyLoad],
         data () {
             return {
-                title: '中国石油大学 二手市场',
+                title: '石大易班跳蚤市场',
                 find: require('../../media/findOn.png'),
                 user: require('../../media/userOff.png'),
                 pageList: [],
@@ -78,6 +78,12 @@
             this.getManagerList(0).then(data => {
                 this.addPage(data)
             })
+            window.onscroll = () => {
+                this.scrollEvent()
+            }
+        },
+        beforeDestroy () {
+            window.onscroll = null
         },
         components: {
             ManagerSection,

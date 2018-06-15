@@ -177,11 +177,13 @@
                 this.fetch.getJsonData('/second/user/otherinfo', {
                     userid: this.managerUserData.userId
                 }).then(userInfo => {
-                    this.$set(this.publisherProfile, 'avatar', userInfo.ybhead)
-                    this.$set(this.publisherProfile, 'qq', userInfo.qq ? userInfo.qq : '无')
-                    this.$set(this.publisherProfile, 'wchat', userInfo.wchat ? userInfo.wchat : '无')
-                    this.$set(this.publisherProfile, 'phone', userInfo.phone ? userInfo.phone : '无')
-                    this.$set(this.publisherProfile, 'email', userInfo.email ? userInfo.email : '无')
+                    this.$set(this, 'publisherProfile', {
+                        avatar: userInfo.ybhead,
+                        qq: userInfo.qq ? userInfo.qq : '无',
+                        wchat: userInfo.wchat ? userInfo.wchat : '无',
+                        phone: userInfo.phone ? userInfo.phone : '无',
+                        email: userInfo.email ? userInfo.email : '无'
+                    })
                     this.showProfile = true
                 })
             },

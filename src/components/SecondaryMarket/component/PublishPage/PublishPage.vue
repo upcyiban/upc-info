@@ -15,7 +15,7 @@
                         :data-index="index"
                         @click="deleteImage"
                     >+</div>
-                    <img :src="item" alt="图片加载失败">
+                    <img :src="item" alt="上传中...">
                     <div class="file-item-footer text-center">{{index===0 ? '主图': '附图'}}</div>
                 </div>
             </div>
@@ -56,9 +56,6 @@
         props: ['articleId'],
         mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), checkExistence('publish'), getClassification],
         created () {
-            marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
-                this.isExist(result)
-            })
             if (!this.articleId) {
                 this.postMethod = 'publishGoods'
                 this.title = '发布'
@@ -114,10 +111,15 @@
         },
         methods: {
             addFile (fileElement) {
-                uploadFile.fetchFile(fileElement).then(fileUrl => {
-                    console.log(fileUrl)
-                    this.fileList.push(fileUrl)
-                })
+                this.fileList.push('')
+                uploadFile.fetchFile(fileElement)
+                    .catch(() => {
+                        this.fileList.splice(-1, 1)
+                    })
+                    .then(fileUrl => {
+                        console.log(fileUrl)
+                        this.fileList.splice(-1, 1, fileUrl)
+                    })
             },
             deleteImage (e) {
                 const deleteFileIndex = parseInt(e.target.dataset.index)

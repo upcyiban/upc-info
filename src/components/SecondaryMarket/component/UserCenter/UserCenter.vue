@@ -1,7 +1,7 @@
 <template>
     <div class="main box-center second-market">
-        <header-section title="中国石油大学二手物品交易社区">
-            <p>中国石油大学二手物品交易社区</p>
+        <header-section title="中国石油大学易班跳蚤市场">
+            <p>中国石油大学易班跳蚤市场</p>
         </header-section>
         <prof :profile="profile"></prof>
         <tabs class="tabs" :userid="profile.id"></tabs>
