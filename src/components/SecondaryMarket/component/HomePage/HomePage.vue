@@ -30,7 +30,7 @@
                 </li>
                 <li class="float-left add">
                     <router-link to="/second/publish" class="absolute-horizontal-center" style="display: block">
-                        <p class="add-icon">+</p>
+                        <span>+</span>
                     </router-link>
                     <img style="opacity: 0;" src="">
                     <p>发布</p>
@@ -83,7 +83,7 @@
             }
         },
         beforeDestroy () {
-            window.onscroll = null
+            window.onscroll = undefined
         },
         components: {
             ManagerSection,

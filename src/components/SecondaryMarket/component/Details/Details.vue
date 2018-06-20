@@ -8,14 +8,14 @@
             <hr style="border: 1px solid #EBEBEB;border-bottom: none">
             <p class="banner">{{managerData.managerDetail}}</p>
             <div v-for="item in managerData.imgUrl" class="banner">
-                <img :src="item" alt="图片加载失败" class="descimg box-center">
+                <img :src="item" alt="图片加载失败" class="descimg box-center" v-if="item !== ''">
             </div>
         </div>
         <reply-box class="second-market"></reply-box>
         <div class="discuss-list box-center second-market" v-for="item in discussList">
             <img :src="item.ybHeader" alt="图片加载失败">
             <div>
-                <router-link :to="`/second/my/${item.ybId}`">{{item.ybName}}</router-link>
+                <span>{{item.ybName}}</span>
                 <p>{{item.detail}}</p>
                 <hr style="border: 1px solid #EBEBEB;border-bottom: none;text-align: right;">
             </div>
@@ -73,7 +73,7 @@
         data () {
             return {
                 managerData: {},
-                title: '该商品已被删除',
+                title: '加载中...',
                 managerUserData: [],
                 managerList: [],
                 color: '#004073',
@@ -133,9 +133,10 @@
                             managerData: this.managerData,
                             managerUserData: this.managerUserData
                         })
+                        console.log('managerData', this.managerData)
                         this.title = this.managerData.name
                     } else {
-                        this.title = '该商品已被删除'
+                        this.title = '加载中...'
                     }
                 })
             },

@@ -9,7 +9,8 @@
             </li>
             <li class="hide" v-if="images.length >1 "></li>
         </ul>
-        <p class="describe overflow-omit"> {{describe}}</p>
+        <p class="title">{{title}}</p>
+        <p class="describe">{{describe.length < 140 ? describe : describe.substr(0, 140) + '...'}}</p>
 
     </div>
 </template>
@@ -17,7 +18,7 @@
 <script>
     export default {
         name: 'ManagerDetails',
-        props: ['images', 'describe'],
+        props: ['images', 'title', 'describe'],
         data () {
             return {}
         }
@@ -43,10 +44,18 @@
         margin-right: 0;
     }
 
-    .ManagerDetails .describe {
+    .ManagerDetails .title {
         line-height: 1rem;
-        height: 2rem;
-        margin: 1.1rem 0;
+        font-weight: 600;
+        max-height: 2rem;
+        margin: 0.75rem 0;
+    }
+
+    .ManagerDetails .description {
+        max-height: 1rem;
+        width: 50%;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     @media (min-width: 640px){

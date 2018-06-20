@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <div class="footer absolute-horizontal-center">
         <ul class="clear">
             <li class="float-left">
                 <router-link :to="isCurrent('find')">
@@ -84,8 +84,7 @@
         bottom: 1.1rem;
         background-color: #3299FF;
         border-radius: 50%;
-        line-height: 3.1rem;
-        font-size: 4rem;
+        font: 3.6rem/3.6rem arial;
         color: white;
         vertical-align: baseline;
     }
