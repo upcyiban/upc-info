@@ -1,7 +1,7 @@
 <template>
     <div class="HomePage second-market box-center">
         <header-section>
-            <p>二手市场</p>
+            <p>跳蚤市场</p>
         </header-section>
         <search @fetchSearch="fetchSearch"></search>
         <load-image :loadState="loadState"></load-image>
@@ -25,7 +25,7 @@
         <div class="footer absolute-horizontal-center">
             <ul class="clear">
                 <li class="float-left" @click="backTop">
-                    <img :src="find" >
+                    <img :src="find">
                     <p>发现</p>
                 </li>
                 <li class="float-left add">
@@ -37,7 +37,7 @@
                 </li>
                 <li class="float-left">
                     <router-link to="/second/user-center">
-                        <img :src="user" >
+                        <img :src="user">
                         <p>我的</p>
                     </router-link>
                 </li>
@@ -53,6 +53,7 @@
     import HeaderSection from '../../common-component/HeaderSection.vue'
     import updateData from '../../../../common/mixins/UpdateData'
     import loading from '../../../../common/mixins/loading'
+    import checkExistence from '../../common-component/mixins/checkExistence'
     import fetchVq from '../../../../common/mixins/fetchVq'
     import {marketFetch, yibanAuth} from '../../config/fetchUtil'
     import getManagerList, {createItem} from '../../fetch/getManagerList'
@@ -60,10 +61,10 @@
 
     export default {
         name: 'HomePage',
-        mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth), lazyLoad],
+        mixins: [updateData, loading(marketFetch), fetchVq(yibanAuth), checkExistence('homepage'), lazyLoad],
         data () {
             return {
-                title: '中国石油大学 二手市场',
+                title: '石大易班跳蚤市场',
                 find: require('../../media/findOn.png'),
                 user: require('../../media/userOff.png'),
                 pageList: [],
@@ -74,9 +75,27 @@
             }
         },
         created () {
-            this.getManagerList(0).then(data => {
-                this.addPage(data)
+            this.restoreData().then(status => {
+                if (status.fromRestore) {
+                    const pageData = JSON.parse(status.pageList)
+                    this.nextPageNumber = parseInt(status.nextPageNumber)
+                    pageData.forEach(page => {
+                        this.addPage(page)
+                    })
+                    window.scroll(0, parseInt(status.scroll))
+                } else {
+                    this.getManagerList(0).then(data => this.addPage(data))
+                }
             })
+        },
+        beforeDestroy () {
+            let status = {}
+            status.pageList = JSON.stringify(this.pageList)
+            status.nextPageNumber = this.nextPageNumber
+            status.scroll = this.scrollTop ? this.scrollTop : 0
+            status.expire = new Date().getTime() + 600 * 1000
+            status.fromRestore = true
+            window.sessionStorage.status = JSON.stringify(status)
         },
         components: {
             ManagerSection,
@@ -114,6 +133,14 @@
                 } else {
                     this.pageList = this.pageListData
                 }
+            },
+            restoreData () {
+                return new Promise(resolve => {
+                    if (!window.sessionStorage.status) resolve(false)
+                    const status = JSON.parse(window.sessionStorage.status)
+                    if (status.expire >= new Date().getTime()) resolve(status)
+                    else resolve(false)
+                })
             },
             getManagerList
         }
@@ -153,10 +180,8 @@
         bottom: 1.1rem;
         background-color: #3299FF;
         border-radius: 50%;
-        line-height: 3.1rem;
-        font-size: 4rem;
+        font: 3.6rem/3.6rem arial;
         color: white;
-        vertical-align: baseline;
     }
     .HomePage .footer ul li {
         width: 32%;

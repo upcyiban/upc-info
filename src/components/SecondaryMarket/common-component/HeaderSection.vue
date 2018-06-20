@@ -17,6 +17,7 @@
 
 <style scoped>
     .header {
+        position: relative;
         background-color: #189FD9;
         text-align: center;
         height: 2rem;
@@ -27,6 +28,7 @@
     @media (max-width: 640px) {
         .header {
             display: none;
+            position: absolute;
         }
     }
 </style>

@@ -15,7 +15,7 @@
                         :data-index="index"
                         @click="deleteImage"
                     >+</div>
-                    <img :src="item" alt="图片加载失败">
+                    <img :src="item" alt="上传中...">
                     <div class="file-item-footer text-center">{{index===0 ? '主图': '附图'}}</div>
                 </div>
             </div>
@@ -47,13 +47,14 @@
     import updateGoods from '../../fetch/updateGoods'
     import loading from '../../../../common/mixins/loading'
     import fetchVq from '../../../../common/mixins/fetchVq'
+    import checkExistence from '../../common-component/mixins/checkExistence'
     import {marketFetch, yibanAuth, uploadFile} from '../../config/fetchUtil'
     import getClassification from '../../common-component/mixins/getClassification'
 
     export default {
         name: 'PublishPage',
         props: ['articleId'],
-        mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), getClassification],
+        mixins: [updateData, loading(marketFetch, this), fetchVq(yibanAuth), checkExistence('publish'), getClassification],
         created () {
             if (!this.articleId) {
                 this.postMethod = 'publishGoods'
@@ -110,10 +111,15 @@
         },
         methods: {
             addFile (fileElement) {
-                uploadFile.fetchFile(fileElement).then(fileUrl => {
-                    console.log(fileUrl)
-                    this.fileList.push(fileUrl)
-                })
+                this.fileList.push('')
+                uploadFile.fetchFile(fileElement)
+                    .catch(() => {
+                        this.fileList.splice(-1, 1)
+                    })
+                    .then(fileUrl => {
+                        console.log(fileUrl)
+                        this.fileList.splice(-1, 1, fileUrl)
+                    })
             },
             deleteImage (e) {
                 const deleteFileIndex = parseInt(e.target.dataset.index)
@@ -196,7 +202,7 @@
         border: 5px solid white;
         line-height: 1.3rem;
         background-color: #6AC1E7;
-        box-shadow: 5px 2px 9px #7f888888;
+        box-shadow: 2px 1px 3px #7f888888;
         transform: rotate(45deg);
         -webkit-user-select: none;
         user-select: none;

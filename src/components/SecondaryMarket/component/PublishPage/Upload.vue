@@ -2,7 +2,7 @@
     <div class="Upload">
         <input type="file" name="file" @change="upload" accept="image/gif, image/png, image/jpg, image/jpeg">
         <div class="add-button absolute-center">
-            <div class="add box-center">+</div>
+            <div class="add box-center"><p class="absolute-center">+</p></div>
             <p>添加</p>
         </div>
     </div>
@@ -45,15 +45,18 @@
         color: #8D8788;
     }
     .Upload .add-button .add {
-        width: 70%;
-        height: 70%;
         border-radius: 50%;
         border: 6px solid #8D8788;
-        font-size: 2.5rem;
-        line-height: 1.7rem;
-        text-align: center;
+        width: 70%;
+        height: 70%;
+        position: relative;
     }
-    .Upload .add-button p {
+    .Upload .add-button .add p {
+        vertical-align: middle;
+        font: 2.4rem/2.4rem arial;
+    }
+    .Upload .add-button > p {
+        margin-top: 0.25rem;
         text-align: center;
         font-size: 0.85rem;
     }

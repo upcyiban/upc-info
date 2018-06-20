@@ -8,14 +8,14 @@
             <hr style="border: 1px solid #EBEBEB;border-bottom: none">
             <p class="banner">{{managerData.managerDetail}}</p>
             <div v-for="item in managerData.imgUrl" class="banner">
-                <img :src="item" alt="图片加载失败" class="descimg box-center">
+                <img :src="item" alt="图片加载失败" class="descimg box-center" v-if="item !== ''">
             </div>
         </div>
         <reply-box class="second-market"></reply-box>
         <div class="discuss-list box-center second-market" v-for="item in discussList">
             <img :src="item.ybHeader" alt="图片加载失败">
             <div>
-                <router-link :to="`/second/my/${item.ybId}`">{{item.ybName}}</router-link>
+                <span>{{item.ybName}}</span>
                 <p>{{item.detail}}</p>
                 <hr style="border: 1px solid #EBEBEB;border-bottom: none;text-align: right;">
             </div>
@@ -37,11 +37,14 @@
                 </li>
                 <li class="float-left" @click="changeDiscuss"><img :src="discuss" alt="图片加载失败">&nbsp;评论</li>
                 <li class="float-left text-center">
-                    <router-link to="/second/user-center">
-                        <button @click="showUserCenter">我想要</button>
-                    </router-link>
+                    <button @click="showUserProfile">我想要</button>
                 </li>
             </ul>
+        </div>
+        <div class="mask" @click="closeProfile" v-show="showProfile">
+            <transition name="showProfile">
+                <user-profile class="user-profile" :profile="publisherProfile" v-if="showProfile"></user-profile>
+            </transition>
         </div>
     </div>
 </template>
@@ -50,6 +53,7 @@
     import HeaderSection from '../../common-component/HeaderSection.vue'
     import ManagerHeader from '../../common-component/ManagerHeader.vue'
     import ReplyBox from '../../common-component/ReplyBox.vue'
+    import UserProfile from '../../common-component/UserProfile.vue'
     import updateData from '../../../../common/mixins/UpdateData'
     import { marketFetch, yibanAuth } from '../../config/fetchUtil'
     import loading from '../../../../common/mixins/loading'
@@ -69,7 +73,7 @@
         data () {
             return {
                 managerData: {},
-                title: '该商品已被删除',
+                title: '加载中...',
                 managerUserData: [],
                 managerList: [],
                 color: '#004073',
@@ -79,7 +83,9 @@
                 showDiscuss: false,
                 discussDetail: '',
                 discussList: [],
-                isCollected: false
+                isCollected: false,
+                showProfile: false,
+                publisherProfile: {}
             }
         },
         created () {
@@ -101,7 +107,8 @@
         components: {
             HeaderSection,
             ManagerHeader,
-            ReplyBox
+            ReplyBox,
+            UserProfile
         },
 
         methods: {
@@ -126,9 +133,10 @@
                             managerData: this.managerData,
                             managerUserData: this.managerUserData
                         })
+                        console.log('managerData', this.managerData)
                         this.title = this.managerData.name
                     } else {
-                        this.title = '该商品已被删除'
+                        this.title = '加载中...'
                     }
                 })
             },
@@ -166,8 +174,22 @@
                         this.discussList = discussList
                     })
             },
-            showUserCenter () {
-                console.log(123)
+            showUserProfile () {
+                this.fetch.getJsonData('/second/user/otherinfo', {
+                    userid: this.managerUserData.userId
+                }).then(userInfo => {
+                    this.$set(this, 'publisherProfile', {
+                        avatar: userInfo.ybhead,
+                        qq: userInfo.qq ? userInfo.qq : '无',
+                        wchat: userInfo.wchat ? userInfo.wchat : '无',
+                        phone: userInfo.phone ? userInfo.phone : '无',
+                        email: userInfo.email ? userInfo.email : '无'
+                    })
+                    this.showProfile = true
+                })
+            },
+            closeProfile () {
+                this.showProfile = false
             },
             findManagerById
         }
@@ -184,7 +206,6 @@
         margin: 1rem 1rem;
         color: #595959;
         height: auto;
-        /* overflow-x: hidden; */
     }
 
     .Details .banner .descimg {
@@ -283,11 +304,13 @@
     .Details .discuss-list div {
         display: inline-block;
         margin-left: 0.7rem;
-        width: 100%;
+        width: calc(100%-1rem);
     }
 
     .Details .discuss-list p {
         margin-top: 1rem;
+        word-wrap: break-word;
+        word-break: break-all;
     }
 
     .Details .discuss-list a {
@@ -301,5 +324,37 @@
         color: blue;
         border-bottom: 1px solid blue;
         margin-bottom: -1px;
+    }
+
+    .Details .mask {
+        position: fixed;
+        top: 0%;
+        height: 100%;
+        width: 100%;
+        background: #4040407f
+    }
+
+    .Details .user-profile {
+        z-index: 900;
+        position: fixed;
+        top: 20%;
+        width: 90%;
+        transform-origin: center;
+    }
+
+     @keyframes show{
+        0%{
+            transform: scale(0.1);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+
+    .showProfile-enter-active{
+        animation: show .2s;
+    }
+    .showProfile-leave-active{
+        animation: show .2s reverse;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="main box-center second-market">
-        <header-section title="中国石油大学二手物品交易社区">
-            <p>中国石油大学二手物品交易社区</p>
+        <header-section title="中国石油大学易班跳蚤市场">
+            <p>中国石油大学易班跳蚤市场</p>
         </header-section>
         <prof :profile="profile"></prof>
         <tabs class="tabs" :userid="profile.id"></tabs>
@@ -13,6 +13,8 @@
 <script>
     import { marketFetch, yibanAuth } from '@/components/SecondaryMarket/config/fetchUtil'
     import fetchVq from '@/common/mixins/fetchVq'
+    import loading from '../../../../common/mixins/loading'
+    import checkExistence from '../../common-component/mixins/checkExistence'
     import headerSection from '../../common-component/HeaderSection'
     import footerSection from '../../common-component/footerSection'
     import profile from './subcomponent/profile'
@@ -21,13 +23,10 @@
 
     export default {
         name: 'UserCenter',
-        mixins: [fetchVq(yibanAuth)],
+        mixins: [fetchVq(yibanAuth), loading(marketFetch), checkExistence('usercenter')],
         created () {
-            marketFetch.getJsonData('/second/user/info', {}).then((result) => {
+            this.fetch.getJsonData('/second/user/info', {}).then((result) => {
                 this.updateUserInfo(result)
-            })
-            marketFetch.getJsonData('/second/user/exist', {}).then((result) => {
-                this.isExist(result)
             })
         },
         data () {
@@ -54,17 +53,12 @@
         },
         methods: {
             back () {
-                this.$router.push('/second/homepage')
+                this.$router.push('/second/home-page')
             },
             updateUserInfo (info) {
                 this.dict.forEach((from, to, set) => {
                     if (info.hasOwnProperty(from)) this.profile[to] = info[from] ? info[from] : '无'
                 })
-            },
-            isExist (exist) {
-                if (!exist) {
-                    this.$router.push('/second/user-information')
-                }
             }
         },
         components: {

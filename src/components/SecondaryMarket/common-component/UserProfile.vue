@@ -1,13 +1,10 @@
 <template>
     <div class="profile-div">
         <div class="avatar-outline">
-            <img  class="avatar" :src="profile.avatar" alt="图片加载失败">
+            <img  class="avatar" :src="profile.avatar">
         </div>
         <div class="info-view">
-            <div class="">
-                <p class="info nick">{{ profile.nick }}</p>
-                <p class="info id"> ID: {{ profile.id }}</p>
-            </div>
+            <p>这是主人的联系方式，快去联系吧～</p>
             <hr class="deviding">
             <table class="contacts" nowarp>
                 <tr>
@@ -27,15 +24,23 @@
     export default {
         name: 'profile',
         props: ['profile']
+        /* profile is an object
+         * {
+         *  avatar: imageUrl
+         *  qq,wchat,phone,email: as literal meaning
+         * }
+         */
     }
 </script>
 
 <style scoped>
     .profile-div{
+        text-align: center;
         background-color: #66cbff;
         border-radius: 10px;
         box-shadow: 0 0 5px 1px #aaaaaa;
         margin: 3rem 1rem 1.5rem 1rem;
+        color: #ffffff;
     }
     .profile-div>.avatar-outline{
         width: 72px;
@@ -67,7 +72,6 @@
     }
     .info{
         display: inline-block;
-        color: #ffffff;
         margin-bottom: 0px;
         margin-top: 0px;
         font-size: 1rem;
@@ -95,7 +99,6 @@
         min-width: 80%;
         font-size: 0.75rem;
         table-layout: fixed;
-        color: #ffffff;
         text-align: left;
         padding-bottom: 1rem;
         border-collapse:separate;

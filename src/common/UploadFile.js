@@ -35,6 +35,7 @@ class UploadFile {
         iframeDocument = (iframeDocument !== null && iframeDocument !== undefined)
             ? iframeDocument : document
         let file = fileElement.files[0]
+        if (!file) return Promise.reject('No file chosen')
         let form = iframeDocument.createElement('form')
         if (compressOptions.compress && file.type.includes('image')) {
             return compressImage(file, iframeDocument, compressOptions)

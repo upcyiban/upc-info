@@ -2,7 +2,7 @@
     <div>
         <ul>
             <li class="item" v-for="(item,index) in items" @mousedown="listenStart(index,$event)" @mouseup="listenEnd(index,$event)" @touchstart="listenStart(index,$event)" @touchmove="listenMove($event)" @touchend="listenEnd(index,$event)">
-                <img class="descimg" :src="item.img">
+                <img class="descimg" :src="item.img" alt="图片加载失败">
                 <div class="desc">
                     <p class="title">{{ item.name }}</p>
                     <p class="price">￥{{ item.price }}</p>
