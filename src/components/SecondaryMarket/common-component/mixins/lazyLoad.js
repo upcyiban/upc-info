@@ -42,8 +42,8 @@ export default {
             // 在将要到达底部，并且没有正在提交请求时，开始加载数据
             // 这样可以避免用户向上滚动加载额外数据的BUG
             // scrollTop是浮点相等不了
-            // console.info(windowHeight, scrollTop, documentHeight)
-            if (windowHeight > scrollTop + documentHeight - 30 && windowHeight < scrollTop + documentHeight + 30) {
+            this.scrollTop = scrollTop
+            if (windowHeight > this.scrollTop + documentHeight - 30 && windowHeight < this.scrollTop + documentHeight + 30 && !this.restoring) {
                 this.fetchNextPage()
             }
         }

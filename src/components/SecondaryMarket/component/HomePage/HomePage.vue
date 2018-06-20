@@ -75,15 +75,27 @@
             }
         },
         created () {
-            this.getManagerList(0).then(data => {
-                this.addPage(data)
+            this.restoreData().then(status => {
+                if (status.fromRestore) {
+                    const pageData = JSON.parse(status.pageList)
+                    this.nextPageNumber = parseInt(status.nextPageNumber)
+                    pageData.forEach(page => {
+                        this.addPage(page)
+                    })
+                    window.scroll(0, parseInt(status.scroll))
+                } else {
+                    this.getManagerList(0).then(data => this.addPage(data))
+                }
             })
-            window.onscroll = () => {
-                this.scrollEvent()
-            }
         },
         beforeDestroy () {
-            window.onscroll = undefined
+            let status = {}
+            status.pageList = JSON.stringify(this.pageList)
+            status.nextPageNumber = this.nextPageNumber
+            status.scroll = this.scrollTop ? this.scrollTop : 0
+            status.expire = new Date().getTime() + 600 * 1000
+            status.fromRestore = true
+            window.sessionStorage.status = JSON.stringify(status)
         },
         components: {
             ManagerSection,
@@ -121,6 +133,14 @@
                 } else {
                     this.pageList = this.pageListData
                 }
+            },
+            restoreData () {
+                return new Promise(resolve => {
+                    if (!window.sessionStorage.status) resolve(false)
+                    const status = JSON.parse(window.sessionStorage.status)
+                    if (status.expire >= new Date().getTime()) resolve(status)
+                    else resolve(false)
+                })
             },
             getManagerList
         }
